@@ -13,10 +13,20 @@
 	font-style: normal;
 }
 @theme {
+	/* Fuentes Personalizadas */
+	/* Fuentes Personalizadas */
 	--font-horsham: 'Horsham', sans-serif;
 	--font-roboto: 'Roboto', sans-serif;
-}
 
-body {
-	font-family: 'Roboto', sans-serif;
+	/* Paleta de Colores */
+
+	/* Colores Principales */
+	--color-primary: hsl(210 80% 50%); /* Azul Principal */
+	--color-secondary: hsl(210 60% 40%); /* Azul Secundario */
+
+	/* Colores de Estado */
+	--color-success: hsl(120 60% 50%); /* Verde Exitoso */
+	--color-warning: hsl(30 100% 50%); /* Amarillo Advertencia */
+	--color-error: hsl(0 80% 43%); /* Rojo Error */
+	--color-info: hsl(210 10% 80%); /* Azul Claro Información */
 }

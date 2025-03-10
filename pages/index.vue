@@ -1,8 +1,8 @@
 <template>
-	<div class="container bg-amber-600">
-		<Button class="font-roboto" variant="primary" text="primary" />
-		<Button class="font-horsham" variant="secondary" text="secondary" />
-		<Button variant="secondary" text="secondary" />
+	<div class="bg-background text- container">
+		<Button text="text" />
+		<Button variant="contained" text="secondary" />
+		<Button variant="outlined" text="outlined" />
 	</div>
 </template>
 <script setup>
