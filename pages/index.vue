@@ -1,20 +1,22 @@
 <template>
 	<div class="bg-background text- container">
-		<Button label="label">
+		<NuxtLink to="/home">
+			<Button label="label" @click="console.log('clicked')">
+				<template #icon-right><LucideGithub /></template>
+			</Button>
+		</NuxtLink>
+
+		<Button variant="contained" rounded="full" label="secondary">
 			<template #icon-right><LucideGithub /></template>
 		</Button>
-		<Button variant="contained" rounded label="secondary">
-			<template #icon-right><LucideGithub /></template>
-		</Button>
-		<Button variant="outlined" rounded label="outlined">
+		<Button variant="outlined" full-width to="/home" label="outlined" disabled>
 			<template #icon-left><LucideGithub /></template>
 		</Button>
+		<Input label="label" />
 	</div>
 </template>
 <script setup>
 	import Button from '@/components/buttons/Button.vue';
 	import { LucideGithub } from '#components';
-	const functioa = () => {
-		console.log('clicked');
-	};
+	import Input from '@/components/inputs/Input.vue';
 </script>

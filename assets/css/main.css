@@ -18,11 +18,44 @@
 	--font-horsham: 'Horsham', sans-serif;
 	--font-roboto: 'Roboto', sans-serif;
 
-	/* Paleta de Colores */
-
 	/* Colores Principales */
-	--color-primary: hsl(210 80% 50%); /* Azul Principal */
-	--color-secondary: hsl(210 60% 40%); /* Azul Secundario */
+	/* 	--color-primary: hsl(210 80% 50%);
+	--color-azure-radiance-50: hsl(190 71% 96%);
+	--color-azure-radiance-100: hsl(190 85% 91%);
+	--color-azure-radiance-200: hsl(190 85% 85%);
+	--color-azure-radiance-300: hsl(190 79% 76%);
+	--color-azure-radiance-400: hsl(190 85% 70%);
+	--color-azure-radiance-500: hsl(191 85% 61%);
+	--color-azure-radiance-600: hsl(191 82% 57%);
+	--color-azure-radiance-700: hsl(191 80% 55%);
+	--color-azure-radiance-800: hsl(210 57% 48%);
+	--color-azure-radiance-900: hsl(210 57% 43%);
+	--color-azure-radiance-950: hsl(210 63% 30%);
+	--color-secondary: hsl(210 60% 40%);
+
+	--color-matisse-50: hsl(210 67% 96%);
+	--color-matisse-100: hsl(210 65% 92%);
+	--color-matisse-200: hsl(210 55% 84%);
+	--color-matisse-300: hsl(210 44% 74%);
+	--color-matisse-400: hsl(210 45% 57%);
+	--color-matisse-500: hsl(210 47% 43%);
+	--color-matisse-600: hsl(210 47% 38%);
+	--color-matisse-700: hsl(210 49% 33%);
+	--color-matisse-800: hsl(210 50% 30%);
+	--color-matisse-900: hsl(210 51% 26%);
+	--color-matisse-950: hsl(210 52% 17%); */
+
+	--color-primary-50: hsl(210 70% 90%);
+	--color-primary-100: hsl(210 75% 80%);
+	--color-primary-200: hsl(210 70% 70%);
+	--color-primary-300: hsl(210 65% 60%);
+	--color-primary-400: hsl(210 60% 50%);
+	--color-primary-500: hsl(210 55% 45%);
+	--color-primary-600: hsl(210 50% 40%);
+	--color-primary-700: hsl(210 45% 35%);
+	--color-primary-800: hsl(210 40% 30%);
+	--color-primary-900: hsl(210 35% 25%);
+	--color-primary-950: hsl(210 30% 15%);
 
 	/* Colores de Estado */
 	--color-success: hsl(120 60% 50%); /* Verde Exitoso */
