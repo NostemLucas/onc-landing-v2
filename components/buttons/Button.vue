@@ -7,16 +7,17 @@
 		size?: 'sm' | 'lg';
 		label: string;
 		class?: string;
+		rounded?: boolean;
 	}>();
 
 	const buttonClasses = tv({
-		base: 'px-6 py-2 transition duration-300 ease-in-out rounded cursor-pointer',
+		base: 'px-6 py-2 duration-500 transition-colors ease-in-out rounded cursor-pointer flex flex-row items-center justify-center gap-1 ',
 		variants: {
 			variant: {
-				text: 'text-primary hover:text-white',
-				contained: 'bg-gray-500 text-black',
+				text: 'text-primary focus:bg-primary/20 ',
+				contained: 'bg-primary text-white hover:bg-secondary focus:opacity-80',
 				outlined:
-					'bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white px-4 border border-blue-500 hover:border-transparent rounded',
+					'bg-transparent hover:bg-primary text-primary font-semibold hover:text-white border border-primary hover:border-transparent active:bg-secondary/90 active:text-white ',
 			},
 			size: {
 				sm: 'text-sm',
@@ -35,10 +36,13 @@
 		:class="
 			twMerge(
 				buttonClasses({ variant: props.variant, size: props.size }),
-				props.class
+				props.class,
+				rounded && 'rounded-full'
 			)
 		"
 	>
+		<slot name="icon-left" />
 		{{ props.label }}
+		<slot name="icon-right" />
 	</button>
 </template>
