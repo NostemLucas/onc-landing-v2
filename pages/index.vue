@@ -7,6 +7,7 @@
 	import HeroBanner from '~/components/landing/HeroBanner.vue';
 	import HeroCarrousel from '~/components/landing/HeroCarrousel.vue';
 	import HeroDrawerIcons from '~/components/landing/HeroDrawerIcons.vue';
+	import MapCard from '~/components/views/MapCard.vue';
 </script>
 
 <template>
@@ -18,6 +19,8 @@
 		<HeroCarrousel />
 		<HeroAbout />
 		<HeroFooter />
+
+		<MapCard />
 	</section>
 </template>
 
