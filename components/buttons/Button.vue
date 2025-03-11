@@ -72,8 +72,6 @@
 		:tabindex="props.disabled ? -1 : 0"
 		:aria-label="props.label"
 		:type="props.type"
-		@click="props.onClick"
-		@blur=""
 	>
 		<slot name="icon-left" />
 		{{ props.label }}
