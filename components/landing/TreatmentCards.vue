@@ -1,5 +1,5 @@
 <template>
-	<div class="container mx-auto max-w-7xl px-4 py-12">
+	<div class="container mx-auto max-w-7xl bg-amber-800 px-4 py-12">
 		<div class="mb-8 text-center">
 			<h2 class="text-3xl font-bold text-gray-900 md:text-4xl">
 				Nuestros Tratamientos
@@ -42,6 +42,7 @@
 						:src="treatment.image"
 						:alt="`Imagen de ${treatment.title}`"
 						draggable="false"
+						format="webpm"
 						class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
 						loading="lazy"
 					/>
@@ -84,37 +85,37 @@
 			title: 'Trasplante de Médula Ósea',
 			description:
 				'Procedimiento médico en el que se reemplaza la médula ósea dañada con células madre sanas, permitiendo la regeneración del tejido y mejorando la calidad de vida del paciente.',
-			image: 'bacteria.jpg',
+			image: '/treatments/medula.jpeg',
 		},
 		{
 			title: 'Inmunoterapia',
 			description:
 				'Terapia innovadora que fortalece el sistema inmunológico para atacar selectivamente las células cancerosas, minimizando el daño a las células sanas.',
-			image: 'bacteria.jpg',
+			image: '/treatments/inmunoterapia.jpg',
 		},
 		{
 			title: 'Quimioterapia',
 			description:
 				'Tratamiento basado en el uso de fármacos que destruyen células cancerosas. Puede emplearse solo o en combinación con otros tratamientos para aumentar su efectividad.',
-			image: 'bacteria.jpg',
+			image: '/treatments/quimio.jpg',
 		},
 		{
 			title: 'Quimioterapia Metronómica',
 			description:
 				'Estrategia terapéutica que administra quimioterapia en dosis bajas y constantes, con el objetivo de reducir efectos secundarios y mejorar la calidad de vida del paciente.',
-			image: 'bacteria.jpg',
+			image: '/treatments/metro.jpg',
 		},
 		{
 			title: 'Terapia Biológica',
 			description:
 				'Tratamiento que utiliza sustancias naturales o modificadas genéticamente para interferir en los procesos que favorecen el crecimiento y propagación del cáncer.',
-			image: 'bacteria.jpg',
+			image: '/treatments/biologica.jpg',
 		},
 		{
 			title: 'Cirugía Oncológica',
 			description:
 				'Procedimiento quirúrgico especializado en la extirpación de tumores malignos y tejido circundante, con el objetivo de eliminar el cáncer de manera segura y efectiva.',
-			image: 'bacteria.jpg',
+			image: '/treatments/oncologia.jpg',
 		},
 	]);
 </script>

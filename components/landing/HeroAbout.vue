@@ -1,36 +1,63 @@
 <template>
 	<section
-		class="container mx-auto flex max-w-7xl items-center justify-center px-4 py-12"
+		class="container mx-auto flex max-w-7xl items-center justify-center bg-amber-950 px-4 py-12"
 	>
 		<div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
 			<!-- Image section with improved responsive behavior -->
 			<div
-				class="relative order-2 aspect-[4/5] w-full sm:aspect-[3/4] md:aspect-square lg:order-1"
+				class="relative order-2 aspect-[4/5] w-full bg-amber-500 sm:aspect-[3/4] md:aspect-square lg:order-1"
 			>
 				<!-- Image container with improved responsive sizing -->
 				<div class="relative mx-auto h-full w-full max-w-[600px]">
 					<!-- First trophy image - larger on mobile -->
 					<NuxtImg
-						src="premio2.png"
+						src="mock/premio2.png"
 						draggable="false"
 						alt="Award trophy"
-						class="absolute top-0 right-[5%] z-30 w-[65%] max-w-[300px] rounded-2xl object-cover shadow-xl shadow-current transition-all duration-300 sm:w-[60%] md:w-[55%] lg:w-[50%]"
+						:class="[
+							'absolute',
+							'rounded-2xl transition-all',
+							'z-30 object-cover duration-300',
+							'shadow-xl shadow-current',
+							'top-0 right-[5%] w-[65%] max-w-[500px]',
+							'sm:w-[60%]',
+							'md:w-[65%]',
+							'lg:w-[50%] lg:max-w-[300px]',
+						]"
 					/>
 
 					<!-- Second trophy image - positioned closer on mobile -->
 					<NuxtImg
-						src="premio1.png"
+						src="mock/premio1.png"
 						draggable="false"
 						alt="Award trophy"
-						class="absolute top-[25%] right-[40%] z-20 w-[65%] max-w-[300px] rounded-2xl object-cover shadow-xl shadow-current transition-all duration-300 sm:top-[18%] sm:right-[25%] sm:w-[60%] md:top-[20%] md:right-[38%] md:w-[55%] lg:top-[25%] lg:right-[40%] lg:w-[50%]"
+						:class="[
+							'absolute top-[25%] right-[40%] z-20 w-[65%] max-w-[500px]',
+							'rounded-2xl object-cover shadow-xl shadow-current',
+							'transition-all duration-300',
+							'sm:top-[18%] sm:right-[25%] sm:w-[60%]',
+							'md:top-[40%] md:right-[38%] md:w-[70%]',
+							'md:top-[30%] lg:max-w-[290px]',
+							'xl:top-[25%] xl:right-[45%] xl:w-[50%]]',
+							'2xl:top-[25%] 2xl:right-[50%] 2xl:w-[50%]]',
+						]"
 					/>
 
 					<!-- Building image - larger and closer on mobile -->
 					<NuxtImg
-						src="principal.jpg"
+						src="mock/principal.jpg"
 						draggable="false"
 						alt="Clinic building"
-						class="absolute right-[2%] bottom-[25%] z-10 aspect-video w-[75%] max-w-[320px] rounded-xl object-cover shadow-lg transition-all duration-300 sm:bottom-[45%] sm:w-[70%] md:bottom-[35%] md:w-[65%] lg:bottom-[30%] lg:w-[55%]"
+						:class="[
+							'absolute right-[12%] bottom-[25%] z-10 aspect-video max-w-[620px]',
+							'rounded-xl object-cover shadow-lg transition-all duration-300',
+							'sm:bottom-[45%] sm:w-[70%]',
+							'md:right-[-10%] md:bottom-[5%] md:w-[85%]',
+							'lg:right-[10%] lg:bottom-[17%] lg:w-[65%] lg:max-w-[420px]',
+							'xl:right-[10%] xl:bottom-[20%] xl:w-[65%]',
+							'2xl:right-[12%] 2xl:bottom-[20%] 2xl:w-[65%]',
+							'shadow-xl shadow-current',
+						]"
 					/>
 				</div>
 			</div>
@@ -61,13 +88,12 @@
 				</p>
 
 				<div class="flex flex-wrap items-center gap-4">
-					<Button
+					<!-- 			<Button
 						variant="outline"
 						class="border-primary text-primary rounded-full border-2 px-5 py-3 md:px-7 md:py-5"
 					>
 						Ver Más
-						<ChevronRightIcon class="ml-2 h-4 w-4" />
-					</Button>
+					</Button> -->
 
 					<a
 						href="tel:+59174846264"

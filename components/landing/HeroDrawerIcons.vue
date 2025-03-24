@@ -1,12 +1,12 @@
 <template>
 	<div class="w-full font-sans">
-		<!-- Main Navigation - Now with scroll padding -->
+		<!-- Main Navigation -->
 		<header
-			class="fixed top-0 right-0 left-0 z-50 border-b border-gray-200 bg-white/95 transition-shadow duration-300"
+			class="fixed top-0 right-0 left-0 z-50 h-24 border-b border-gray-200 bg-white/95 backdrop-blur-xl transition-shadow duration-300"
 			:class="{ 'shadow-md': isScrolled }"
 		>
-			<div class="mx-auto w-full px-4 lg:container lg:px-6">
-				<div class="flex h-16 items-center justify-between lg:h-20">
+			<div class="mx-auto h-full w-full px-4 lg:container lg:px-6">
+				<div class="flex h-full items-center justify-between">
 					<!-- Logo -->
 					<div class="flex-shrink-0">
 						<a href="/" class="block">
@@ -88,14 +88,11 @@
 		</header>
 
 		<!-- Spacer to prevent content from being hidden under fixed header -->
-		<div class="h-16 lg:h-20" />
+		<div class="h-24" />
 
 		<!-- Mobile Menu -->
 		<Transition name="slide-right">
-			<div
-				v-if="isMobileMenuOpen"
-				class="fixed inset-0 z-40 overflow-hidden lg:hidden"
-			>
+			<div v-if="isMobileMenuOpen" class="fixed inset-0 z-40 lg:hidden">
 				<!-- Backdrop -->
 				<div
 					class="fixed inset-0 bg-black/50 transition-opacity duration-200"
@@ -104,7 +101,8 @@
 
 				<!-- Menu Content -->
 				<div
-					class="fixed inset-y-0 right-0 w-full max-w-sm overflow-y-auto bg-white shadow-xl"
+					class="fixed inset-y-0 right-0 w-full max-w-sm bg-white shadow-xl"
+					style="overflow-y: auto; height: 100%"
 				>
 					<div class="flex h-full flex-col">
 						<!-- Header -->
@@ -202,19 +200,17 @@
 
 		<!-- Dropdown Content for Desktop -->
 		<Transition name="fade">
-			<div
-				v-if="activeDropdown && !isMobile"
-				class="fixed inset-0 z-30 overflow-hidden"
-			>
+			<div v-if="activeDropdown && !isMobile" class="fixed inset-0 z-30">
 				<!-- Backdrop -->
 				<div
 					class="fixed inset-0 bg-black/20 transition-opacity duration-200"
 					@click="closeDropdown"
 				></div>
 
-				<!-- Dropdown Content -->
+				<!-- Dropdown Content - Positioned directly below header -->
 				<div
-					class="absolute top-16 right-0 left-0 max-h-[calc(100vh-5rem)] overflow-y-auto border-b border-gray-200 bg-white shadow-xl lg:top-20"
+					class="fixed top-24 right-0 left-0 border-b border-gray-200 bg-white shadow-xl"
+					style="overflow-y: auto; max-height: calc(100vh - 6rem)"
 				>
 					<div class="container mx-auto px-4 py-8 lg:px-6">
 						<div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -311,7 +307,7 @@
 	</div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 	import { ref, reactive, computed, onMounted, onUnmounted } from 'vue';
 	import {
 		ChevronDown,
@@ -330,31 +326,48 @@
 		Clipboard,
 		Briefcase,
 		UserPlus,
-		GraduationCapIcon,
 		HelpCircle,
 		FlaskConical,
 		Video,
 		BookOpen,
 		Building,
 	} from 'lucide-vue-next';
+	import type { Component } from 'vue';
+
+	// Define types for navigation items
+	interface SubItem {
+		label: string;
+		url: string;
+		icon: Component;
+		description: string;
+	}
+
+	interface NavigationItem {
+		id: string;
+		label: string;
+		subItems: SubItem[];
+	}
 
 	// State for mobile menu
-	const isMobileMenuOpen = ref(false);
+	const isMobileMenuOpen = ref<boolean>(false);
 
 	// State for desktop dropdown
-	const activeDropdown = ref(null);
+	const activeDropdown = ref<string | null>(null);
 
 	// State for mobile dropdowns
-	const mobileDropdowns = reactive({});
+	const mobileDropdowns = reactive<Record<string, boolean>>({});
 
 	// State for scroll detection
-	const isScrolled = ref(false);
+	const isScrolled = ref<boolean>(false);
 
 	// State for mobile detection
-	const isMobile = ref(false);
+	const isMobile = ref<boolean>(false);
+
+	// Store scroll position
+	const scrollPosition = ref<number>(0);
 
 	// Navigation items data
-	const navigationItems = [
+	const navigationItems: NavigationItem[] = [
 		{
 			id: 'medical',
 			label: 'Atención médica en OncoClinic',
@@ -430,7 +443,7 @@
 				{
 					label: 'Educación Médica Continua',
 					url: '#',
-					icon: GraduationCapIcon,
+					icon: GraduationCap,
 					description:
 						'Programas educativos de actualización para profesionales en oncología',
 				},
@@ -500,44 +513,62 @@
 	];
 
 	// Toggle desktop dropdown
-	const toggleDropdown = (dropdown) => {
+	const toggleDropdown = (dropdown: string): void => {
+		// Save current scroll position before opening dropdown
+		scrollPosition.value = window.scrollY;
+
 		if (activeDropdown.value === dropdown) {
 			closeDropdown();
 		} else {
 			activeDropdown.value = dropdown;
-			addScrollPadding();
+			lockScroll(true);
 		}
 	};
 
 	// Close desktop dropdown
-	const closeDropdown = () => {
+	const closeDropdown = (): void => {
 		activeDropdown.value = null;
-		removeScrollPadding();
+		lockScroll(false);
+
+		// Restore scroll position after closing dropdown
+		setTimeout(() => {
+			window.scrollTo({
+				top: scrollPosition.value,
+				behavior: 'instant' as ScrollBehavior,
+			});
+		}, 0);
 	};
 
 	// Toggle mobile menu
-	const toggleMobileMenu = () => {
+	const toggleMobileMenu = (): void => {
+		// Save current scroll position before toggling menu
+		scrollPosition.value = window.scrollY;
+
 		isMobileMenuOpen.value = !isMobileMenuOpen.value;
-		if (isMobileMenuOpen.value) {
-			addScrollPadding();
-		} else {
-			removeScrollPadding();
-		}
+		lockScroll(isMobileMenuOpen.value);
 	};
 
 	// Close mobile menu
-	const closeMobileMenu = () => {
+	const closeMobileMenu = (): void => {
 		isMobileMenuOpen.value = false;
-		removeScrollPadding();
+		lockScroll(false);
+
+		// Restore scroll position after closing menu
+		setTimeout(() => {
+			window.scrollTo({
+				top: scrollPosition.value,
+				behavior: 'instant' as ScrollBehavior,
+			});
+		}, 0);
 	};
 
 	// Toggle mobile dropdown
-	const toggleMobileDropdown = (dropdown) => {
+	const toggleMobileDropdown = (dropdown: string): void => {
 		mobileDropdowns[dropdown] = !mobileDropdowns[dropdown];
 	};
 
 	// Computed property to get active dropdown items
-	const getActiveDropdownItems = computed(() => {
+	const getActiveDropdownItems = computed((): SubItem[] => {
 		const activeItem = navigationItems.find(
 			(item) => item.id === activeDropdown.value
 		);
@@ -545,29 +576,36 @@
 	});
 
 	// Handle scroll for sticky header effects
-	const handleScroll = () => {
+	const handleScroll = (): void => {
 		isScrolled.value = window.scrollY > 10;
 	};
 
-	// Add padding to body to prevent content shift
-	const addScrollPadding = () => {
-		const scrollbarWidth =
-			window.innerWidth - document.documentElement.clientWidth;
-		document.body.style.overflow = 'hidden';
-		document.body.style.paddingRight = `${scrollbarWidth}px`;
-	};
+	// Improved scroll locking function that preserves scroll position
+	const lockScroll = (lock: boolean): void => {
+		if (lock) {
+			// Save current scroll position
+			scrollPosition.value = window.scrollY;
 
-	// Remove padding from body
-	const removeScrollPadding = () => {
-		document.body.style.overflow = '';
-		document.body.style.paddingRight = '';
+			// Apply fixed position to body with current scroll position as negative top
+			document.body.style.position = 'fixed';
+			document.body.style.top = `-${scrollPosition.value}px`;
+			document.body.style.width = '100%';
+			document.body.style.overflowY = 'scroll';
+		} else {
+			// Remove fixed position
+			document.body.style.position = '';
+			document.body.style.top = '';
+			document.body.style.width = '';
+			document.body.style.overflowY = '';
+		}
 	};
 
 	// Check if the device is mobile
-	const checkMobile = () => {
-		isMobile.value = window.innerWidth < 1024; // Adjust this value as needed
-		if (!isMobile.value) {
+	const checkMobile = (): void => {
+		isMobile.value = window.innerWidth < 1024;
+		if (!isMobile.value && isMobileMenuOpen.value) {
 			isMobileMenuOpen.value = false;
+			lockScroll(false);
 		}
 	};
 
@@ -576,12 +614,17 @@
 		window.addEventListener('scroll', handleScroll);
 		window.addEventListener('resize', checkMobile);
 		checkMobile();
+		handleScroll();
 	});
 
 	onUnmounted(() => {
 		window.removeEventListener('scroll', handleScroll);
 		window.removeEventListener('resize', checkMobile);
-		removeScrollPadding();
+		// Ensure scroll is restored when component is unmounted
+		document.body.style.position = '';
+		document.body.style.top = '';
+		document.body.style.width = '';
+		document.body.style.overflowY = '';
 	});
 </script>
 
