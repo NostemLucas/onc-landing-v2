@@ -1,0 +1,35 @@
+name: GitHub Actions Deploy
+run-name: ${{ github.actor }} is deploy 🚀
+on:
+  push:
+    branches:
+      - main
+permissions:
+  contents: read
+  id-token: write
+  pages: write
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    env:
+      NUXT_APP_BASE_URL: ${{ vars.NUXT_APP_BASE_URL  }}
+    steps:
+      - name: Clone the repository
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm ci
+      - run: npm run generate
+      - run: ls -la
+      - name: Check build size
+        run: du -sh .output/public
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+        with:
+          path: .output/public
