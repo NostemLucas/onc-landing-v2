@@ -32,7 +32,7 @@
 						></div>
 
 						<div class="relative">
-							<img
+							<NuxtImg
 								:src="location.image"
 								:alt="location.title"
 								class="h-48 w-full object-cover"

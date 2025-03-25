@@ -276,8 +276,8 @@
 
 							<!-- Right Column - Featured Content -->
 							<div class="relative overflow-hidden rounded-lg shadow-md">
-								<img
-									src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-x6JIJe4cFEmAiwVCswZJ3ITH4X2tZW.png"
+								<NuxtImg
+									src="/mock/happy-mature.jpg"
 									alt="Educación Médica Continua"
 									class="h-64 w-full object-cover"
 								/>

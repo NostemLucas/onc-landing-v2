@@ -1,5 +1,5 @@
 <template>
-	<div class="min-h-screen bg-white">
+	<div class="container m-auto min-h-screen px-12 py-4">
 		<!-- Sección Principal: Quiénes Somos -->
 		<section class="py-16">
 			<div class="container mx-auto px-4">
@@ -12,18 +12,17 @@
 
 						<p class="mb-6 text-gray-700">
 							En
-							<span class="font-semibold text-blue-700">HealthCenter</span>
+							<span class="font-semibold text-blue-700">Oncoclinic</span>
 							, nos dedicamos con pasión a liderar en la lucha contra el cáncer,
 							promoviendo la investigación, la educación y la conciencia sobre
 							la enfermedad.
 						</p>
 
 						<p class="mb-6 text-gray-700">
-							Somos especialistas en diagnósticos tempranos, completos y
-							soluciones en el tratamiento del cáncer. Nuestro centro se propone
-							alcanzar la excelencia en el campo de la prevención, diagnóstico y
-							cura a través de la investigación clínica-básica y la aplicación
-							de los últimos avances tecnológicos.
+							Nuestro centro se propone alcanzar la excelencia en el campo de la
+							prevención, diagnóstico y cura de tumores a través de la
+							investigación clínico-científica e innovación en gestión, dirigida
+							a la calidad del servicio para nuestros pacientes.
 						</p>
 
 						<p class="mb-6 text-gray-700">
@@ -32,23 +31,49 @@
 							psicológico a nuestros pacientes y sus familias.
 						</p>
 
-						<div class="mt-8">
-							<button
-								class="rounded-full bg-blue-600 px-6 py-3 font-medium text-white transition-all hover:bg-blue-700"
+						<p class="mb-6 text-gray-700">
+							Nuestros servicios incluyen diagnóstico preciso, tratamiento
+							personalizado y atención de apoyo durante todas las etapas del
+							proceso oncológico. Utilizamos tecnologías de vanguardia y
+							enfoques multidisciplinarios para ofrecer la mejor atención
+							posible y mejorar la calidad de vida de nuestros pacientes.
+						</p>
+
+						<p class="mb-6 text-gray-700">
+							Se implementa y desarrolla programas de proyectos innovadores de
+							alto impacto que objetivamente aporten al mejoramiento de las
+							condiciones de vida de los pacientes y las familias que luchan
+							contra el cáncer, mediante el desarrollo de tecnología y de la
+							investigación científica, el manejo sostenible de la lucha contra
+							el cáncer en todos sus niveles y estratos sociales y la prestación
+							de servicios de salud en oncología.
+						</p>
+
+						<div
+							class="mb-6 rounded-lg border-l-4 border-blue-500 bg-blue-50 p-4"
+						>
+							<p class="mb-2 font-semibold text-gray-800">
+								Entre los mejores expertos en Bolivia.
+							</p>
+							<p class="mb-2 text-gray-700">
+								Donde quiera que se ama el arte de la medicina se ama también a
+								la humanidad. .
+							</p>
+							<a
+								href="#"
+								class="inline-flex items-center font-medium text-blue-600 hover:underline"
 							>
-								Conocer más sobre nosotros
-							</button>
+								Platón
+							</a>
 						</div>
 					</div>
 
-					<div class="order-1 lg:order-2">
-						<div class="overflow-hidden rounded-lg shadow-xl">
-							<img
-								src="/landing/monalisa.jpg"
-								alt="Imagen institucional"
-								class="h-full w-full object-cover"
-							/>
-						</div>
+					<div class="order-1 h-[700px] overflow-hidden rounded-lg lg:order-2">
+						<NuxtImg
+							src="/landing/monalisa.jpg"
+							alt="Imagen institucional"
+							class="h-full w-full rounded-xl object-contain"
+						/>
 					</div>
 				</div>
 			</div>

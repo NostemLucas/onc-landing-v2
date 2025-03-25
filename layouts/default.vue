@@ -5,7 +5,7 @@
 </script>
 <template>
 	<div>
-		<HeroDrawerIcons />
+		<HeroClient />
 		<div>
 			<slot />
 		</div>

@@ -143,10 +143,10 @@
 					],
 				},
 				{
-					title: 'Ubicaciones',
+					title: 'Oncoclinic',
 					links: [
-						{ label: 'Centro Oncológico Norte', url: '/ubicaciones/norte' },
-						{ label: 'Centro Oncológico Sur', url: '/ubicaciones/sur' },
+						{ label: 'Contacto', url: '/ubicaciones' },
+						{ label: 'Sobre Nosotros', url: '/nosotros' },
 					],
 				},
 			],

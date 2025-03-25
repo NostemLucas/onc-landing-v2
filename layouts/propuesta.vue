@@ -1,10 +1,11 @@
 <script setup lang="ts">
-	import HeroClient from '~/components/landing/HeroClient.vue';
+	import HeroDrawerIcons from '~/components/landing/HeroDrawerIcons.vue';
+
 	import HeroFooter from '~/components/landing/HeroFooter.vue';
 </script>
 <template>
 	<div>
-		<HeroClient />
+		<HeroDrawerIcons />
 		<div>
 			<slot />
 		</div>
