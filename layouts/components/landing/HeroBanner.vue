@@ -218,7 +218,7 @@
 												<div
 													class="absolute inset-y-0 left-0 rounded-full bg-white/70"
 													:style="{ width: `${volume * 100}%` }"
-												/>
+												></div>
 											</div>
 										</div>
 									</div>
