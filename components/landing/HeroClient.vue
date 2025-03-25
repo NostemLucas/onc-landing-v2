@@ -52,17 +52,17 @@
 									>
 										<h3 class="mb-3 font-semibold">{{ column.title }}</h3>
 										<ul class="space-y-2">
-											<li
+											<template
 												v-for="(link, linkIndex) in column.links"
 												:key="linkIndex"
 											>
-												<a
-													:href="link.url"
+												<NuxtLink
+													:to="link.url"
 													class="hover:text-primary block text-sm transition-colors"
 												>
 													{{ link.label }}
-												</a>
-											</li>
+												</NuxtLink>
+											</template>
 										</ul>
 									</div>
 								</div>

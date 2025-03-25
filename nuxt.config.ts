@@ -33,7 +33,7 @@ export default defineNuxtConfig({
 		'@pinia/nuxt',
 	],
 	app: {
-		baseURL: process.env.NUXT_APP_BASE_URL || '/',
+		baseURL: process.env.NUXT_APP_BASE_URL || '/ADSASDSS',
 		head: {
 			title: 'Login App',
 			meta: [
