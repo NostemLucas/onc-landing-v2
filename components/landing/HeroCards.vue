@@ -1,5 +1,5 @@
 <template>
-	<div class="container mx-auto max-w-7xl bg-amber-400 px-4 py-12">
+	<div class="container mx-auto max-w-7xl px-4 py-12">
 		<!-- Primera Tarjeta -->
 		<div
 			class="mb-16 flex flex-col items-stretch gap-8 overflow-hidden lg:flex-row"

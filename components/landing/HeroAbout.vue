@@ -5,7 +5,7 @@
 		<div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
 			<!-- Image section with improved responsive behavior -->
 			<div
-				class="relative order-2 aspect-[4/5] w-full bg-amber-500 sm:aspect-[3/4] md:aspect-square lg:order-1"
+				class="relative order-2 aspect-[4/5] w-full sm:aspect-[3/4] md:aspect-square lg:order-1"
 			>
 				<!-- Image container with improved responsive sizing -->
 				<div class="relative mx-auto h-full w-full max-w-[600px]">
