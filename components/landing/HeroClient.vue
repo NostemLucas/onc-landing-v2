@@ -92,7 +92,7 @@
 							Solicita una cita
 						</a>
 						<a
-							href="/login"
+							href="#"
 							class="hover:bg-primary-400 rounded-full border border-gray-400 px-4 py-2 transition-colors duration-300 hover:text-gray-100"
 						>
 							Iniciar Sesión
