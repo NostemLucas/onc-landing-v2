@@ -138,23 +138,23 @@
 
 				<!-- Mapa -->
 				<div
-					class="h-[600px] w-full overflow-hidden rounded-lg bg-white shadow-md lg:w-3/5 xl:w-2/3"
+					class="h-[689px] w-full overflow-hidden rounded-lg bg-white shadow-md lg:w-3/5 xl:w-2/3"
 				>
 					<div class="relative h-full" ref="mapContainer">
-						<div id="map" class="h-full w-full"></div>
+						<div id="map" class="grayscale-map h-full w-full"></div>
 
 						<!-- Controles del mapa superpuestos -->
 						<div class="absolute top-4 left-4 z-10 flex flex-col space-y-2">
 							<!-- Tipo de mapa -->
 							<div class="overflow-hidden rounded-lg bg-white shadow-md">
 								<button
-									@click="setMapType('map')"
-									class="flex items-center px-3 py-2 text-sm font-medium transition-colors"
 									:class="
 										mapType === 'map'
 											? 'bg-blue-600 text-white'
 											: 'text-gray-700 hover:bg-gray-100'
 									"
+									@click="setMapType('map')"
+									class="flex items-center px-3 py-2 text-sm font-medium transition-colors"
 								>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
@@ -658,8 +658,7 @@
 			city: 'La Paz, Bolivia',
 			phone: '+591 2 2222-3333',
 			whatsapp: '59122223333',
-			image:
-				'https://images.unsplash.com/photo-1629793068019-8ea4e863fbaa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80',
+			image: '/locations/sede-obrajes.jpg',
 			coordinates: [-68.12703295752024, -16.507985587243112],
 			buses: ['301', '292', '298', 'ACHUMAN', 'CHACQUIÑAMPA'],
 			hours: {
@@ -681,17 +680,16 @@
 		{
 			id: 2,
 			title: 'Oncoclinic Sopocachi',
-			address: 'Av. 20 de Octubre #1795',
+			address: 'Av. 6 de Agosto Nº2255',
 			city: 'La Paz, Bolivia',
 			phone: '+591 2 2444-5555',
 			whatsapp: '59124445555',
-			image:
-				'https://images.unsplash.com/photo-1516549655169-df83a0774514?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+			image: '/locations/sede-sopocachi.jpg',
 			coordinates: [-68.11105322436397, -16.52711826894523],
 			buses: ['214', '245', 'TELEFÉRICO NARANJA', 'TELEFÉRICO ROJO'],
 			hours: {
-				weekdays: '09:00 a 17:00',
-				saturday: '09:00 a 13:00',
+				weekdays: '08:00 a 18:00',
+				saturday: '08:00 a 12:00',
 				sunday: 'Cerrado',
 			},
 			services: [
@@ -1014,7 +1012,8 @@
 
 <style scoped>
 	.grayscale-map {
-		filter: grayscale(70%) invert(5%) sepia(10%) saturate(80%);
+		filter: grayscale(100%) hue-rotate(0deg) invert(10%) sepia(0%)
+			saturate(100%);
 	}
 
 	/* Estilos adicionales */

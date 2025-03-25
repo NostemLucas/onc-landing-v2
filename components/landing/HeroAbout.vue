@@ -1,6 +1,6 @@
 <template>
 	<section
-		class="container mx-auto flex max-w-7xl items-center justify-center bg-amber-950 px-4 py-12"
+		class="container mx-auto flex max-w-7xl items-center justify-center px-4 py-12"
 	>
 		<div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
 			<!-- Image section with improved responsive behavior -->

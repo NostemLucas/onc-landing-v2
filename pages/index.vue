@@ -12,11 +12,9 @@
 	<section class="">
 		<HeroBanner />
 		<HeroCards />
-
 		<TreatmentCards />
 		<HeroCarrousel />
 		<HeroAbout />
-		<HeroFooter />
 	</section>
 </template>
 
