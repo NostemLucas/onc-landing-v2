@@ -1,5 +1,5 @@
 @import 'tailwindcss';
-
+@import '@nuxt/ui';
 @font-face {
 	font-family: 'Horsham';
 	src: url('@/assets/fonts/Horsham.ttf') format('truetype');
@@ -27,23 +27,8 @@
 		--color-primary-800: hsl(210 40% 30%);
 		--color-primary-900: hsl(210 35% 25%);
 		--color-primary-950: hsl(210 30% 15%);
-
 		--color-foreground: hsl(0, 0%, 18%);
 		--color-background: hsl(0, 0%, 98%);
-	}
-
-	.dark {
-		--color-primary-50: hsl(225, 60%, 96%);
-		--color-primary-100: hsl(225, 60%, 90%);
-		--color-primary-200: hsl(225, 60%, 85%);
-		--color-primary-300: hsl(225, 60%, 75%);
-		--color-primary-400: rgb(112, 139, 219);
-		--color-primary-500: hsl(225, 60%, 58%);
-		--color-primary-600: hsl(225, 60%, 50%);
-		--color-primary-700: hsl(225, 60%, 45%);
-		--color-primary-800: hsl(225, 60%, 35%);
-		--color-primary-900: hsl(225, 60%, 30%);
-		--color-primary-950: hsl(225, 60%, 20%);
 	}
 }
 

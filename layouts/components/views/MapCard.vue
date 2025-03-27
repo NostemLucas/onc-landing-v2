@@ -38,17 +38,6 @@
 								class="h-48 w-full object-cover"
 							/>
 							<div
-								class="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-transparent"
-							/>
-
-							<div
-								class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"
-							/>
-							<div
-								class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"
-							/>
-
-							<div
 								class="absolute right-0 bottom-0 left-0 bg-gradient-to-t from-black/80 to-transparent p-4"
 							>
 								<h3 class="text-lg font-bold text-white">
