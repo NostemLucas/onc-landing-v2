@@ -1,6 +1,6 @@
 <template>
 	<section
-		class="container mx-auto flex max-w-7xl items-center justify-center px-4 py-12"
+		class="container mx-auto flex max-w-7xl items-center justify-center px-2 py-36"
 	>
 		<div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
 			<!-- Image section with improved responsive behavior -->
@@ -88,13 +88,11 @@
 				</p>
 
 				<div class="flex flex-wrap items-center gap-4">
-					<!-- 			<Button
-						variant="outline"
-						class="border-primary text-primary rounded-full border-2 px-5 py-3 md:px-7 md:py-5"
+					<button
+						class="border-primary-500 text-primary-500 hover:bg-primary-100/30 cursor-pointer rounded-full border-4 px-10 py-2 font-black"
 					>
 						Ver Más
-					</Button> -->
-
+					</button>
 					<a
 						href="tel:+59174846264"
 						class="inline-flex items-center tracking-widest text-slate-700"

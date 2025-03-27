@@ -80,7 +80,7 @@
 		</section>
 
 		<!-- Sección de Filosofía: Misión, Visión y Valores -->
-		<section class="bg-gray-50 py-16">
+		<section class="py-16">
 			<div class="container mx-auto px-4">
 				<div class="mb-12 text-center">
 					<div class="mx-auto mb-2 h-1 w-16 bg-blue-600"></div>
@@ -211,7 +211,7 @@
 		</section>
 
 		<!-- Sección de Timeline -->
-		<section class="bg-gray-50 py-16">
+		<section class="py-16">
 			<div class="container mx-auto px-4">
 				<div class="mb-12 text-center">
 					<div class="mx-auto mb-2 h-1 w-16 bg-blue-600"></div>

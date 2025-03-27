@@ -58,7 +58,9 @@
 
 					<!-- Navigation Columns -->
 					<div v-for="(section, index) in footerSections" :key="index">
-						<h3 class="mb-4 text-lg font-bold">{{ section.title }}</h3>
+						<h3 class="text-primary-300 mb-4 text-lg font-bold">
+							{{ section.title }}
+						</h3>
 						<ul class="space-y-2">
 							<li v-for="(item, itemIndex) in section.items" :key="itemIndex">
 								<a
@@ -82,7 +84,9 @@
 				>
 					<!-- Social Media Links -->
 					<div class="flex items-center gap-4">
-						<h4 class="text-sm font-medium">Siguenos en nuestras redes:</h4>
+						<h4 class="text-primary-300 text-sm font-medium">
+							Siguenos en nuestras redes:
+						</h4>
 						<div class="flex gap-3">
 							<a
 								v-for="social in socialLinks"
@@ -91,7 +95,7 @@
 								class="rounded-full bg-white/10 p-2 transition-colors hover:bg-white/20"
 								:aria-label="social.name"
 							>
-								<component :is="social.icon" class="h-4 w-4" />
+								<component :is="social.icon" class="text-primary-300 h-4 w-4" />
 							</a>
 						</div>
 					</div>
@@ -127,7 +131,7 @@
 					class="mt-6 flex flex-col items-start justify-between gap-4 text-sm text-gray-400 md:flex-row md:items-center"
 				>
 					<p>
-						© 1998-{{ new Date().getFullYear() }} Oncoclinic Todos los derechos
+						© {{ new Date().getFullYear() }} Oncoclinic Todos los derechos
 						reservados.
 					</p>
 					<div class="flex items-center gap-2">

@@ -3,11 +3,6 @@ export default defineNuxtConfig({
 	compatibilityDate: '2024-11-01',
 	devtools: { enabled: true },
 
-	colorMode: {
-		classSuffix: '',
-		preference: 'system',
-		fallback: 'ligth',
-	},
 	runtimeConfig: {
 		public: {
 			NUXT_API_URL: process.env.NUXT_API_URL,
@@ -29,7 +24,7 @@ export default defineNuxtConfig({
 		'@pinia/nuxt',
 	],
 	app: {
-		baseURL: process.env.NUXT_APP_BASE_URL || '/ADSASDSS',
+		baseURL: process.env.NUXT_APP_BASE_URL || '/',
 		head: {
 			title: 'Login App',
 			meta: [

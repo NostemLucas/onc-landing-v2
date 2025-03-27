@@ -9,7 +9,7 @@
 				<div class="flex h-full items-center justify-between">
 					<!-- Logo -->
 					<div class="flex-shrink-0">
-						<a href="/" class="block">
+						<NuxtLink to="/" class="block">
 							<div class="flex items-center">
 								<NuxtImg
 									src="logo.png"
@@ -19,7 +19,7 @@
 									draggable="false"
 								/>
 							</div>
-						</a>
+						</NuxtLink>
 					</div>
 
 					<!-- Desktop Navigation -->
@@ -29,7 +29,9 @@
 							:key="index"
 							class="group relative"
 						>
+							<!-- Botón con submenú -->
 							<button
+								v-if="item.hasSubmenu"
 								class="hover:text-primary flex items-center gap-1 text-sm font-medium transition-colors"
 								@click="toggleSubmenu(index)"
 							>
@@ -40,11 +42,25 @@
 								/>
 							</button>
 
+							<!-- Enlace sin submenú -->
+							<NuxtLink
+								v-else
+								:to="item.url || '#'"
+								class="hover:text-primary text-sm font-medium transition-colors"
+							>
+								{{ item.label }}
+							</NuxtLink>
+
 							<!-- Submenu -->
 							<div
-								v-if="activeSubmenu === index"
-								class="bg-background absolute top-full left-0 z-50 mt-2 w-64 rounded-md border border-gray-300 p-4 shadow-md"
+								v-if="item.hasSubmenu && activeSubmenu === index"
+								class="bg-background absolute top-full left-0 z-50 mt-2 w-64 rounded-md border border-gray-300 p-6 shadow-lg"
 							>
+								<!-- Flecha del submenu -->
+								<div
+									class="absolute -top-2 left-4 h-4 w-4 rotate-45 border-t border-l border-gray-300 bg-white"
+								></div>
+
 								<div v-if="item.columns" class="grid grid-cols-2 gap-8">
 									<div
 										v-for="(column, colIndex) in item.columns"
@@ -118,6 +134,127 @@
 			class="fixed inset-0 z-40 hidden bg-black/20 lg:block"
 			@click="activeSubmenu = null"
 		/>
+
+		<!-- Mobile Menu Drawer -->
+		<Transition name="drawer">
+			<div
+				v-if="isMobileMenuOpen"
+				class="fixed inset-y-0 right-0 z-50 w-full max-w-xs bg-white shadow-xl"
+			>
+				<div
+					class="flex h-24 items-center justify-between border-b border-gray-200 px-6"
+				>
+					<div class="text-lg font-semibold">Menú</div>
+					<button class="h-8 w-8 p-0" @click="toggleMobileMenu">
+						<X class="h-5 w-5" />
+						<span class="sr-only">Cerrar menú</span>
+					</button>
+				</div>
+
+				<div class="h-[calc(100vh-6rem)] overflow-y-auto p-6">
+					<nav class="flex flex-col space-y-6">
+						<div
+							v-for="(item, index) in navigationItems"
+							:key="index"
+							class="border-b border-gray-100 pb-4"
+						>
+							<!-- Enlace sin submenú en móvil -->
+							<NuxtLink
+								v-if="!item.hasSubmenu"
+								:to="item.url || '#'"
+								class="block py-2 text-base font-medium"
+								@click="closeMobileMenu"
+							>
+								{{ item.label }}
+							</NuxtLink>
+
+							<!-- Botón con submenú en móvil -->
+							<div v-else>
+								<button
+									class="flex w-full items-center justify-between py-2 text-base font-medium"
+									@click="toggleMobileSubmenu(index)"
+								>
+									{{ item.label }}
+									<ChevronDown
+										class="h-5 w-5 transition-transform"
+										:class="{ 'rotate-180': mobileSections[index] }"
+									/>
+								</button>
+
+								<Transition name="expand">
+									<div v-if="mobileSections[index]" class="mt-2 pl-4">
+										<div v-if="item.columns">
+											<div
+												v-for="(column, colIndex) in item.columns"
+												:key="colIndex"
+												class="mb-4"
+											>
+												<h3 class="mb-2 text-sm font-semibold text-gray-500">
+													{{ column.title }}
+												</h3>
+												<ul class="space-y-2">
+													<li
+														v-for="(link, linkIndex) in column.links"
+														:key="linkIndex"
+													>
+														<NuxtLink
+															:to="link.url"
+															class="block py-1 text-sm"
+															@click="closeMobileMenu"
+														>
+															{{ link.label }}
+														</NuxtLink>
+													</li>
+												</ul>
+											</div>
+										</div>
+										<ul v-else class="space-y-2">
+											<li
+												v-for="(subItem, subIndex) in item.subItems"
+												:key="subIndex"
+											>
+												<a
+													:href="subItem.url"
+													class="block py-1 text-sm"
+													@click="closeMobileMenu"
+												>
+													{{ subItem.label }}
+												</a>
+											</li>
+										</ul>
+									</div>
+								</Transition>
+							</div>
+						</div>
+					</nav>
+
+					<!-- Mobile Action Buttons -->
+					<div class="mt-8 flex flex-col space-y-4">
+						<a
+							href="#"
+							class="hover:text-primary block py-2 text-base font-medium transition-colors"
+						>
+							Solicita una cita
+						</a>
+						<a
+							href="#"
+							class="hover:bg-primary-400 flex items-center justify-center rounded-full border border-gray-400 px-4 py-3 text-base font-medium transition-colors duration-300 hover:text-gray-100"
+						>
+							Iniciar Sesión
+						</a>
+					</div>
+				</div>
+			</div>
+		</Transition>
+
+		<!-- Backdrop for mobile menu -->
+		<Transition name="fade">
+			<div
+				v-if="isMobileMenuOpen"
+				class="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm lg:hidden"
+				@click="closeMobileMenu"
+			></div>
+		</Transition>
 	</div>
 </template>
 
@@ -129,46 +266,33 @@
 	const isMobileMenuOpen = ref(false);
 	const mobileSections = reactive<Record<number, boolean>>({});
 
+	// Datos de navegación actualizados para soportar elementos sin submenú
 	const navigationItems = [
 		{
-			label: 'Servicios Oncológicos',
-			columns: [
-				{
-					title: 'Tratamientos',
-					links: [
-						{ label: 'Quimioterapia', url: '/tratamientos/quimioterapia' },
-						{ label: 'Radioterapia', url: '/tratamientos/radioterapia' },
-						{ label: 'Cirugía Oncológica', url: '/tratamientos/cirugia' },
-						{ label: 'Inmunoterapia', url: '/tratamientos/inmunoterapia' },
-					],
-				},
-				{
-					title: 'Oncoclinic',
-					links: [
-						{ label: 'Contacto', url: '/ubicaciones' },
-						{ label: 'Sobre Nosotros', url: '/nosotros' },
-					],
-				},
-			],
+			label: 'Inicio',
+			hasSubmenu: false,
+			url: '/',
 		},
 		{
-			label: 'Blog de Investigación',
-			subItems: [
-				{ label: 'Nuevas Terapias', url: '/blog/nuevas-terapias' },
-				{ label: 'Avances en Oncología', url: '/blog/avances' },
-				{ label: 'Casos Clínicos', url: '/blog/casos-clinicos' },
-				{ label: 'Publicaciones Científicas', url: '/blog/publicaciones' },
-			],
+			label: 'Nosotros',
+			hasSubmenu: false,
+			url: '/nosotros',
 		},
+
 		{
-			label: 'Para Profesionales',
-			subItems: [
-				{ label: 'Equipo Médico', url: '/profesionales/equipo' },
-				{ label: 'Ensayos Clínicos', url: '/profesionales/ensayos' },
-			],
+			label: 'Tratamientos',
+			hasSubmenu: false,
+			url: '/Tratamientos',
+		},
+
+		{
+			label: 'Nuestros Profesionales',
+			hasSubmenu: false,
+			url: '#',
 		},
 		{
 			label: 'Investigación y Educación',
+			hasSubmenu: true,
 			columns: [
 				{
 					title: 'Investigación',
@@ -191,7 +315,13 @@
 				},
 			],
 		},
+		{
+			label: 'Contacto',
+			hasSubmenu: false,
+			url: '/contactos',
+		},
 	];
+
 	// State for scroll detection
 	const isScrolled = ref(false);
 
@@ -257,6 +387,16 @@
 	.expand-enter-from,
 	.expand-leave-to {
 		max-height: 0;
+		opacity: 0;
+	}
+
+	.fade-enter-active,
+	.fade-leave-active {
+		transition: opacity 0.3s ease;
+	}
+
+	.fade-enter-from,
+	.fade-leave-to {
 		opacity: 0;
 	}
 </style>
