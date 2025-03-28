@@ -24,7 +24,7 @@
 							>
 								Tratamiento
 							</span>
-							<h2 class="mt-1 text-2xl font-bold text-blue-700 md:text-3xl">
+							<h2 class="mt-1 text-2xl font-bold text-slate-600 md:text-3xl">
 								Trasplante De Médula Ósea
 							</h2>
 						</div>
@@ -53,11 +53,11 @@
 									class="accordion-trigger flex w-full items-center justify-between bg-white p-4 text-left hover:bg-gray-50"
 									@click="toggleAccordion('celulas-madre')"
 								>
-									<span class="font-medium text-blue-700">
+									<span class="font-medium text-slate-600">
 										¿Qué son las células madre?
 									</span>
 									<ChevronDown
-										class="h-5 w-5 text-blue-700 transition-transform duration-200"
+										class="h-5 w-5 text-slate-600 transition-transform duration-200"
 										:class="{
 											'rotate-180': activeAccordion === 'celulas-madre',
 										}"
@@ -89,11 +89,11 @@
 									class="accordion-trigger flex w-full items-center justify-between bg-white p-4 text-left hover:bg-gray-50"
 									@click="toggleAccordion('como-funciona')"
 								>
-									<span class="font-medium text-blue-700">
+									<span class="font-medium text-slate-600">
 										¿Cómo funciona un trasplante de células madre/médula ósea?
 									</span>
 									<ChevronDown
-										class="h-5 w-5 text-blue-700 transition-transform duration-200"
+										class="h-5 w-5 text-slate-600 transition-transform duration-200"
 										:class="{
 											'rotate-180': activeAccordion === 'como-funciona',
 										}"
@@ -125,157 +125,124 @@
 
 					<div class="lg:w-1/2">
 						<div class="overflow-hidden rounded-xl shadow-lg">
-							<img
-								src="https://images.unsplash.com/photo-1579154204594-2f4da161f4b9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
-								alt="Trasplante de Médula Ósea"
-								class="h-64 w-full object-cover object-center"
+							<NuxtImg
+								src="/treatments/medula.jpeg"
+								alt="Quimioterapia"
+								class="h-full w-full object-cover object-center"
 							/>
-
 							<div class="bg-white p-6">
 								<h3 class="mb-4 text-lg font-semibold text-gray-800">
 									¿Qué tipos de trasplante de células madre existen?
 								</h3>
 
 								<div class="space-y-3">
-									<div class="custom-select relative">
+									<!-- Reemplazando selects con acordeones para consistencia -->
+									<div
+										class="accordion-item overflow-hidden rounded-md border border-gray-200"
+									>
 										<button
-											class="select-trigger flex w-full items-center justify-between rounded-md border border-gray-300 bg-white p-3 text-left hover:bg-gray-50"
-											@click="toggleSelect('trasplante1')"
+											class="accordion-trigger flex w-full items-center justify-between bg-white p-4 text-left hover:bg-gray-50"
+											@click="toggleAccordion('trasplante1')"
 										>
-											<span>
-												{{
-													selectedOptions.trasplante1 || 'Trasplante Alogénico'
-												}}
+											<span class="font-medium text-slate-600">
+												Trasplante Alogénico
 											</span>
-											<ChevronDown class="h-5 w-5 text-gray-500" />
+											<ChevronDown
+												class="h-5 w-5 text-slate-600 transition-transform duration-200"
+												:class="{
+													'rotate-180': activeAccordion === 'trasplante1',
+												}"
+											/>
 										</button>
 										<div
-											v-if="activeSelect === 'trasplante1'"
-											class="select-options absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md border border-gray-300 bg-white shadow-lg"
+											class="accordion-content overflow-hidden transition-all duration-300"
+											:class="
+												activeAccordion === 'trasplante1'
+													? 'max-h-96'
+													: 'max-h-0'
+											"
 										>
-											<div
-												class="select-option cursor-pointer p-3 hover:bg-gray-100"
-												@click="
-													selectOption('trasplante1', 'Trasplante Alogénico')
-												"
-											>
-												Trasplante Alogénico
+											<div class="border-t border-gray-200 bg-gray-50 p-4">
+												<p class="text-gray-600">
+													El trasplante alogénico utiliza células madre de un
+													donante compatible, que puede ser un familiar o un
+													donante no relacionado. Este tipo de trasplante es
+													común para tratar leucemias y otros trastornos de la
+													sangre.
+												</p>
 											</div>
-											<div
-												class="select-option cursor-pointer p-3 hover:bg-gray-100"
-												@click="
-													selectOption('trasplante1', 'Trasplante Autólogo')
-												"
-											>
+										</div>
+									</div>
+
+									<div
+										class="accordion-item overflow-hidden rounded-md border border-gray-200"
+									>
+										<button
+											class="accordion-trigger flex w-full items-center justify-between bg-white p-4 text-left hover:bg-gray-50"
+											@click="toggleAccordion('trasplante2')"
+										>
+											<span class="font-medium text-slate-600">
 												Trasplante Autólogo
+											</span>
+											<ChevronDown
+												class="h-5 w-5 text-slate-600 transition-transform duration-200"
+												:class="{
+													'rotate-180': activeAccordion === 'trasplante2',
+												}"
+											/>
+										</button>
+										<div
+											class="accordion-content overflow-hidden transition-all duration-300"
+											:class="
+												activeAccordion === 'trasplante2'
+													? 'max-h-96'
+													: 'max-h-0'
+											"
+										>
+											<div class="border-t border-gray-200 bg-gray-50 p-4">
+												<p class="text-gray-600">
+													En el trasplante autólogo, se utilizan las propias
+													células madre del paciente. Estas se recolectan antes
+													de un tratamiento intensivo como quimioterapia o
+													radioterapia, y luego se reinfunden para restaurar la
+													función de la médula ósea.
+												</p>
 											</div>
-											<div
-												class="select-option cursor-pointer p-3 hover:bg-gray-100"
-												@click="
-													selectOption(
-														'trasplante1',
-														'Trasplante de Cordón Umbilical'
-													)
-												"
-											>
+										</div>
+									</div>
+
+									<div
+										class="accordion-item overflow-hidden rounded-md border border-gray-200"
+									>
+										<button
+											class="accordion-trigger flex w-full items-center justify-between bg-white p-4 text-left hover:bg-gray-50"
+											@click="toggleAccordion('trasplante3')"
+										>
+											<span class="font-medium text-slate-600">
 												Trasplante de Cordón Umbilical
-											</div>
-										</div>
-									</div>
-
-									<div class="custom-select relative">
-										<button
-											class="select-trigger flex w-full items-center justify-between rounded-md border border-gray-300 bg-white p-3 text-left hover:bg-gray-50"
-											@click="toggleSelect('trasplante2')"
-										>
-											<span>
-												{{
-													selectedOptions.trasplante2 ||
-													'Trasplante de Sangre de Cordón Umbilical'
-												}}
 											</span>
-											<ChevronDown class="h-5 w-5 text-gray-500" />
+											<ChevronDown
+												class="h-5 w-5 text-slate-600 transition-transform duration-200"
+												:class="{
+													'rotate-180': activeAccordion === 'trasplante3',
+												}"
+											/>
 										</button>
 										<div
-											v-if="activeSelect === 'trasplante2'"
-											class="select-options absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md border border-gray-300 bg-white shadow-lg"
+											class="accordion-content overflow-hidden transition-all duration-300"
+											:class="
+												activeAccordion === 'trasplante3'
+													? 'max-h-96'
+													: 'max-h-0'
+											"
 										>
-											<div
-												class="select-option cursor-pointer p-3 hover:bg-gray-100"
-												@click="
-													selectOption(
-														'trasplante2',
-														'Trasplante de Sangre de Cordón Umbilical'
-													)
-												"
-											>
-												Trasplante de Sangre de Cordón Umbilical
-											</div>
-											<div
-												class="select-option cursor-pointer p-3 hover:bg-gray-100"
-												@click="
-													selectOption('trasplante2', 'Trasplante Alogénico')
-												"
-											>
-												Trasplante Alogénico
-											</div>
-											<div
-												class="select-option cursor-pointer p-3 hover:bg-gray-100"
-												@click="
-													selectOption('trasplante2', 'Trasplante Autólogo')
-												"
-											>
-												Trasplante Autólogo
-											</div>
-										</div>
-									</div>
-
-									<div class="custom-select relative">
-										<button
-											class="select-trigger flex w-full items-center justify-between rounded-md border border-gray-300 bg-white p-3 text-left hover:bg-gray-50"
-											@click="toggleSelect('trasplante3')"
-										>
-											<span>
-												{{
-													selectedOptions.trasplante3 ||
-													'Trasplante de Progenitores y De Inyección De Composites'
-												}}
-											</span>
-											<ChevronDown class="h-5 w-5 text-gray-500" />
-										</button>
-										<div
-											v-if="activeSelect === 'trasplante3'"
-											class="select-options absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md border border-gray-300 bg-white shadow-lg"
-										>
-											<div
-												class="select-option cursor-pointer p-3 hover:bg-gray-100"
-												@click="
-													selectOption(
-														'trasplante3',
-														'Trasplante de Progenitores y De Inyección De Composites'
-													)
-												"
-											>
-												Trasplante de Progenitores y De Inyección De Composites
-											</div>
-											<div
-												class="select-option cursor-pointer p-3 hover:bg-gray-100"
-												@click="
-													selectOption(
-														'trasplante3',
-														'Trasplante de Sangre de Cordón Umbilical'
-													)
-												"
-											>
-												Trasplante de Sangre de Cordón Umbilical
-											</div>
-											<div
-												class="select-option cursor-pointer p-3 hover:bg-gray-100"
-												@click="
-													selectOption('trasplante3', 'Trasplante Alogénico')
-												"
-											>
-												Trasplante Alogénico
+											<div class="border-t border-gray-200 bg-gray-50 p-4">
+												<p class="text-gray-600">
+													Este tipo de trasplante utiliza células madre de la
+													sangre del cordón umbilical de recién nacidos. Estas
+													células son inmaduras y pueden adaptarse mejor al
+													receptor, reduciendo el riesgo de rechazo.
+												</p>
 											</div>
 										</div>
 									</div>
@@ -296,7 +263,7 @@
 							>
 								Tratamiento
 							</span>
-							<h2 class="mt-1 text-2xl font-bold text-blue-700 md:text-3xl">
+							<h2 class="mt-1 text-2xl font-bold text-slate-600 md:text-3xl">
 								Inmunoterapia
 							</h2>
 						</div>
@@ -317,11 +284,11 @@
 									class="accordion-trigger flex w-full items-center justify-between bg-white p-4 text-left hover:bg-gray-50"
 									@click="toggleAccordion('inmunoterapia-cancer')"
 								>
-									<span class="font-medium text-blue-700">
+									<span class="font-medium text-slate-600">
 										¿Cómo Se Usa La Inmunoterapia Para Tratar El Cáncer?
 									</span>
 									<ChevronDown
-										class="h-5 w-5 text-blue-700 transition-transform duration-200"
+										class="h-5 w-5 text-slate-600 transition-transform duration-200"
 										:class="{
 											'rotate-180': activeAccordion === 'inmunoterapia-cancer',
 										}"
@@ -352,53 +319,110 @@
 							</div>
 						</div>
 
-						<div class="mt-6">
-							<div class="custom-select relative">
+						<div class="mt-6 space-y-4">
+							<!-- Reemplazando selects con acordeones para consistencia -->
+							<div
+								class="accordion-item overflow-hidden rounded-md border border-gray-200"
+							>
 								<button
-									class="select-trigger flex w-full items-center justify-between rounded-md border border-gray-300 bg-white p-3 text-left hover:bg-gray-50"
-									@click="toggleSelect('anticuerpos')"
+									class="accordion-trigger flex w-full items-center justify-between bg-white p-4 text-left hover:bg-gray-50"
+									@click="toggleAccordion('anticuerpos')"
 								>
-									<span>
-										{{
-											selectedOptions.anticuerpos ||
-											'Anticuerpos Monoclonales Y Sus Efectos Secundarios'
-										}}
+									<span class="font-medium text-slate-600">
+										Anticuerpos Monoclonales Y Sus Efectos Secundarios
 									</span>
-									<ChevronDown class="h-5 w-5 text-gray-500" />
+									<ChevronDown
+										class="h-5 w-5 text-slate-600 transition-transform duration-200"
+										:class="{
+											'rotate-180': activeAccordion === 'anticuerpos',
+										}"
+									/>
 								</button>
 								<div
-									v-if="activeSelect === 'anticuerpos'"
-									class="select-options absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md border border-gray-300 bg-white shadow-lg"
+									class="accordion-content overflow-hidden transition-all duration-300"
+									:class="
+										activeAccordion === 'anticuerpos' ? 'max-h-96' : 'max-h-0'
+									"
 								>
-									<div
-										class="select-option cursor-pointer p-3 hover:bg-gray-100"
-										@click="
-											selectOption(
-												'anticuerpos',
-												'Anticuerpos Monoclonales Y Sus Efectos Secundarios'
-											)
-										"
-									>
-										Anticuerpos Monoclonales Y Sus Efectos Secundarios
+									<div class="border-t border-gray-200 bg-gray-50 p-4">
+										<p class="text-gray-600">
+											Los anticuerpos monoclonales son proteínas creadas en
+											laboratorio diseñadas para atacar antígenos específicos en
+											las células cancerosas. Los efectos secundarios pueden
+											incluir reacciones alérgicas, fatiga, náuseas y riesgo de
+											infección. La gravedad varía según el tipo específico de
+											anticuerpo y la condición del paciente.
+										</p>
 									</div>
-									<div
-										class="select-option cursor-pointer p-3 hover:bg-gray-100"
-										@click="
-											selectOption(
-												'anticuerpos',
-												'Inhibidores De Puntos De Control Inmunitario'
-											)
-										"
-									>
+								</div>
+							</div>
+
+							<div
+								class="accordion-item overflow-hidden rounded-md border border-gray-200"
+							>
+								<button
+									class="accordion-trigger flex w-full items-center justify-between bg-white p-4 text-left hover:bg-gray-50"
+									@click="toggleAccordion('inhibidores')"
+								>
+									<span class="font-medium text-slate-600">
 										Inhibidores De Puntos De Control Inmunitario
+									</span>
+									<ChevronDown
+										class="h-5 w-5 text-slate-600 transition-transform duration-200"
+										:class="{
+											'rotate-180': activeAccordion === 'inhibidores',
+										}"
+									/>
+								</button>
+								<div
+									class="accordion-content overflow-hidden transition-all duration-300"
+									:class="
+										activeAccordion === 'inhibidores' ? 'max-h-96' : 'max-h-0'
+									"
+								>
+									<div class="border-t border-gray-200 bg-gray-50 p-4">
+										<p class="text-gray-600">
+											Estos medicamentos bloquean las proteínas que impiden que
+											el sistema inmunitario ataque las células cancerosas. Al
+											desactivar estos "frenos" del sistema inmunitario,
+											permiten que las células inmunitarias reconozcan y
+											destruyan las células cancerosas de manera más efectiva.
+										</p>
 									</div>
-									<div
-										class="select-option cursor-pointer p-3 hover:bg-gray-100"
-										@click="
-											selectOption('anticuerpos', 'Terapias De Células T')
-										"
-									>
+								</div>
+							</div>
+
+							<div
+								class="accordion-item overflow-hidden rounded-md border border-gray-200"
+							>
+								<button
+									class="accordion-trigger flex w-full items-center justify-between bg-white p-4 text-left hover:bg-gray-50"
+									@click="toggleAccordion('terapias-t')"
+								>
+									<span class="font-medium text-slate-600">
 										Terapias De Células T
+									</span>
+									<ChevronDown
+										class="h-5 w-5 text-slate-600 transition-transform duration-200"
+										:class="{
+											'rotate-180': activeAccordion === 'terapias-t',
+										}"
+									/>
+								</button>
+								<div
+									class="accordion-content overflow-hidden transition-all duration-300"
+									:class="
+										activeAccordion === 'terapias-t' ? 'max-h-96' : 'max-h-0'
+									"
+								>
+									<div class="border-t border-gray-200 bg-gray-50 p-4">
+										<p class="text-gray-600">
+											Las terapias de células T, como CAR-T, modifican
+											genéticamente las células T del paciente para que
+											reconozcan y ataquen las células cancerosas. Estas células
+											modificadas se multiplican en el cuerpo y pueden
+											proporcionar protección a largo plazo contra el cáncer.
+										</p>
 									</div>
 								</div>
 							</div>
@@ -406,13 +430,11 @@
 					</div>
 
 					<div class="lg:w-1/2">
-						<div
-							class="flex h-full items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-blue-50 to-indigo-50"
-						>
-							<img
-								src="https://images.unsplash.com/photo-1581093588401-fbb62a02f120?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
-								alt="Inmunoterapia"
-								class="h-auto max-h-96 w-full object-contain p-6"
+						<div class="overflow-hidden rounded-xl shadow-lg">
+							<NuxtImg
+								src="/treatments/inmunoterapia.jpg"
+								alt="Quimioterapia"
+								class="h-full w-full object-cover object-center"
 							/>
 						</div>
 					</div>
@@ -429,7 +451,7 @@
 							>
 								Tratamiento
 							</span>
-							<h2 class="mt-1 text-2xl font-bold text-blue-700 md:text-3xl">
+							<h2 class="mt-1 text-2xl font-bold text-slate-600 md:text-3xl">
 								Quimioterapia
 							</h2>
 						</div>
@@ -456,11 +478,11 @@
 									class="accordion-trigger flex w-full items-center justify-between bg-white p-4 text-left hover:bg-gray-50"
 									@click="toggleAccordion('quimioterapia-cancer')"
 								>
-									<span class="font-medium text-blue-700">
+									<span class="font-medium text-slate-600">
 										¿Cómo Trata La Quimioterapia El Cáncer?
 									</span>
 									<ChevronDown
-										class="h-5 w-5 text-blue-700 transition-transform duration-200"
+										class="h-5 w-5 text-slate-600 transition-transform duration-200"
 										:class="{
 											'rotate-180': activeAccordion === 'quimioterapia-cancer',
 										}"
@@ -488,99 +510,116 @@
 							</div>
 						</div>
 
-						<div class="mt-6 space-y-3">
-							<div class="custom-select relative">
+						<div class="mt-6 space-y-4">
+							<!-- Reemplazando selects con acordeones para consistencia -->
+							<div
+								class="accordion-item overflow-hidden rounded-md border border-gray-200"
+							>
 								<button
-									class="select-trigger flex w-full items-center justify-between rounded-md border border-gray-300 bg-white p-3 text-left hover:bg-gray-50"
-									@click="toggleSelect('ciclos')"
+									class="accordion-trigger flex w-full items-center justify-between bg-white p-4 text-left hover:bg-gray-50"
+									@click="toggleAccordion('ciclos')"
 								>
-									<span>
-										{{
-											selectedOptions.ciclos ||
-											'¿Cuántos Ciclos Típicos Necesitaré Quimioterapia?'
-										}}
+									<span class="font-medium text-slate-600">
+										¿Cuántos Ciclos Típicos Necesitaré Quimioterapia?
 									</span>
-									<ChevronDown class="h-5 w-5 text-gray-500" />
+									<ChevronDown
+										class="h-5 w-5 text-slate-600 transition-transform duration-200"
+										:class="{
+											'rotate-180': activeAccordion === 'ciclos',
+										}"
+									/>
 								</button>
 								<div
-									v-if="activeSelect === 'ciclos'"
-									class="select-options absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md border border-gray-300 bg-white shadow-lg"
+									class="accordion-content overflow-hidden transition-all duration-300"
+									:class="activeAccordion === 'ciclos' ? 'max-h-96' : 'max-h-0'"
 								>
-									<div
-										class="select-option cursor-pointer p-3 hover:bg-gray-100"
-										@click="
-											selectOption(
-												'ciclos',
-												'¿Cuántos Ciclos Típicos Necesitaré Quimioterapia?'
-											)
-										"
-									>
-										¿Cuántos Ciclos Típicos Necesitaré Quimioterapia?
-									</div>
-									<div
-										class="select-option cursor-pointer p-3 hover:bg-gray-100"
-										@click="
-											selectOption(
-												'ciclos',
-												'¿Cuánto Dura Un Ciclo De Quimioterapia?'
-											)
-										"
-									>
-										¿Cuánto Dura Un Ciclo De Quimioterapia?
-									</div>
-									<div
-										class="select-option cursor-pointer p-3 hover:bg-gray-100"
-										@click="
-											selectOption(
-												'ciclos',
-												'¿Cuáles Son Los Efectos Secundarios Comunes?'
-											)
-										"
-									>
-										¿Cuáles Son Los Efectos Secundarios Comunes?
+									<div class="border-t border-gray-200 bg-gray-50 p-4">
+										<p class="text-gray-600">
+											El número de ciclos de quimioterapia varía según el tipo
+											de cáncer, su etapa y la respuesta del paciente al
+											tratamiento. Generalmente, los pacientes reciben entre 4 y
+											8 ciclos, pero esto puede variar significativamente según
+											el plan de tratamiento personalizado.
+										</p>
 									</div>
 								</div>
 							</div>
 
-							<div class="custom-select relative">
+							<div
+								class="accordion-item overflow-hidden rounded-md border border-gray-200"
+							>
 								<button
-									class="select-trigger flex w-full items-center justify-between rounded-md border border-gray-300 bg-white p-3 text-left hover:bg-gray-50"
-									@click="toggleSelect('tipos')"
+									class="accordion-trigger flex w-full items-center justify-between bg-white p-4 text-left hover:bg-gray-50"
+									@click="toggleAccordion('duracion')"
 								>
-									<span>
-										{{
-											selectedOptions.tipos ||
-											'¿Qué Tipos Diferentes De Quimioterapia Hay?'
-										}}
+									<span class="font-medium text-slate-600">
+										¿Cuánto Dura Un Ciclo De Quimioterapia?
 									</span>
-									<ChevronDown class="h-5 w-5 text-gray-500" />
+									<ChevronDown
+										class="h-5 w-5 text-slate-600 transition-transform duration-200"
+										:class="{
+											'rotate-180': activeAccordion === 'duracion',
+										}"
+									/>
 								</button>
 								<div
-									v-if="activeSelect === 'tipos'"
-									class="select-options absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md border border-gray-300 bg-white shadow-lg"
+									class="accordion-content overflow-hidden transition-all duration-300"
+									:class="
+										activeAccordion === 'duracion' ? 'max-h-96' : 'max-h-0'
+									"
 								>
-									<div
-										class="select-option cursor-pointer p-3 hover:bg-gray-100"
-										@click="
-											selectOption(
-												'tipos',
-												'¿Qué Tipos Diferentes De Quimioterapia Hay?'
-											)
-										"
-									>
+									<div class="border-t border-gray-200 bg-gray-50 p-4">
+										<p class="text-gray-600">
+											Un ciclo de quimioterapia típicamente dura entre 2 y 4
+											semanas. Incluye el período de administración del
+											medicamento seguido por un período de descanso para
+											permitir que el cuerpo se recupere. La duración exacta
+											depende del régimen específico de tratamiento.
+										</p>
+									</div>
+								</div>
+							</div>
+
+							<div
+								class="accordion-item overflow-hidden rounded-md border border-gray-200"
+							>
+								<button
+									class="accordion-trigger flex w-full items-center justify-between bg-white p-4 text-left hover:bg-gray-50"
+									@click="toggleAccordion('tipos-quimio')"
+								>
+									<span class="font-medium text-slate-600">
 										¿Qué Tipos Diferentes De Quimioterapia Hay?
-									</div>
-									<div
-										class="select-option cursor-pointer p-3 hover:bg-gray-100"
-										@click="selectOption('tipos', 'Quimioterapia Oral')"
-									>
-										Quimioterapia Oral
-									</div>
-									<div
-										class="select-option cursor-pointer p-3 hover:bg-gray-100"
-										@click="selectOption('tipos', 'Quimioterapia Intravenosa')"
-									>
-										Quimioterapia Intravenosa
+									</span>
+									<ChevronDown
+										class="h-5 w-5 text-slate-600 transition-transform duration-200"
+										:class="{
+											'rotate-180': activeAccordion === 'tipos-quimio',
+										}"
+									/>
+								</button>
+								<div
+									class="accordion-content overflow-hidden transition-all duration-300"
+									:class="
+										activeAccordion === 'tipos-quimio' ? 'max-h-96' : 'max-h-0'
+									"
+								>
+									<div class="border-t border-gray-200 bg-gray-50 p-4">
+										<p class="text-gray-600">
+											Existen varios tipos de quimioterapia, incluyendo:
+										</p>
+										<ul class="mt-2 list-inside list-disc text-gray-600">
+											<li>
+												Quimioterapia oral (en forma de píldoras o cápsulas)
+											</li>
+											<li>Quimioterapia intravenosa (a través de una vena)</li>
+											<li>
+												Quimioterapia intratecal (en el líquido cefalorraquídeo)
+											</li>
+											<li>Quimioterapia intraarterial (en una arteria)</li>
+											<li>
+												Quimioterapia intraperitoneal (en la cavidad abdominal)
+											</li>
+										</ul>
 									</div>
 								</div>
 							</div>
@@ -588,11 +627,11 @@
 					</div>
 
 					<div class="lg:w-1/2">
-						<div class="h-full overflow-hidden rounded-xl shadow-lg">
-							<img
-								src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1480&q=80"
+						<div class="overflow-hidden rounded-xl shadow-lg">
+							<NuxtImg
+								src="/treatments/quimio.jpg"
 								alt="Quimioterapia"
-								class="h-80 w-full object-cover object-center"
+								class="h-full w-full object-cover object-center"
 							/>
 						</div>
 					</div>
@@ -605,13 +644,10 @@
 <script setup lang="ts">
 	import { ref, onMounted, onUnmounted } from 'vue';
 	import { ChevronDown } from 'lucide-vue-next';
+	import { NuxtImg } from '#components';
 
 	// Estado para los acordeones
 	const activeAccordion = ref<string | null>(null);
-
-	// Estado para los selectores
-	const activeSelect = ref<string | null>(null);
-	const selectedOptions = ref<Record<string, string>>({});
 
 	// Función para alternar acordeones
 	const toggleAccordion = (id: string) => {
@@ -622,32 +658,17 @@
 		}
 	};
 
-	// Función para alternar selectores
-	const toggleSelect = (id: string) => {
-		if (activeSelect.value === id) {
-			activeSelect.value = null;
-		} else {
-			activeSelect.value = id;
-		}
-	};
-
-	// Función para seleccionar una opción
-	const selectOption = (selectId: string, value: string) => {
-		selectedOptions.value[selectId] = value;
-		activeSelect.value = null;
-	};
-
-	// Cerrar selectores al hacer clic fuera
+	// Cerrar acordeones al hacer clic fuera
 	const handleClickOutside = (event: MouseEvent) => {
 		if (
-			activeSelect.value &&
-			!(event.target as Element).closest('.custom-select')
+			activeAccordion.value &&
+			!(event.target as Element).closest('.accordion-item')
 		) {
-			activeSelect.value = null;
+			activeAccordion.value = null;
 		}
 	};
 
-	// Agregar/eliminar event listener para cerrar selectores al hacer clic fuera
+	// Agregar/eliminar event listener para cerrar acordeones al hacer clic fuera
 	onMounted(() => {
 		document.addEventListener('click', handleClickOutside);
 	});
@@ -663,16 +684,10 @@
 		transition: max-height 0.3s ease-in-out;
 	}
 
-	/* Estilos para los selectores */
-	.select-options {
-		max-height: 200px;
-		overflow-y: auto;
-	}
-
-	/* Asegurar que los selectores estén por encima de otros elementos */
-	.custom-select {
+	/* Asegurar que los acordeones estén por encima de otros elementos */
+	.accordion-item {
 		position: relative;
-		z-index: 10;
+		z-index: 5;
 	}
 
 	/* Estilos para el contenedor */
@@ -690,5 +705,29 @@
 		.lg\:flex-row-reverse {
 			flex-direction: column;
 		}
+
+		/* Mejorar espaciado en móvil */
+		section {
+			margin-bottom: 3rem;
+		}
+
+		h2 {
+			font-size: 1.75rem;
+		}
+
+		.accordion-trigger {
+			padding: 0.75rem;
+		}
+	}
+
+	/* Mejoras de accesibilidad */
+	.accordion-trigger:focus {
+		outline: 2px solid rgba(59, 130, 246, 0.5);
+		outline-offset: -2px;
+	}
+
+	/* Animación suave para todos los elementos interactivos */
+	button {
+		transition: all 0.2s ease-in-out;
 	}
 </style>

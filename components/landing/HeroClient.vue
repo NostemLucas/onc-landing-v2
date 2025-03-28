@@ -32,7 +32,8 @@
 							<!-- Botón con submenú -->
 							<button
 								v-if="item.hasSubmenu"
-								class="hover:text-primary flex items-center gap-1 text-sm font-medium transition-colors"
+								class="flex items-center gap-1 text-sm font-medium transition-colors duration-200 hover:text-blue-600"
+								:class="{ 'text-blue-600': activeSubmenu === index }"
 								@click="toggleSubmenu(index)"
 							>
 								{{ item.label }}
@@ -40,21 +41,30 @@
 									class="h-4 w-4 transition-transform"
 									:class="{ 'rotate-180': activeSubmenu === index }"
 								/>
+								<span
+									class="absolute -bottom-1 left-0 h-0.5 w-0 bg-blue-600 transition-all duration-300 group-hover:w-full"
+									:class="{ 'w-full': activeSubmenu === index }"
+								></span>
 							</button>
 
 							<!-- Enlace sin submenú -->
 							<NuxtLink
 								v-else
 								:to="item.url || '#'"
-								class="hover:text-primary text-sm font-medium transition-colors"
+								class="group relative text-sm font-medium transition-colors duration-200 hover:text-blue-600"
+								:class="{ 'text-blue-600': isActiveRoute(item.url) }"
 							>
 								{{ item.label }}
+								<span
+									class="absolute -bottom-1 left-0 h-0.5 w-0 bg-blue-600 transition-all duration-300 group-hover:w-full"
+									:class="{ 'w-full': isActiveRoute(item.url) }"
+								></span>
 							</NuxtLink>
 
 							<!-- Submenu -->
 							<div
 								v-if="item.hasSubmenu && activeSubmenu === index"
-								class="bg-background absolute top-full left-0 z-50 mt-2 w-64 rounded-md border border-gray-300 p-6 shadow-lg"
+								class="absolute top-full left-0 z-50 mt-2 w-64 rounded-md border border-gray-300 bg-white p-6 shadow-lg"
 							>
 								<!-- Flecha del submenu -->
 								<div
@@ -66,7 +76,9 @@
 										v-for="(column, colIndex) in item.columns"
 										:key="colIndex"
 									>
-										<h3 class="mb-3 font-semibold">{{ column.title }}</h3>
+										<h3 class="mb-3 font-semibold text-gray-800">
+											{{ column.title }}
+										</h3>
 										<ul class="space-y-2">
 											<template
 												v-for="(link, linkIndex) in column.links"
@@ -74,7 +86,11 @@
 											>
 												<NuxtLink
 													:to="link.url"
-													class="hover:text-primary block text-sm transition-colors"
+													class="group relative block text-sm transition-colors duration-200 hover:text-blue-600"
+													:class="{
+														'text-blue-600': isActiveRoute(link.url),
+														'hover:before:w-full': true, // Añade esta línea para efectos de hover individuales
+													}"
 												>
 													{{ link.label }}
 												</NuxtLink>
@@ -89,9 +105,14 @@
 									>
 										<a
 											:href="subItem.url"
-											class="hover:text-primary block text-sm transition-colors"
+											class="group relative block text-sm transition-colors duration-200 hover:text-blue-600"
+											:class="{ 'text-blue-600': isActiveRoute(subItem.url) }"
 										>
 											{{ subItem.label }}
+											<span
+												class="absolute -bottom-1 left-0 h-0.5 w-0 bg-blue-600 transition-all duration-300 group-hover:w-full"
+												:class="{ 'w-full': isActiveRoute(subItem.url) }"
+											></span>
 										</a>
 									</li>
 								</ul>
@@ -103,13 +124,16 @@
 					<div class="hidden items-center gap-4 lg:flex">
 						<a
 							href="#"
-							class="hover:text-primary text-sm font-medium transition-colors"
+							class="group relative text-sm font-medium transition-colors duration-200 hover:text-blue-600"
 						>
 							Solicita una cita
+							<span
+								class="absolute -bottom-1 left-0 h-0.5 w-0 bg-blue-600 transition-all duration-300 group-hover:w-full"
+							></span>
 						</a>
 						<a
 							href="#"
-							class="hover:bg-primary-400 rounded-full border border-gray-400 px-4 py-2 transition-colors duration-300 hover:text-gray-100"
+							class="rounded-full border border-gray-400 px-4 py-2 text-sm font-medium transition-all duration-300 hover:border-blue-600 hover:bg-blue-600 hover:text-white"
 						>
 							Iniciar Sesión
 						</a>
@@ -117,7 +141,10 @@
 
 					<!-- Mobile Menu Button -->
 					<div class="lg:hidden">
-						<button class="h-8 w-8 p-0" @click="toggleMobileMenu">
+						<button
+							class="flex h-10 w-10 items-center justify-center rounded-full p-0 transition-colors hover:bg-gray-100"
+							@click="toggleMobileMenu"
+						>
 							<Menu v-if="!isMobileMenuOpen" class="h-5 w-5" />
 							<X v-else class="h-5 w-5" />
 							<span class="sr-only">Toggle menu</span>
@@ -145,7 +172,10 @@
 					class="flex h-24 items-center justify-between border-b border-gray-200 px-6"
 				>
 					<div class="text-lg font-semibold">Menú</div>
-					<button class="h-8 w-8 p-0" @click="toggleMobileMenu">
+					<button
+						class="flex h-10 w-10 items-center justify-center rounded-full p-0 transition-colors hover:bg-gray-100"
+						@click="toggleMobileMenu"
+					>
 						<X class="h-5 w-5" />
 						<span class="sr-only">Cerrar menú</span>
 					</button>
@@ -162,16 +192,22 @@
 							<NuxtLink
 								v-if="!item.hasSubmenu"
 								:to="item.url || '#'"
-								class="block py-2 text-base font-medium"
+								class="relative block py-2 text-base font-medium transition-colors duration-200 hover:text-blue-600"
+								:class="{ 'text-blue-600': isActiveRoute(item.url) }"
 								@click="closeMobileMenu"
 							>
 								{{ item.label }}
+								<span
+									v-if="isActiveRoute(item.url)"
+									class="absolute top-1/2 -left-3 h-6 w-1 -translate-y-1/2 rounded-r-md bg-blue-600"
+								></span>
 							</NuxtLink>
 
 							<!-- Botón con submenú en móvil -->
 							<div v-else>
 								<button
-									class="flex w-full items-center justify-between py-2 text-base font-medium"
+									class="flex w-full items-center justify-between py-2 text-base font-medium transition-colors duration-200 hover:text-blue-600"
+									:class="{ 'text-blue-600': mobileSections[index] }"
 									@click="toggleMobileSubmenu(index)"
 								>
 									{{ item.label }}
@@ -182,7 +218,10 @@
 								</button>
 
 								<Transition name="expand">
-									<div v-if="mobileSections[index]" class="mt-2 pl-4">
+									<div
+										v-if="mobileSections[index]"
+										class="mt-2 rounded-lg bg-gray-50 p-4"
+									>
 										<div v-if="item.columns">
 											<div
 												v-for="(column, colIndex) in item.columns"
@@ -199,10 +238,17 @@
 													>
 														<NuxtLink
 															:to="link.url"
-															class="block py-1 text-sm"
+															class="relative block py-1 text-sm transition-colors duration-200 hover:text-blue-600"
+															:class="{
+																'text-blue-600': isActiveRoute(link.url),
+															}"
 															@click="closeMobileMenu"
 														>
 															{{ link.label }}
+															<span
+																v-if="isActiveRoute(link.url)"
+																class="absolute top-1/2 -left-2 h-4 w-0.5 -translate-y-1/2 rounded-r-md bg-blue-600"
+															></span>
 														</NuxtLink>
 													</li>
 												</ul>
@@ -215,10 +261,17 @@
 											>
 												<a
 													:href="subItem.url"
-													class="block py-1 text-sm"
+													class="relative block py-1 text-sm transition-colors duration-200 hover:text-blue-600"
+													:class="{
+														'text-blue-600': isActiveRoute(subItem.url),
+													}"
 													@click="closeMobileMenu"
 												>
 													{{ subItem.label }}
+													<span
+														v-if="isActiveRoute(subItem.url)"
+														class="absolute top-1/2 -left-2 h-4 w-0.5 -translate-y-1/2 rounded-r-md bg-blue-600"
+													></span>
 												</a>
 											</li>
 										</ul>
@@ -232,13 +285,16 @@
 					<div class="mt-8 flex flex-col space-y-4">
 						<a
 							href="#"
-							class="hover:text-primary block py-2 text-base font-medium transition-colors"
+							class="relative block py-2 text-base font-medium transition-colors duration-200 hover:text-blue-600"
 						>
 							Solicita una cita
+							<span
+								class="absolute bottom-0 left-0 h-0.5 w-0 bg-blue-600 transition-all duration-300 hover:w-full"
+							></span>
 						</a>
 						<a
 							href="#"
-							class="hover:bg-primary-400 flex items-center justify-center rounded-full border border-gray-400 px-4 py-3 text-base font-medium transition-colors duration-300 hover:text-gray-100"
+							class="flex items-center justify-center rounded-full border border-gray-400 px-4 py-3 text-base font-medium transition-all duration-300 hover:border-blue-600 hover:bg-blue-600 hover:text-white"
 						>
 							Iniciar Sesión
 						</a>
@@ -259,8 +315,12 @@
 </template>
 
 <script setup lang="ts">
-	import { ref, reactive, onMounted, onUnmounted } from 'vue';
+	import { ref, reactive, onMounted, onUnmounted, computed } from 'vue';
 	import { ChevronDown, Menu, X } from 'lucide-vue-next';
+	import { useRoute } from 'vue-router';
+
+	// Get current route for active link detection
+	const route = useRoute();
 
 	// State for mobile menu
 	const isMobileMenuOpen = ref(false);
@@ -278,13 +338,11 @@
 			hasSubmenu: false,
 			url: '/nosotros',
 		},
-
 		{
 			label: 'Tratamientos',
 			hasSubmenu: false,
-			url: '/Tratamientos',
+			url: '/tratamientos',
 		},
-
 		{
 			label: 'Nuestros Profesionales',
 			hasSubmenu: false,
@@ -327,6 +385,18 @@
 
 	// State for desktop submenu
 	const activeSubmenu = ref<number | null>(null);
+
+	// Check if route is active
+	const isActiveRoute = (url: string) => {
+		if (!url || url === '#') return false;
+
+		// Exact match for home page
+		if (url === '/' && route.path === '/') return true;
+
+		// For other routes, check if the current path starts with the URL
+		// This handles both exact matches and child routes
+		return url !== '/' && route.path === url;
+	};
 
 	// Toggle submenu for desktop
 	const toggleSubmenu = (index: number) => {

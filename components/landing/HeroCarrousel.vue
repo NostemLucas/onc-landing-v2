@@ -46,58 +46,44 @@
 
 	const personnel = ref([
 		{
-			name: 'Carlos Rodríguez',
-			specialty: 'CARDIOLOGÍA',
-			department: 'DEPARTAMENTO DE CARDIOLOGÍA',
+			name: 'Dr. Ariel Amaru MD PHD',
+			specialty: 'ONCOHEMATOLOGO',
+			department: 'DEPARTAMENTO DE ONCOLOGIA',
 			description:
-				'Especialista en cardiología intervencionista con más de 15 años de experiencia. Formado en la Universidad de Barcelona y con fellowship en Johns Hopkins.',
-			image:
-				'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80',
+				'Director Médico de Oncoclinic, responsable del área de Trasplante de Células Madre para enfermedades oncohematológicas, como las leucemias, linfomas, mielomas o mielofibrosis.',
+			image: '/doctors/amaru.png',
 		},
 		{
-			name: 'María González',
-			specialty: 'NEUROLOGÍA',
-			department: 'DEPARTAMENTO DE NEUROLOGÍA',
+			name: 'Dra. Jimena Yudid Bueno Limachi',
+			specialty: 'CIRUGÍA ONCOLÓGICA',
+			department: 'DEPARTAMENTO DE ONCOLOGIA',
 			description:
-				'Neuróloga especializada en trastornos del movimiento y enfermedades neurodegenerativas. Investigadora principal en estudios sobre Parkinson.',
-			image:
-				'https://images.unsplash.com/photo-1594824476967-48c8b964273f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80',
+				'Médico Cirujano Oncóloga, formada en la Facultad de Medicina de la Universidad Mayor de San Andrés, con Especialidad en Cirugía General en el Hospital Obrero No2 y Sub-Especialidad en Cirugía Oncológica.',
+			image: '/doctors/bueno.png',
 		},
 		{
-			name: 'Javier Martínez',
-			specialty: 'PEDIATRÍA',
-			department: 'DEPARTAMENTO DE PEDIATRÍA',
+			name: 'Dra. Erika Lourdes Patiño Constancio',
+			specialty: 'CIRUGÍA ONCOLÓGICA',
+			department: 'Cirugía Oncologica',
 			description:
-				'Pediatra con especialización en neonatología. Dedicado al cuidado de recién nacidos y prematuros con condiciones médicas complejas.',
-			image:
-				'https://images.unsplash.com/photo-1622253692010-333f2da6031d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=928&q=80',
+				'Médico Cirujano Oncóloga, con formación en la Facultad de Medicina en la Universidad Mayor de San Andrés, con Especialidad en Cirugía General',
+			image: '/doctors/patiño.png',
 		},
 		{
-			name: 'Ana Sánchez',
-			specialty: 'ONCOLOGÍA',
+			name: 'Dr. Marcio Denis López Ramirez',
+			specialty: 'ONCOLOGÍA CLINICA',
 			department: 'DEPARTAMENTO DE ONCOLOGÍA',
 			description:
 				'Oncóloga especializada en cáncer de mama. Pionera en tratamientos personalizados basados en perfiles genéticos de tumores.',
-			image:
-				'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80',
+			image: '/doctors/lopez.png',
 		},
 		{
-			name: 'Luis Fernández',
-			specialty: 'CIRUGÍA',
-			department: 'DEPARTAMENTO DE CIRUGÍA',
-			description:
-				'Cirujano general con especialización en cirugía mínimamente invasiva y robótica. Más de 1000 procedimientos realizados con éxito.',
-			image:
-				'https://images.unsplash.com/photo-1582750433449-648ed127bb54?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80',
-		},
-		{
-			name: 'Elena Torres',
-			specialty: 'DERMATOLOGÍA',
+			name: 'Dr. Daniel Eduardo Mercado Rodrigo',
+			specialty: 'ORTOPEDIA ONCOLOGICA',
 			department: 'DEPARTAMENTO DE DERMATOLOGÍA',
 			description:
-				'Dermatóloga especializada en enfermedades inflamatorias de la piel y dermatología estética. Investigadora en nuevos tratamientos biológicos.',
-			image:
-				'https://images.unsplash.com/photo-1651008376811-b90baee60c1f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80',
+				'Médico del área de Oncología Quirúrgica, con enfoque en el área de Ortopedia y Traumatología Oncológica.',
+			image: '/doctors/mercado.png',
 		},
 	]);
 
