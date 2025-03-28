@@ -663,13 +663,13 @@
 	// Datos de ubicaciones (usando las coordenadas proporcionadas)
 	const locations = ref<Location[]>([
 		{
-			id: 1,
-			title: 'Oncoclinic Obrajes - Sede Central',
-			address: 'Avenida Costanería entre calles 5 y 6 Nro 71',
+			id: 2,
+			title: 'Oncoclinic Sopocachi',
+			address: 'Av. 6 de Agosto Nº2255',
 			city: 'La Paz, Bolivia',
-			phone: '+591 2 2222-3333',
-			whatsapp: '59122223333',
-			image: '/locations/sede-obrajes.jpg',
+			phone: '+591 2 2444-5555',
+			whatsapp: '59124445555',
+			image: '/locations/sede-sopocachi.jpg',
 			coordinates: [-68.12703295752024, -16.507985587243112],
 			buses: ['301', '292', '298', 'ACHUMAN', 'CHACQUIÑAMPA'],
 			hours: {
@@ -689,13 +689,13 @@
 			],
 		},
 		{
-			id: 2,
-			title: 'Oncoclinic Sopocachi',
-			address: 'Av. 6 de Agosto Nº2255',
+			id: 1,
+			title: 'Oncoclinic Obrajes - Sede Central',
+			address: 'Avenida Costanería entre calles 5 y 6 Nro 71',
 			city: 'La Paz, Bolivia',
-			phone: '+591 2 2444-5555',
-			whatsapp: '59124445555',
-			image: '/locations/sede-sopocachi.jpg',
+			phone: '+591 2 2222-3333',
+			whatsapp: '59122223333',
+			image: '/locations/sede-obrajes.jpg',
 			coordinates: [-68.11105322436397, -16.52711826894523],
 			buses: ['214', '245', 'TELEFÉRICO NARANJA', 'TELEFÉRICO ROJO'],
 			hours: {
