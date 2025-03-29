@@ -4,14 +4,14 @@
 		<!-- Panel de imágenes (lado izquierdo) -->
 		<div
 			v-if="showImagePanel"
-			class="w-48 rounded-lg border border-gray-200 bg-white p-2 shadow-sm"
+			class="w-48 rounded-lg border border-gray-200 bg-white p-2"
 		>
 			<h3 class="mb-2 font-medium text-gray-700">Mis imágenes</h3>
 			<div class="grid grid-cols-2 gap-2">
 				<div
 					v-for="image in sampleImages"
 					:key="image.id"
-					class="cursor-grab rounded border border-gray-200 p-1 transition-all hover:border-blue-300 hover:shadow-sm"
+					class="cursor-grab rounded border border-gray-200 p-1"
 					draggable="true"
 					@dragstart="handleDragStart($event, image.url)"
 				>
@@ -26,55 +26,50 @@
 
 		<!-- Editor (lado derecho) -->
 		<div v-if="editor" class="flex-1">
-			<div class="mb-3">
+			<div class="mb-4">
 				<div
-					class="flex flex-wrap gap-1 rounded-lg border border-gray-200 bg-white p-1.5 shadow-sm"
+					class="flex flex-wrap gap-1 rounded-lg border border-gray-200 bg-gray-50 p-2"
 				>
 					<!-- Text Formatting -->
-					<div class="flex gap-0.5 border-r border-gray-200 px-1">
+					<div class="flex gap-1 border-r border-gray-200 px-1">
 						<UTooltip text="Negrita">
 							<UButton
 								:disabled="!editor.can().chain().focus().toggleBold().run()"
 								:class="{
-									'bg-blue-50 text-blue-600': editor.isActive('bold'),
+									'bg-gray-200 text-gray-900': editor.isActive('bold'),
 								}"
 								@click="editor.chain().focus().toggleBold().run()"
-								size="xs"
+								size="sm"
 								color="info"
 								variant="ghost"
-								class="rounded-md"
-							>
-								<BoldIcon class="h-3.5 w-3.5" />
-							</UButton>
+								icon="i-lucide-bold"
+							/>
 						</UTooltip>
 						<UTooltip text="Cursiva">
 							<UButton
 								:disabled="!editor.can().chain().focus().toggleItalic().run()"
 								:class="{
-									'bg-blue-50 text-blue-600': editor.isActive('italic'),
+									'bg-gray-200 text-gray-900': editor.isActive('italic'),
 								}"
 								@click="editor.chain().focus().toggleItalic().run()"
-								size="xs"
+								size="sm"
 								color="info"
 								variant="ghost"
-								class="rounded-md"
-							>
-								<ItalicIcon class="h-3.5 w-3.5" />
-							</UButton>
+								icon="i-lucide-italic"
+							/>
 						</UTooltip>
 						<UTooltip text="Tachado">
 							<UButton
 								:disabled="!editor.can().chain().focus().toggleStrike().run()"
 								:class="{
-									'bg-blue-50 text-blue-600': editor.isActive('strike'),
+									'bg-gray-200 text-gray-900': editor.isActive('strike'),
 								}"
 								@click="editor.chain().focus().toggleStrike().run()"
-								size="xs"
+								size="sm"
 								color="info"
 								variant="ghost"
-								class="rounded-md"
 							>
-								<StrikethroughIcon class="h-3.5 w-3.5" />
+								<StrikethroughIcon class="h-4 w-4" />
 							</UButton>
 						</UTooltip>
 						<UTooltip text="Subrayado">
@@ -83,48 +78,46 @@
 									!editor.can().chain().focus().toggleUnderline().run()
 								"
 								:class="{
-									'bg-blue-50 text-blue-600': editor.isActive('underline'),
+									'bg-gray-200 text-gray-900': editor.isActive('underline'),
 								}"
 								@click="editor.chain().focus().toggleUnderline().run()"
-								size="xs"
+								size="sm"
 								color="info"
 								variant="ghost"
-								class="rounded-md"
 							>
-								<UnderlineIcon class="h-3.5 w-3.5" />
+								<UnderlineIcon class="h-4 w-4" />
 							</UButton>
 						</UTooltip>
 						<UTooltip text="Código">
 							<UButton
 								:disabled="!editor.can().chain().focus().toggleCode().run()"
 								:class="{
-									'bg-blue-50 text-blue-600': editor.isActive('code'),
+									'bg-gray-200 text-gray-900': editor.isActive('code'),
 								}"
 								@click="editor.chain().focus().toggleCode().run()"
-								size="xs"
+								size="sm"
 								color="info"
 								variant="ghost"
-								class="rounded-md"
 							>
-								<CodeIcon class="h-3.5 w-3.5" />
+								<CodeIcon class="h-4 w-4" />
 							</UButton>
 						</UTooltip>
 					</div>
 
 					<!-- Paragraph Styles -->
-					<div class="flex gap-0.5 border-r border-gray-200 px-1">
-						<UPopover mode="click">
+					<div class="flex gap-1 border-r border-gray-200 px-1">
+						<UPopover>
 							<UButton
-								size="xs"
+								size="sm"
 								color="info"
 								variant="ghost"
-								class="flex items-center gap-1 rounded-md"
+								class="flex items-center gap-1"
 							>
-								<TypeIcon class="h-3.5 w-3.5" />
+								<TypeIcon class="h-4 w-4" />
 								<ChevronDownIcon class="h-3 w-3" />
 							</UButton>
 							<template #content>
-								<div class="max-h-60 overflow-y-auto p-1">
+								<div>
 									<UButton
 										v-for="item in headingItems"
 										:key="item.label"
@@ -132,10 +125,14 @@
 										size="xs"
 										color="info"
 										variant="ghost"
-										class="mb-0.5 justify-start rounded-md"
-										@click="item.click"
+										class="mb-1 justify-start"
+										@click="
+											() => {
+												item.click();
+											}
+										"
 									>
-										<UIcon :name="item.icon" class="mr-2 h-3.5 w-3.5" />
+										<UIcon :name="item.icon" class="mr-2 h-4 w-4" />
 										{{ item.label }}
 									</UButton>
 								</div>
@@ -144,201 +141,183 @@
 					</div>
 
 					<!-- Lists -->
-					<div class="flex gap-0.5 border-r border-gray-200 px-1">
+					<div class="flex gap-1 border-r border-gray-200 px-1">
 						<UTooltip text="Lista con viñetas">
 							<UButton
 								:class="{
-									'bg-blue-50 text-blue-600': editor.isActive('bulletList'),
+									'bg-gray-200 text-gray-900': editor.isActive('bulletList'),
 								}"
 								@click="editor.chain().focus().toggleBulletList().run()"
-								size="xs"
+								size="sm"
 								color="info"
 								variant="ghost"
-								class="rounded-md"
 							>
-								<ListIcon class="h-3.5 w-3.5" />
+								<ListIcon class="h-4 w-4" />
 							</UButton>
 						</UTooltip>
 						<UTooltip text="Lista numerada">
 							<UButton
 								:class="{
-									'bg-blue-50 text-blue-600': editor.isActive('orderedList'),
+									'bg-gray-200 text-gray-900': editor.isActive('orderedList'),
 								}"
 								@click="editor.chain().focus().toggleOrderedList().run()"
-								size="xs"
+								size="sm"
 								color="info"
 								variant="ghost"
-								class="rounded-md"
 							>
-								<ListOrderedIcon class="h-3.5 w-3.5" />
+								<ListOrderedIcon class="h-4 w-4" />
 							</UButton>
 						</UTooltip>
 						<UTooltip text="Lista de tareas">
 							<UButton
 								:class="{
-									'bg-blue-50 text-blue-600': editor.isActive('taskList'),
+									'bg-gray-200 text-gray-900': editor.isActive('taskList'),
 								}"
 								@click="editor.chain().focus().toggleTaskList().run()"
-								size="xs"
+								size="sm"
 								color="info"
 								variant="ghost"
-								class="rounded-md"
 							>
-								<CheckSquareIcon class="h-3.5 w-3.5" />
+								<CheckSquareIcon class="h-4 w-4" />
 							</UButton>
 						</UTooltip>
 					</div>
 
 					<!-- Alignment -->
-					<div class="flex gap-0.5 border-r border-gray-200 px-1">
+					<div class="flex gap-1 border-r border-gray-200 px-1">
 						<UTooltip text="Alinear a la izquierda">
 							<UButton
 								:class="{
-									'bg-blue-50 text-blue-600': editor.isActive({
+									'bg-gray-200 text-gray-900': editor.isActive({
 										textAlign: 'left',
 									}),
 								}"
 								@click="editor.chain().focus().setTextAlign('left').run()"
-								size="xs"
+								size="sm"
 								color="info"
 								variant="ghost"
-								class="rounded-md"
 							>
-								<AlignLeftIcon class="h-3.5 w-3.5" />
+								<AlignLeftIcon class="h-4 w-4" />
 							</UButton>
 						</UTooltip>
 						<UTooltip text="Centrar">
 							<UButton
 								:class="{
-									'bg-blue-50 text-blue-600': editor.isActive({
+									'bg-gray-200 text-gray-900': editor.isActive({
 										textAlign: 'center',
 									}),
 								}"
 								@click="editor.chain().focus().setTextAlign('center').run()"
-								size="xs"
+								size="sm"
 								color="info"
 								variant="ghost"
-								class="rounded-md"
 							>
-								<AlignCenterIcon class="h-3.5 w-3.5" />
+								<AlignCenterIcon class="h-4 w-4" />
 							</UButton>
 						</UTooltip>
 						<UTooltip text="Alinear a la derecha">
 							<UButton
 								:class="{
-									'bg-blue-50 text-blue-600': editor.isActive({
+									'bg-gray-200 text-gray-900': editor.isActive({
 										textAlign: 'right',
 									}),
 								}"
 								@click="editor.chain().focus().setTextAlign('right').run()"
-								size="xs"
+								size="sm"
 								color="info"
 								variant="ghost"
-								class="rounded-md"
 							>
-								<AlignRightIcon class="h-3.5 w-3.5" />
+								<AlignRightIcon class="h-4 w-4" />
 							</UButton>
 						</UTooltip>
 						<UTooltip text="Justificar">
 							<UButton
 								:class="{
-									'bg-blue-50 text-blue-600': editor.isActive({
+									'bg-gray-200 text-gray-900': editor.isActive({
 										textAlign: 'justify',
 									}),
 								}"
 								@click="editor.chain().focus().setTextAlign('justify').run()"
-								size="xs"
+								size="sm"
 								color="info"
 								variant="ghost"
-								class="rounded-md"
 							>
-								<AlignJustifyIcon class="h-3.5 w-3.5" />
+								<AlignJustifyIcon class="h-4 w-4" />
 							</UButton>
 						</UTooltip>
 					</div>
 
 					<!-- Links -->
-					<div class="flex gap-0.5 border-r border-gray-200 px-1">
+					<div class="flex gap-1 border-r border-gray-200 px-1">
 						<UTooltip text="Insertar enlace">
 							<UButton
 								:class="{
-									'bg-blue-50 text-blue-600': editor.isActive('link'),
+									'bg-gray-200 text-gray-900': editor.isActive('link'),
 								}"
 								@click="setLink"
-								size="xs"
+								size="sm"
 								color="info"
 								variant="ghost"
-								class="rounded-md"
 							>
-								<LinkIcon class="h-3.5 w-3.5" />
+								<LinkIcon class="h-4 w-4" />
 							</UButton>
 						</UTooltip>
 						<UTooltip text="Quitar enlace">
 							<UButton
 								:disabled="!editor.isActive('link')"
 								@click="editor.chain().focus().unsetLink().run()"
-								size="xs"
+								size="sm"
 								color="info"
 								variant="ghost"
-								class="rounded-md"
 							>
-								<LinkOffIcon class="h-3.5 w-3.5" />
+								<LinkOffIcon class="h-4 w-4" />
 							</UButton>
 						</UTooltip>
 					</div>
 
 					<!-- Media -->
-					<div class="flex gap-0.5 border-r border-gray-200 px-1">
+					<div class="flex gap-1 border-r border-gray-200 px-1">
 						<UTooltip text="Insertar imagen">
-							<UButton
-								@click="addImage"
-								size="xs"
-								color="info"
-								variant="ghost"
-								class="rounded-md"
-							>
-								<ImageIcon class="h-3.5 w-3.5" />
+							<UButton @click="addImage" size="sm" color="info" variant="ghost">
+								<ImageIcon class="h-4 w-4" />
 							</UButton>
 						</UTooltip>
 						<UTooltip text="Insertar video de YouTube">
 							<UButton
 								@click="addYoutubeVideo"
-								size="xs"
+								size="sm"
 								color="info"
 								variant="ghost"
-								class="rounded-md"
 							>
-								<YoutubeIcon class="h-3.5 w-3.5" />
+								<YoutubeIcon class="h-4 w-4" />
 							</UButton>
 						</UTooltip>
 						<UTooltip text="Panel de imágenes">
 							<UButton
 								@click="toggleImagePanel"
-								size="xs"
+								size="sm"
 								color="info"
-								:variant="showImagePanel ? 'soft' : 'ghost'"
-								class="rounded-md"
-								:class="{ 'bg-blue-50 text-blue-600': showImagePanel }"
+								:variant="showImagePanel ? 'solid' : 'ghost'"
 							>
-								<ImagePlusIcon class="h-3.5 w-3.5" />
+								<ImagePlusIcon class="h-4 w-4" />
 							</UButton>
 						</UTooltip>
 					</div>
 
 					<!-- Tables -->
-					<div class="flex gap-0.5 border-r border-gray-200 px-1">
-						<UPopover mode="click">
+					<div class="flex gap-1 border-r border-gray-200 px-1">
+						<UPopover mode="hover">
 							<UButton
-								size="xs"
+								size="sm"
 								color="info"
 								variant="ghost"
-								class="flex items-center gap-1 rounded-md"
+								class="flex items-center gap-1"
 							>
-								<TableIcon class="h-3.5 w-3.5" />
+								<TableIcon class="h-4 w-4" />
 								<ChevronDownIcon class="h-3 w-3" />
 							</UButton>
 							<template #content>
-								<div class="max-h-60 overflow-y-auto p-1">
+								<div class="p-1">
 									<UButton
 										v-for="item in tableItems"
 										:key="item.label"
@@ -346,14 +325,14 @@
 										size="xs"
 										color="info"
 										variant="ghost"
-										class="mb-0.5 justify-start rounded-md"
+										class="mb-1 justify-start"
 										:disabled="
 											item.label !== 'Insertar tabla' &&
 											!editor.isActive('table')
 										"
 										@click="item.click"
 									>
-										<UIcon :name="item.icon" class="mr-2 h-3.5 w-3.5" />
+										<UIcon :name="item.icon" class="mr-2 h-4 w-4" />
 										{{ item.label }}
 									</UButton>
 								</div>
@@ -362,102 +341,97 @@
 					</div>
 
 					<!-- Other Elements -->
-					<div class="flex gap-0.5 border-r border-gray-200 px-1">
+					<div class="flex gap-1 border-r border-gray-200 px-1">
 						<UTooltip text="Línea horizontal">
 							<UButton
 								@click="editor.chain().focus().setHorizontalRule().run()"
-								size="xs"
+								size="sm"
 								color="info"
 								variant="ghost"
-								class="rounded-md"
 							>
-								<MinusIcon class="h-3.5 w-3.5" />
+								<MinusIcon class="h-4 w-4" />
 							</UButton>
 						</UTooltip>
 						<UTooltip text="Cita">
 							<UButton
 								:class="{
-									'bg-blue-50 text-blue-600': editor.isActive('blockquote'),
+									'bg-gray-200 text-gray-900': editor.isActive('blockquote'),
 								}"
 								@click="editor.chain().focus().toggleBlockquote().run()"
-								size="xs"
+								size="sm"
 								color="info"
 								variant="ghost"
-								class="rounded-md"
 							>
-								<QuoteIcon class="h-3.5 w-3.5" />
+								<QuoteIcon class="h-4 w-4" />
 							</UButton>
 						</UTooltip>
 						<UTooltip text="Bloque de código">
 							<UButton
 								:class="{
-									'bg-blue-50 text-blue-600': editor.isActive('codeBlock'),
+									'bg-gray-200 text-gray-900': editor.isActive('codeBlock'),
 								}"
 								@click="editor.chain().focus().toggleCodeBlock().run()"
-								size="xs"
+								size="sm"
 								color="info"
 								variant="ghost"
-								class="rounded-md"
 							>
-								<FileCodeIcon class="h-3.5 w-3.5" />
+								<FileCodeIcon class="h-4 w-4" />
 							</UButton>
 						</UTooltip>
 					</div>
 
 					<!-- History -->
-					<div class="flex gap-0.5 border-r border-gray-200 px-1">
+					<div class="flex gap-1 border-r border-gray-200 px-1">
 						<UTooltip text="Deshacer">
 							<UButton
 								:disabled="!editor.can().chain().focus().undo().run()"
 								@click="editor.chain().focus().undo().run()"
-								size="xs"
+								size="sm"
 								color="info"
 								variant="ghost"
-								class="rounded-md"
 							>
-								<UndoIcon class="h-3.5 w-3.5" />
+								<UndoIcon class="h-4 w-4" />
 							</UButton>
 						</UTooltip>
 						<UTooltip text="Rehacer">
 							<UButton
 								:disabled="!editor.can().chain().focus().redo().run()"
 								@click="editor.chain().focus().redo().run()"
-								size="xs"
+								size="sm"
 								color="info"
 								variant="ghost"
-								class="rounded-md"
 							>
-								<RedoIcon class="h-3.5 w-3.5" />
+								<RedoIcon class="h-4 w-4" />
 							</UButton>
 						</UTooltip>
 					</div>
 
 					<!-- Colors -->
-					<div class="flex gap-0.5 px-1">
+					<div class="flex gap-1 px-1">
 						<!-- Color de texto -->
-						<UPopover mode="click">
+						<UPopover>
 							<UTooltip text="Color de texto">
 								<UButton
-									size="xs"
+									size="sm"
 									color="info"
 									variant="ghost"
-									class="rounded-md"
+									class="flex items-center gap-1"
 								>
-									<PaletteIcon class="h-3.5 w-3.5" />
+									<PaletteIcon class="h-4 w-4" />
 								</UButton>
 							</UTooltip>
 							<template #content>
 								<div class="p-2">
-									<div class="mb-1 text-xs font-medium text-gray-700">
+									<div class="mb-2 text-xs font-medium text-gray-700">
 										Color de texto
 									</div>
 									<div class="grid grid-cols-8 gap-1">
 										<button
 											v-for="color in textColors"
 											:key="color"
-											class="h-5 w-5 rounded-sm transition-all hover:scale-110"
+											class="h-6 w-6 rounded-md transition-all"
 											:class="{
-												'ring-1 ring-blue-500 ring-offset-1': editor.isActive(
+												'ring-2 ring-gray-400 ring-offset-2': editor.isActive(
 													'textStyle',
 													{ color }
 												),
@@ -466,18 +440,17 @@
 											@click="editor.chain().focus().setColor(color).run()"
 										/>
 									</div>
-									<div class="mt-2 mb-1 text-xs font-medium text-gray-700">
+									<div class="mt-3 mb-2 text-xs font-medium text-gray-700">
 										Color personalizado
 									</div>
 									<div class="flex items-center gap-2">
 										<input
 											v-model="customTextColor"
 											type="color"
-											class="h-6 w-6 cursor-pointer rounded border-0"
+											class="h-8 w-8 cursor-pointer rounded border-0"
 										/>
 										<UButton
 											size="xs"
-											color="info"
 											@click="
 												editor.chain().focus().setColor(customTextColor).run()
 											"
@@ -490,43 +463,42 @@
 						</UPopover>
 
 						<!-- Resaltado -->
-						<UPopover mode="click">
+						<UPopover>
 							<UTooltip text="Resaltar texto">
 								<UButton
-									size="xs"
+									size="sm"
 									color="info"
 									variant="ghost"
-									class="rounded-md"
+									class="flex items-center gap-1"
 								>
-									<HighlighterIcon class="h-3.5 w-3.5" />
+									<HighlighterIcon class="h-4 w-4" />
 								</UButton>
 							</UTooltip>
 							<template #content>
 								<div class="p-2">
-									<div class="mb-1 text-xs font-medium text-gray-700">
+									<div class="mb-2 text-xs font-medium text-gray-700">
 										Color de resaltado
 									</div>
 									<div class="grid grid-cols-8 gap-1">
 										<button
 											v-for="color in highlightColors"
 											:key="color"
-											class="h-5 w-5 rounded-sm transition-all hover:scale-110"
+											class="h-6 w-6 rounded-md transition-all"
 											:style="{ backgroundColor: color }"
 											@click="setHighlight(color)"
 										/>
 									</div>
-									<div class="mt-2 mb-1 text-xs font-medium text-gray-700">
+									<div class="mt-3 mb-2 text-xs font-medium text-gray-700">
 										Color personalizado
 									</div>
 									<div class="flex items-center gap-2">
 										<input
 											v-model="customHighlightColor"
 											type="color"
-											class="h-6 w-6 cursor-pointer rounded border-0"
+											class="h-8 w-8 cursor-pointer rounded border-0"
 										/>
 										<UButton
 											size="xs"
-											color="info"
 											@click="setHighlight(customHighlightColor)"
 										>
 											Aplicar
@@ -539,7 +511,7 @@
 				</div>
 			</div>
 			<div
-				class="overflow-hidden rounded-lg border border-gray-200 shadow-sm"
+				class="overflow-hidden rounded-lg border border-gray-200"
 				@dragover.prevent
 				@drop="handleDrop"
 			>
@@ -557,7 +529,7 @@
 		</div>
 		<div
 			v-else
-			class="rounded-lg border border-gray-200 bg-gray-50 p-8 text-center shadow-sm"
+			class="rounded-lg border border-gray-200 bg-gray-50 p-8 text-center"
 		>
 			Cargando editor...
 		</div>
@@ -592,7 +564,6 @@
 	import Dropcursor from '@tiptap/extension-dropcursor';
 	import Gapcursor from '@tiptap/extension-gapcursor';
 	import FontFamily from '@tiptap/extension-font-family';
-	import { NodeSelection } from '@tiptap/pm/state';
 	import {
 		Bold as BoldIcon,
 		Italic as ItalicIcon,
@@ -653,7 +624,7 @@
 	]);
 
 	// Editor ref
-	const editor = ref<Editor | null>(null);
+	const editor = ref<Editor | null>(null) as Ref<Editor | null>;
 
 	// Panel de imágenes
 	const showImagePanel = ref(false);
@@ -873,129 +844,6 @@
 		},
 	];
 
-	// Extensión para imágenes redimensionables
-	class ResizableImageExtension {
-		name = 'resizableImage';
-
-		addAttributes() {
-			return {
-				src: {
-					default: null,
-				},
-				alt: {
-					default: null,
-				},
-				width: {
-					default: '100%',
-				},
-				height: {
-					default: 'auto',
-				},
-				draggable: {
-					default: true,
-				},
-			};
-		}
-
-		addNodeView() {
-			return ({
-				node,
-				editor,
-				getPos,
-			}: {
-				node: any;
-				editor: Editor;
-				getPos: () => number;
-			}) => {
-				const container = document.createElement('div');
-				container.classList.add('image-resizer-container');
-
-				const img = document.createElement('img');
-				img.src = node.attrs.src;
-				img.alt = node.attrs.alt;
-				img.width = node.attrs.width;
-				img.height = node.attrs.height;
-				img.draggable = true;
-				img.classList.add('resizable-image');
-
-				// Añadir controles de redimensión
-				const resizeHandle = document.createElement('div');
-				resizeHandle.classList.add('resize-handle');
-
-				let startX, startY, startWidth, startHeight;
-
-				resizeHandle.addEventListener('mousedown', (e) => {
-					e.preventDefault();
-					startX = e.clientX;
-					startY = e.clientY;
-					startWidth = img.width;
-					startHeight = img.height;
-
-					const onMouseMove = (e) => {
-						const dx = e.clientX - startX;
-						const dy = e.clientY - startY;
-
-						// Mantener proporción
-						const ratio = startWidth / startHeight;
-						const newWidth = startWidth + dx;
-						const newHeight = newWidth / ratio;
-
-						img.width = newWidth;
-						img.height = newHeight;
-
-						if (typeof getPos === 'function') {
-							const pos = getPos();
-							editor.view.dispatch(
-								editor.view.state.tr.setNodeMarkup(pos, undefined, {
-									...node.attrs,
-									width: newWidth,
-									height: newHeight,
-								})
-							);
-						}
-					};
-
-					const onMouseUp = () => {
-						document.removeEventListener('mousemove', onMouseMove);
-						document.removeEventListener('mouseup', onMouseUp);
-					};
-
-					document.addEventListener('mousemove', onMouseMove);
-					document.addEventListener('mouseup', onMouseUp);
-				});
-
-				// Permitir arrastrar la imagen
-				img.addEventListener('mousedown', (e) => {
-					if (e.target === img && e.button === 0) {
-						const selection = NodeSelection.create(
-							editor.view.state.doc,
-							getPos()
-						);
-						editor.view.dispatch(editor.view.state.tr.setSelection(selection));
-					}
-				});
-
-				container.appendChild(img);
-				container.appendChild(resizeHandle);
-
-				return {
-					dom: container,
-					contentDOM: null,
-					update: (updatedNode) => {
-						if (updatedNode.type.name !== 'image') return false;
-
-						img.src = updatedNode.attrs.src;
-						img.alt = updatedNode.attrs.alt;
-						img.width = updatedNode.attrs.width;
-						img.height = updatedNode.attrs.height;
-
-						return true;
-					},
-				};
-			};
-		}
-	}
-
 	// Initialize editor
 	onMounted(() => {
 		try {
@@ -1011,13 +859,8 @@
 						openOnClick: true,
 						validate: (href) => /^https?:\/\//.test(href),
 					}),
-					// Reemplazamos Image con nuestra extensión personalizada
 					Image.configure({
 						allowBase64: true,
-						inline: true,
-						HTMLAttributes: {
-							class: 'resizable-image',
-						},
 					}),
 					Placeholder.configure({
 						placeholder: props.placeholder,
@@ -1029,21 +872,10 @@
 					Superscript,
 					Table.configure({
 						resizable: true,
-						HTMLAttributes: {
-							class: 'editor-table',
-						},
 					}),
 					TableRow,
-					TableCell.configure({
-						HTMLAttributes: {
-							class: 'editor-table-cell',
-						},
-					}),
-					TableHeader.configure({
-						HTMLAttributes: {
-							class: 'editor-table-header',
-						},
-					}),
+					TableCell,
+					TableHeader,
 					TaskList,
 					TaskItem.configure({
 						nested: true,
@@ -1096,7 +928,7 @@
 				},
 				editorProps: {
 					attributes: {
-						class: 'p-0 min-h-[200px] focus:outline-none',
+						class: 'p-4 min-h-[200px] focus:outline-none',
 					},
 				},
 			});
@@ -1157,94 +989,3 @@
 		}
 	};
 </script>
-
-<style>
-	/* Estilos para tablas */
-	.editor-table {
-		border-collapse: collapse;
-		table-layout: fixed;
-		width: 100%;
-		margin: 0;
-		overflow: hidden;
-	}
-
-	.editor-table-cell,
-	.editor-table-header {
-		min-width: 1em;
-		border: 2px solid #ced4da;
-		padding: 3px 5px;
-		vertical-align: top;
-		box-sizing: border-box;
-		position: relative;
-	}
-
-	.editor-table-header {
-		font-weight: bold;
-		background-color: #f8f9fa;
-		text-align: center;
-	}
-
-	/* Estilos para imágenes redimensionables */
-	.image-resizer-container {
-		position: relative;
-		display: inline-block;
-		margin: 0.5rem 0;
-	}
-
-	.resizable-image {
-		display: block;
-		max-width: 100%;
-		height: auto;
-		cursor: move;
-	}
-
-	.resize-handle {
-		position: absolute;
-		bottom: -6px;
-		right: -6px;
-		width: 12px;
-		height: 12px;
-		background-color: #0ea5e9;
-		border: 2px solid white;
-		border-radius: 50%;
-		cursor: nwse-resize;
-	}
-
-	/* Estilos para el editor */
-	.ProseMirror {
-		padding: 1rem !important;
-	}
-
-	.ProseMirror:focus {
-		outline: none;
-	}
-
-	.ProseMirror p.is-editor-empty:first-child::before {
-		content: attr(data-placeholder);
-		float: left;
-		color: #adb5bd;
-		pointer-events: none;
-		height: 0;
-	}
-
-	/* Estilos para listas de tareas */
-	ul[data-type='taskList'] {
-		list-style: none;
-		padding: 0;
-	}
-
-	ul[data-type='taskList'] li {
-		display: flex;
-		align-items: flex-start;
-		margin-bottom: 0.5em;
-	}
-
-	ul[data-type='taskList'] li > label {
-		margin-right: 0.5rem;
-		user-select: none;
-	}
-
-	ul[data-type='taskList'] li > div {
-		flex: 1;
-	}
-</style>
