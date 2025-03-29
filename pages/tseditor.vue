@@ -633,7 +633,7 @@
 		showImagePanel.value = !showImagePanel.value;
 	};
 
-	// Imágenes de muestra (simulando imágenes de BD)
+	// TODO: cmabira despues Imágenes de muestra
 	const sampleImages = [
 		{ id: 1, name: 'Imagen 1', url: 'https://picsum.photos/id/1/200/200' },
 		{ id: 2, name: 'Imagen 2', url: 'https://picsum.photos/id/2/200/200' },
