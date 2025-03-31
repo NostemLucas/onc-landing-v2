@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 @plugin "@tailwindcss/typography";
-
 @import '@nuxt/ui';
+
 @font-face {
 	font-family: 'Horsham';
 	src: url('@/assets/fonts/Horsham.ttf') format('truetype');

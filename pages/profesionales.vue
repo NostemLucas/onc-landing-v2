@@ -1,28 +1,109 @@
 <template>
-	<div class="min-h-screen bg-white pt-8 pb-20">
-		<div class="container mx-auto px-4 py-6">
-			<div class="flex flex-col gap-6 md:flex-row">
-				<!-- Sidebar with providers list -->
-				<div class="w-full md:w-1/4">
-					<div class="border-primary-100 overflow-hidden border">
-						<div class="bg-primary-700 px-4 py-3 text-lg font-bold text-white">
-							NUESTRO EQUIPO
+	<div class="min-h-screen bg-white">
+		<div class="container mx-auto px-4 py-8">
+			<!-- Mobile doctor selector with improved design -->
+			<div class="mb-8 block lg:hidden">
+				<div class="relative mb-6 flex items-center">
+					<div class="flex-grow border-t border-gray-300"></div>
+					<h2
+						class="text-primary-700 flex-shrink-0 bg-white px-4 text-xl font-bold tracking-wider uppercase"
+					>
+						Nuestros Profesionales
+					</h2>
+					<div class="flex-grow border-t border-gray-300"></div>
+				</div>
+
+				<!-- Mobile doctor cards instead of dropdown -->
+				<div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+					<div
+						v-for="doctor in doctors"
+						:key="doctor.id"
+						class="flex cursor-pointer items-center border p-3 transition-all"
+						:class="{
+							'border-primary-600 bg-primary-50':
+								selectedDoctorId === doctor.id,
+							'hover:border-primary-300 border-gray-200 hover:bg-gray-50':
+								selectedDoctorId !== doctor.id,
+						}"
+						@click="selectDoctor(doctor.id)"
+					>
+						<div
+							class="h-12 w-12 flex-shrink-0 overflow-hidden rounded-full border-2"
+							:class="{
+								'border-primary-500': selectedDoctorId === doctor.id,
+								'border-gray-200': selectedDoctorId !== doctor.id,
+							}"
+						>
+							<img
+								:src="doctor.image"
+								:alt="doctor.name"
+								class="h-full w-full object-cover"
+							/>
 						</div>
-						<div>
+						<div class="ml-3">
+							<div
+								class="font-medium"
+								:class="{
+									'text-primary-700': selectedDoctorId === doctor.id,
+									'text-gray-800': selectedDoctorId !== doctor.id,
+								}"
+							>
+								{{ doctor.name }}
+							</div>
+							<div class="text-sm text-gray-600">{{ doctor.specialty }}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Main content with improved responsive layout -->
+			<div class="flex flex-col lg:flex-row">
+				<!-- Sidebar with providers list (hidden on mobile) -->
+				<div
+					class="hidden border-r border-gray-200 pr-6 lg:block lg:w-1/4 xl:w-1/5"
+				>
+					<div class="sticky top-4">
+						<div class="mb-4 border-b border-gray-300 pb-2">
+							<h2
+								class="text-primary-700 text-xl font-bold tracking-wider uppercase"
+							>
+								Nuestros Profesionales
+							</h2>
+						</div>
+						<div class="max-h-[600px] overflow-y-auto pr-2">
 							<div
 								v-for="doctor in doctors"
 								:key="doctor.id"
-								class="hover:bg-primary-50 flex cursor-pointer items-center border-b border-gray-100 p-3 transition-colors"
-								:class="{ 'bg-primary-50': selectedDoctor.id === doctor.id }"
+								class="group mb-2 flex cursor-pointer items-center border-l-4 p-3 transition-all"
+								:class="{
+									'bg-primary-50 border-l-primary-600':
+										selectedDoctorId === doctor.id,
+									'hover:border-l-primary-200 border-l-transparent hover:bg-gray-50':
+										selectedDoctorId !== doctor.id,
+								}"
 								@click="selectDoctor(doctor.id)"
 							>
-								<NuxtImg
-									:src="doctor.image"
-									:alt="doctor.name"
-									class="h-12 w-12 rounded-sm border-2 border-white object-cover shadow-sm"
-								/>
+								<div
+									class="relative h-14 w-14 flex-shrink-0 overflow-hidden rounded-full border-2 shadow-sm"
+									:class="{
+										'border-primary-500': selectedDoctorId === doctor.id,
+										'border-white': selectedDoctorId !== doctor.id,
+									}"
+								>
+									<img
+										:src="doctor.image"
+										:alt="doctor.name"
+										class="h-full w-full object-cover"
+									/>
+								</div>
 								<div class="ml-3">
-									<div class="text-primary-700 font-medium">
+									<div
+										class="font-medium"
+										:class="{
+											'text-primary-700': selectedDoctorId === doctor.id,
+											'text-gray-800': selectedDoctorId !== doctor.id,
+										}"
+									>
 										{{ doctor.name }}
 									</div>
 									<div class="text-sm text-gray-600">
@@ -34,45 +115,34 @@
 					</div>
 				</div>
 
-				<!-- Main content -->
-				<div class="w-full md:w-3/4">
+				<!-- Main content area with improved spacing -->
+				<div class="w-full lg:w-3/4 lg:pl-8 xl:w-4/5">
 					<!-- Doctor video/image section -->
-					<div class="border-primary-100 relative mb-6 border">
+					<div class="relative mb-6">
 						<div class="relative">
-							<div v-if="!isVideoPlaying">
+							<div v-if="!isVideoPlaying" class="relative">
 								<img
 									:src="selectedDoctor.videoThumbnail || selectedDoctor.image"
 									:alt="selectedDoctor.name"
-									class="h-[300px] w-full object-cover md:h-[400px]"
+									class="h-[250px] w-full object-cover sm:h-[300px] md:h-[400px]"
 								/>
 								<div
-									v-if="selectedDoctor.hasVideo"
-									class="bg-opacity-20 absolute inset-0 flex cursor-pointer items-center justify-center bg-black"
+									v-if="selectedDoctor.videoUrl"
+									class="absolute inset-0 flex cursor-pointer items-center justify-center"
 									@click="playVideo"
 								>
+									<!-- Video button styled like the reference image -->
 									<div
-										class="bg-opacity-80 flex items-center rounded-md bg-white px-4 py-2"
+										class="text-primary-700 border-primary-700 border bg-white/80 px-4 py-2 font-medium transition-all hover:bg-white"
 									>
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											class="text-primary-700 mr-2 h-5 w-5"
-											viewBox="0 0 20 20"
-											fill="currentColor"
-										>
-											<path
-												fill-rule="evenodd"
-												d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
-												clip-rule="evenodd"
-											/>
-										</svg>
-										<span class="text-primary-700 font-medium">VER VIDEO</span>
+										VER VIDEO
 									</div>
 								</div>
 							</div>
-							<div v-else class="h-[300px] w-full md:h-[400px]">
+							<div v-else class="h-[250px] w-full sm:h-[300px] md:h-[400px]">
 								<iframe
 									class="h-full w-full"
-									:src="selectedDoctor.videoUrl"
+									:src="videoSrc"
 									frameborder="0"
 									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 									allowfullscreen
@@ -80,12 +150,12 @@
 							</div>
 						</div>
 
-						<!-- Doctor name and specialty -->
-						<div class="border-primary-100 border-t p-6">
-							<h1 class="text-primary-800 text-3xl font-bold">
+						<!-- Doctor name and specialty with horizontal line like reference -->
+						<div class="mt-4 border-b border-gray-300 pb-2">
+							<h1 class="text-primary-800 text-2xl font-bold sm:text-3xl">
 								{{ selectedDoctor.name }}
 							</h1>
-							<h2 class="text-primary-600 mt-1 text-xl">
+							<h2 class="text-primary-600 mt-1 text-lg sm:text-xl">
 								<a href="#" class="hover:underline">
 									{{ selectedDoctor.specialty }}
 								</a>
@@ -93,56 +163,65 @@
 						</div>
 					</div>
 
-					<!-- Action buttons -->
-					<div class="mb-8 flex flex-wrap gap-4">
-						<UButton
-							to="#"
-							size="xl"
-							class="bg-teal-600 px-6 py-2 font-medium text-white transition-colors hover:bg-teal-700"
+					<!-- Action buttons with improved responsive layout -->
+					<div class="mb-8 flex flex-col gap-3 sm:flex-row sm:gap-4">
+						<a
+							href="#"
+							class="flex items-center justify-center border border-teal-700 bg-teal-600 px-6 py-2 font-medium text-white transition-all hover:bg-teal-700"
 						>
 							Solicite Cita
-						</UButton>
-						<UButton
-							to="#"
-							size="xl"
-							class="bg-primary-500 hover:bg-primary-700 px-6 py-2 font-medium text-white transition-colors"
+						</a>
+						<a
+							href="#"
+							class="bg-primary-600 hover:bg-primary-700 border-primary-700 flex items-center justify-center border px-6 py-2 font-medium text-white transition-all"
 						>
 							Referir Paciente
-						</UButton>
+						</a>
 					</div>
 
-					<!-- Doctor information -->
-					<div class="border-primary-600 mb-8 border-t-4 pt-4">
-						<h3
-							class="text-primary-700 font-horsham mb-4 text-xl font-extrabold tracking-widest"
-						>
-							CONOZCA A NUESTRO PROFESIONAL DE LA SALUD
-						</h3>
-						<div class="font-roboto space-y-4 text-gray-700">
+					<!-- All content sections with improved section headers -->
+					<!-- About section -->
+					<div class="mb-10">
+						<div class="relative mb-6 flex flex-col items-center">
+							<div class="h1 flex-grow border-t border-gray-300" />
+							<h3
+								class="text-primary-700 w-full flex-shrink-0 text-3xl font-semibold tracking-wider uppercase"
+							>
+								Conozca a Nuestro Profesional
+							</h3>
+						</div>
+						<div class="space-y-4 px-1 text-gray-700">
 							<p
 								v-for="(paragraph, index) in selectedDoctor.about"
 								:key="index"
+								class="leading-relaxed"
 							>
 								{{ paragraph }}
 							</p>
 						</div>
-						<div class="mt-4 text-gray-700">
+						<div class="mt-6 flex items-center px-1 text-gray-700">
 							<span class="font-semibold">Idioma:</span>
-							{{ selectedDoctor.languages.join(', ') }}
+							<span class="ml-2">
+								{{ selectedDoctor.languages.join(', ') }}
+							</span>
 						</div>
 					</div>
 
 					<!-- Specialties section -->
-					<div class="border-primary-600 mb-8 border-t-4 pt-4">
-						<h3
-							class="text-primary-700 font-horsham mb-4 text-xl font-bold tracking-widest"
-						>
-							ESPECIALIDADES Y SERVICIOS
-						</h3>
-						<ul class="list-disc space-y-2 pl-5 text-gray-700">
+					<div class="mb-10">
+						<USeparator class="pb-8" />
+						<div class="relative mb-6 flex items-center">
+							<h3
+								class="text-primary-700 w-full flex-shrink-0 bg-white text-3xl font-bold tracking-wider uppercase"
+							>
+								Especialidades y Servicios
+							</h3>
+						</div>
+						<ul class="list-disc space-y-2 pl-8 text-gray-700">
 							<li
-								v-for="(specialty, index) in selectedDoctor.specialties"
+								v-for="(specialty, index) in selectedDoctor.specialities"
 								:key="index"
+								class="pl-1"
 							>
 								<a href="#" class="text-primary-600 hover:underline">
 									{{ specialty }}
@@ -152,37 +231,79 @@
 					</div>
 
 					<!-- Location section -->
-					<div class="border-primary-600 mb-8 border-t-4 pt-4">
-						<h3
-							class="text-primary-700 font-horsham mb-4 text-xl font-bold tracking-widest"
-						>
-							UBICACIÓN
-						</h3>
-						<div class="text-gray-700">
-							<h4 class="text-lg font-semibold">
-								{{ selectedDoctor.location.name }}
-							</h4>
-							<p>{{ selectedDoctor.location.address }}</p>
-							<p>{{ selectedDoctor.location.city }}</p>
-							<p class="mt-2">{{ selectedDoctor.location.phone }}</p>
+					<div class="mb-10">
+						<div class="relative mb-6 flex flex-col items-center">
+							<USeparator class="pb-8" />
+							<div class="relative mb-6 flex items-center">
+								<h3
+									class="text-primary-700 w-full flex-shrink-0 bg-white text-3xl font-bold tracking-wider uppercase"
+								>
+									Especialidades y Servicios
+								</h3>
+							</div>
+						</div>
+						<div class="flex flex-col px-1 md:flex-row md:gap-6">
+							<div class="mb-4 md:mb-0 md:w-1/2">
+								<div class="text-gray-700">
+									<h4 class="text-lg font-semibold">
+										{{ selectedDoctor.location.name }}
+									</h4>
+									<p>{{ selectedDoctor.location.address }}</p>
+									<p>{{ selectedDoctor.location.city }}</p>
+									<p class="mt-4">{{ selectedDoctor.location.phone }}</p>
+								</div>
+							</div>
+							<div class="md:w-1/2">
+								<div class="h-64 w-full overflow-hidden border border-gray-200">
+									<!-- Placeholder for map -->
+									<div
+										class="flex h-full items-center justify-center bg-gray-100"
+									>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											class="h-12 w-12 text-gray-400"
+											fill="none"
+											viewBox="0 0 24 24"
+											stroke="currentColor"
+										>
+											<path
+												stroke-linecap="round"
+												stroke-linejoin="round"
+												stroke-width="2"
+												d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+											/>
+											<path
+												stroke-linecap="round"
+												stroke-linejoin="round"
+												stroke-width="2"
+												d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+											/>
+										</svg>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 
 					<!-- Education section -->
-					<div class="border-primary-600 border-t-4 pt-4">
-						<h3
-							class="text-primary-700 font-horsham mb-4 text-xl font-bold tracking-widest"
-						>
-							EDUCACIÓN
-						</h3>
+					<div>
+						<div class="relative mb-6 flex items-center">
+							<div class="flex-grow border-t border-gray-300"></div>
+							<h3
+								class="text-primary-700 flex-shrink-0 bg-white px-4 text-xl font-bold tracking-wider uppercase"
+							>
+								Educación
+							</h3>
+							<div class="flex-grow border-t border-gray-300"></div>
+						</div>
 						<div
-							class="grid grid-cols-1 gap-x-6 gap-y-3 text-gray-700 md:grid-cols-2"
+							class="grid grid-cols-1 gap-x-6 gap-y-4 px-1 text-gray-700 md:grid-cols-2"
 						>
 							<template
 								v-for="(value, key) in selectedDoctor.education"
 								:key="key"
 							>
-								<div class="font-semibold">{{ key }}:</div>
+								<div class="text-primary-800 font-semibold">{{ key }}:</div>
 								<div>{{ value }}</div>
 							</template>
 						</div>
@@ -194,229 +315,16 @@
 </template>
 
 <script setup lang="ts">
-	import { ref, computed } from 'vue';
-
-	interface Location {
-		name: string;
-		address: string;
-		city: string;
-		phone: string;
-	}
-
-	interface Doctor {
-		id: number;
-		name: string;
-		specialty: string;
-		image: string;
-		videoThumbnail?: string;
-		videoUrl?: string;
-		hasVideo: boolean;
-		about: string[];
-		languages: string[];
-		specialties: string[];
-		location: Location;
-		education: Record<string, string>;
-	}
+	import { USeparator } from '#components';
+	import { ref, computed, onMounted, onUnmounted } from 'vue';
+	import type { Doctor } from '~/mocks/doctors';
+	import personnel from '~/mocks/doctors';
 
 	// Video playing state
 	const isVideoPlaying = ref(false);
 
 	// Sample data for doctors
-	const doctors = ref<Doctor[]>([
-		{
-			id: 1,
-			name: 'Dr. Ariel Amaru, MD, PhD',
-			specialty: 'ONCOHEMATLOGÍA',
-			specialties: [
-				'Trasplante de Médula Ósea',
-				'Hematología y Oncohematología',
-				'Trastornos de coagulación',
-				'Eritrocitosis y Anemias',
-				'Oncohematología',
-				'Trasplante de Médula Ósea',
-				'Biología Molecular',
-				'Secuenciación Genética',
-				'Investigación Oncológica',
-			],
-			location: {
-				name: 'ONCOCLINIC CLÍNICA ONCOLÓGICA',
-				city: 'LA PAZ',
-				address: 'Obrajes, Avenida Costanerita, entre calles 5 y 6, No. 71.',
-				phone: '22785566',
-			},
-			education: {
-				es: 'Médico Cirujano de la Universidad Mayor de San Andrés, Bolivia',
-				sd: 'Hematólogo – Oncohematólogo del Hospital Papa Giovanni XXIII, Italia',
-				sdf: 'Doctorado en la Universidad de Milán-Bicocca (UNIMIB), Italia',
-				xsd: 'Especialidad en Trasplante de Médula Ósea en la Universidad de Chicago, EE. UU.',
-			},
-			languages: ['Ingles', 'Español'],
-			about: [
-				'El Dr. Ariel Amaru es el Director Médico de Oncoclinic, responsable del área de Trasplante de Células Madre para enfermedades oncohematológicas, como las leucemias, linfomas, mielomas o mielofibrosis, y para pacientes con aplasia de médula ósea.  Es autor de revistas científicas y colaborador en trabajos de investigación',
-				'El Dr. Ariel Amaru se graduó en la Facultad de Medicina de la UMSA de la ciudad de La Paz en Bolivia,  realizó sus estudios de especialidad de Oncohematologia y Trasplante de Médula Ósea en  el “Ospedale Papa Giovanni XXII” en Bérgamo, Italia y su estudio de Doctorado en la Universidad de Milano-Bicocca (UNIMIB) en Milán, Italia. Posteriormente realizo sus estudios Posdoctorado en la Universidad de Chicago en Estados Unidos.',
-				'En Bolivia fue Docente de PosGrado en las Universidad de la UMSA de la ciudad de La Paz  y UMSS de Cochabamba. En 2017 inicia el Programa de Trasplantes de Médula Ósea en Bolivia, en 2023 ingresa a un programa de acreditación de la unidad de trasplantes.',
-				'Desde el año 2023 estableció su Laboratorio de Investigación en Oncoclinic realizando técnicas de alta tecnología en Biología Molecular y Secuenciación Genética para la investigación en enfermedades oncológicas.',
-			],
-			image:
-				'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-SVIYB1uGFUUjRvdHB8uDzPDz4Kk3NB.png',
-			videoThumbnail:
-				'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-SVIYB1uGFUUjRvdHB8uDzPDz4Kk3NB.png',
-			videoUrl: '#',
-			hasVideo: true,
-		},
-		{
-			id: 2,
-			name: 'Noah Birch, MD, PhD',
-			specialty: 'Hematología',
-			image: '/logo.png',
-			hasVideo: false,
-			about: [
-				'El Dr. Birch es especialista en Hematología con enfoque en trastornos de la coagulación y enfermedades de la sangre. Completó su doctorado en Biología Molecular antes de su formación médica.',
-				'Ha publicado extensamente sobre nuevos tratamientos para trastornos hematológicos y participa activamente en ensayos clínicos innovadores.',
-			],
-			languages: ['Inglés', 'Alemán'],
-			specialties: ['Trastornos de la coagulación', 'Hematología', 'Leucemia'],
-			location: {
-				name: 'Outpatient Care Center, Suite 1E',
-				address: '1818 W. Taylor St.',
-				city: 'Chicago, IL 60612',
-				phone: '312.355.1625',
-			},
-			education: {
-				'Board Certification': 'Hematology',
-				Especialización: 'Mayo Clinic',
-				Internado: 'Johns Hopkins Hospital',
-				'Facultad de Medicina': 'Harvard Medical School',
-				Residencia: 'Massachusetts General Hospital',
-				PhD: 'Stanford University',
-			},
-		},
-		{
-			id: 3,
-			name: 'Oana C. Danciu, MD',
-			specialty: 'Hematología y Oncología',
-			image:
-				'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-enKRpZzm3F2q8qB3SGwodRJxKTSDUR.png',
-			videoThumbnail:
-				'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-enKRpZzm3F2q8qB3SGwodRJxKTSDUR.png',
-			videoUrl: '#',
-			hasVideo: true,
-			about: [
-				'La Dra. Danciu trabaja en la División de Hematología/Oncología de UI Health. Después de recibir su título de medicina en la Universidad Carol Davila en Bucarest, Rumania, completó su residencia en Medicina Interna en el Hospital West Suburban de Oak Park, Illinois, y su beca de Hematología/Oncología en la Universidad de Illinois en Chicago.',
-				'Sus intereses de investigación incluyen el desarrollo de ensayos clínicos usando terapias experimentales. La Dra. Danciu es miembro activa de la Sociedad Americana de Oncología Clínica.',
-			],
-			languages: ['Inglés', 'Francés', 'Rumano'],
-			specialties: [
-				'Cuidado de Senos',
-				'Hematología y Oncología Médica',
-				'Cáncer de mama',
-			],
-			location: {
-				name: 'Outpatient Care Center, Suite 1E',
-				address: '1818 W. Taylor St.',
-				city: 'Chicago, IL 60612',
-				phone: '312.355.1625',
-			},
-			education: {
-				'Board Certification': 'Internal Medicine',
-				Especialización: 'University of Illinois at Chicago',
-				Internado: 'Weiss Memorial Hospital Chicago',
-				'Facultad de Medicina': 'Carol Davila University of Medicine',
-				Residencia: 'Weiss Memorial Hospital Chicago',
-			},
-		},
-		{
-			id: 4,
-			name: 'Marwah Farooqui, DO',
-			specialty: 'Oncología',
-			image: '/logo.png',
-			hasVideo: false,
-			about: [
-				'La Dra. Farooqui es especialista en Oncología con particular interés en cánceres ginecológicos y de mama. Su enfoque de tratamiento integra terapias tradicionales con atención al bienestar general del paciente.',
-				'Es reconocida por su dedicación a la educación del paciente y por desarrollar planes de tratamiento personalizados.',
-			],
-			languages: ['Inglés', 'Urdu', 'Hindi'],
-			specialties: [
-				'Oncología Ginecológica',
-				'Cáncer de mama',
-				'Cuidados paliativos',
-			],
-			location: {
-				name: "Women's Health Center",
-				address: '1801 W. Taylor St.',
-				city: 'Chicago, IL 60612',
-				phone: '312.355.1700',
-			},
-			education: {
-				'Board Certification': 'Medical Oncology',
-				Especialización: 'MD Anderson Cancer Center',
-				Internado: 'Cleveland Clinic',
-				'Facultad de Medicina': 'Chicago College of Osteopathic Medicine',
-				Residencia: 'Northwestern Memorial Hospital',
-			},
-		},
-		{
-			id: 5,
-			name: 'Vik Gadi, MD, PhD',
-			specialty: 'Hematología',
-			image: '/logo.png',
-			hasVideo: false,
-			about: [
-				'El Dr. Gadi es un hematólogo especializado en trastornos de la médula ósea y trasplantes. Su investigación se centra en mejorar los resultados de los trasplantes de médula ósea y desarrollar nuevas terapias para enfermedades hematológicas malignas.',
-				'Ha recibido numerosos premios por su trabajo innovador en el campo de la hematología.',
-			],
-			languages: ['Inglés', 'Punjabi'],
-			specialties: [
-				'Trasplante de médula ósea',
-				'Leucemia mieloide',
-				'Síndromes mielodisplásicos',
-			],
-			location: {
-				name: 'Blood and Marrow Transplant Clinic',
-				address: '1740 W. Taylor St.',
-				city: 'Chicago, IL 60612',
-				phone: '312.355.1800',
-			},
-			education: {
-				'Board Certification': 'Hematology',
-				Especialización: 'Fred Hutchinson Cancer Center',
-				Internado: 'University of Washington',
-				'Facultad de Medicina': 'University of Michigan',
-				Residencia: 'University of Washington',
-				PhD: 'University of Michigan',
-			},
-		},
-		{
-			id: 6,
-			name: 'Carlos Galvez, MD',
-			specialty: 'Oncología',
-			image: '/logo.png',
-			hasVideo: false,
-			about: [
-				'El Dr. Galvez es especialista en Oncología con enfoque en tumores gastrointestinales. Tiene amplia experiencia en el desarrollo de protocolos de tratamiento multidisciplinarios.',
-				'Es conocido por su enfoque compasivo y su habilidad para explicar opciones de tratamiento complejas de manera clara y accesible.',
-			],
-			languages: ['Inglés', 'Español'],
-			specialties: [
-				'Cáncer colorrectal',
-				'Tumores gastrointestinales',
-				'Oncología médica',
-			],
-			location: {
-				name: 'Outpatient Care Center, Suite 1E',
-				address: '1818 W. Taylor St.',
-				city: 'Chicago, IL 60612',
-				phone: '312.355.1625',
-			},
-			education: {
-				'Board Certification': 'Medical Oncology',
-				Especialización: 'Memorial Sloan Kettering',
-				Internado: 'Mount Sinai Hospital',
-				'Facultad de Medicina': 'Universidad Nacional Autónoma de México',
-				Residencia: 'Mount Sinai Hospital',
-			},
-		},
-	]);
+	const doctors = ref<Doctor[]>(personnel);
 
 	// Selected doctor state
 	const selectedDoctorId = ref<number>(1);
@@ -429,16 +337,94 @@
 		);
 	});
 
+	// Computed property for video source with autoplay parameter
+	const videoSrc = computed(() => {
+		if (!selectedDoctor.value.videoUrl) return '';
+
+		// Add autoplay parameter to URL if it's YouTube
+		if (selectedDoctor.value.videoUrl.includes('youtube.com')) {
+			// Handle YouTube URLs
+			const url = new URL(selectedDoctor.value.videoUrl);
+			url.searchParams.set('autoplay', '1');
+			return url.toString();
+		} else if (selectedDoctor.value.videoUrl.includes('vimeo.com')) {
+			// Handle Vimeo URLs
+			return `${selectedDoctor.value.videoUrl}${selectedDoctor.value.videoUrl.includes('?') ? '&' : '?'}autoplay=1`;
+		}
+
+		return selectedDoctor.value.videoUrl;
+	});
+
 	// Function to select a doctor
 	const selectDoctor = (id: number) => {
 		selectedDoctorId.value = id;
 		isVideoPlaying.value = false;
+
+		// Scroll to top on mobile when changing doctors
+		if (window.innerWidth < 1024) {
+			window.scrollTo({ top: 0, behavior: 'smooth' });
+		}
+	};
+
+	// Function to handle doctor change from dropdown
+	const handleDoctorChange = () => {
+		isVideoPlaying.value = false;
+		window.scrollTo({ top: 0, behavior: 'smooth' });
 	};
 
 	// Function to play video
 	const playVideo = () => {
-		if (selectedDoctor.value.hasVideo) {
+		if (selectedDoctor.value.videoUrl) {
 			isVideoPlaying.value = true;
 		}
 	};
+
+	// Handle resize events to ensure proper layout
+	onMounted(() => {
+		const handleResize = () => {
+			// Reset video if window is resized
+			if (isVideoPlaying.value) {
+				isVideoPlaying.value = false;
+				setTimeout(() => {
+					isVideoPlaying.value = true;
+				}, 300);
+			}
+		};
+
+		window.addEventListener('resize', handleResize);
+
+		// Clean up event listener
+		onUnmounted(() => {
+			window.removeEventListener('resize', handleResize);
+		});
+	});
 </script>
+
+<style>
+	/* Smooth transitions for doctor selection */
+	.border-l-4 {
+		transition: border-color 0.3s ease;
+	}
+
+	/* Smooth animation for content changes */
+	@keyframes fadeIn {
+		from {
+			opacity: 0.7;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+
+	/* Apply animation to content when doctor changes */
+	.container {
+		animation: fadeIn 0.4s ease-in-out;
+	}
+
+	/* Smooth hover transitions */
+	a,
+	button,
+	.cursor-pointer {
+		transition: all 0.2s ease-in-out;
+	}
+</style>

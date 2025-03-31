@@ -1,3 +1,6 @@
+<script lang="ts" setup>
+	import { UButton } from '#components';
+</script>
 <template>
 	<div class="container mx-auto max-w-7xl px-4 py-12">
 		<!-- Primera Tarjeta -->
@@ -30,7 +33,7 @@
 					<p class="mb-2 text-gray-700">
 						Oncoclinic clasifica más veces en el n.º 1 que ningún otro hospital
 						del país, según
-						<span class="font-medium italic">Añadir Ref</span>
+						<!-- 	<span class="font-medium italic">..</span> -->
 						.
 					</p>
 					<a
@@ -74,6 +77,12 @@
 						/>
 					</svg>
 				</button>
+				<UButton variant="solid">solid</UButton>
+				<UButton variant="outline">outline</UButton>
+				<UButton variant="soft">soft</UButton>
+				<UButton variant="subtle">subtle</UButton>
+				<UButton variant="ghost">ghost</UButton>
+				<UButton variant="link">link</UButton>
 			</div>
 			<div class="relative overflow-hidden lg:w-2/5">
 				<div
