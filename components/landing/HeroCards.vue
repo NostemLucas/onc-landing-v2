@@ -77,12 +77,6 @@
 						/>
 					</svg>
 				</button>
-				<UButton variant="solid">solid</UButton>
-				<UButton variant="outline">outline</UButton>
-				<UButton variant="soft">soft</UButton>
-				<UButton variant="subtle">subtle</UButton>
-				<UButton variant="ghost">ghost</UButton>
-				<UButton variant="link">link</UButton>
 			</div>
 			<div class="relative overflow-hidden lg:w-2/5">
 				<div

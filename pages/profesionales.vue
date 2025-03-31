@@ -34,7 +34,7 @@
 								'border-gray-200': selectedDoctorId !== doctor.id,
 							}"
 						>
-							<img
+							<NuxtImg
 								:src="doctor.image"
 								:alt="doctor.name"
 								class="h-full w-full object-cover"
@@ -90,7 +90,7 @@
 										'border-white': selectedDoctorId !== doctor.id,
 									}"
 								>
-									<img
+									<NuxtImg
 										:src="doctor.image"
 										:alt="doctor.name"
 										class="h-full w-full object-cover"
@@ -121,10 +121,10 @@
 					<div class="relative mb-6">
 						<div class="relative">
 							<div v-if="!isVideoPlaying" class="relative">
-								<img
+								<NuxtImg
 									:src="selectedDoctor.videoThumbnail || selectedDoctor.image"
 									:alt="selectedDoctor.name"
-									class="h-[250px] w-full object-cover sm:h-[300px] md:h-[400px]"
+									class="h-[250px] w-full object-cover sm:h-[300px] md:h-[500px]"
 								/>
 								<div
 									v-if="selectedDoctor.videoUrl"
@@ -133,13 +133,16 @@
 								>
 									<!-- Video button styled like the reference image -->
 									<div
-										class="text-primary-700 border-primary-700 border bg-white/80 px-4 py-2 font-medium transition-all hover:bg-white"
+										class="border border-white bg-transparent px-4 py-2 text-2xl font-medium text-white transition-all hover:bg-white"
 									>
 										VER VIDEO
 									</div>
 								</div>
 							</div>
-							<div v-else class="h-[250px] w-full sm:h-[300px] md:h-[400px]">
+							<div
+								v-else
+								class="h-[250px] w-full object-cover sm:h-[300px] md:h-[500px]"
+							>
 								<iframe
 									class="h-full w-full"
 									:src="videoSrc"
@@ -210,11 +213,11 @@
 					<!-- Specialties section -->
 					<div class="mb-10">
 						<USeparator class="pb-8" />
-						<div class="relative mb-6 flex items-center">
+						<div class="relative mb-6 flex">
 							<h3
-								class="text-primary-700 w-full flex-shrink-0 bg-white text-3xl font-bold tracking-wider uppercase"
+								class="text-primary-700 w-full flex-shrink-0 bg-white text-start text-3xl font-bold tracking-wider"
 							>
-								Especialidades y Servicios
+								ESPECIALIDADES Y SERVICIOS
 							</h3>
 						</div>
 						<ul class="list-disc space-y-2 pl-8 text-gray-700">
@@ -234,11 +237,11 @@
 					<div class="mb-10">
 						<div class="relative mb-6 flex flex-col items-center">
 							<USeparator class="pb-8" />
-							<div class="relative mb-6 flex items-center">
+							<div class="relative mb-6 flex w-full items-center">
 								<h3
-									class="text-primary-700 w-full flex-shrink-0 bg-white text-3xl font-bold tracking-wider uppercase"
+									class="text-primary-700 w-full flex-shrink-0 text-start text-3xl font-bold tracking-wider uppercase"
 								>
-									Especialidades y Servicios
+									UBICACIÓN
 								</h3>
 							</div>
 						</div>
@@ -287,14 +290,13 @@
 
 					<!-- Education section -->
 					<div>
+						<USeparator class="pb-8" />
 						<div class="relative mb-6 flex items-center">
-							<div class="flex-grow border-t border-gray-300"></div>
 							<h3
-								class="text-primary-700 flex-shrink-0 bg-white px-4 text-xl font-bold tracking-wider uppercase"
+								class="text-primary-700 flex-shrink-0 bg-white text-3xl font-bold tracking-wider uppercase"
 							>
-								Educación
+								EDUCACIÓN
 							</h3>
-							<div class="flex-grow border-t border-gray-300"></div>
 						</div>
 						<div
 							class="grid grid-cols-1 gap-x-6 gap-y-4 px-1 text-gray-700 md:grid-cols-2"
@@ -315,7 +317,7 @@
 </template>
 
 <script setup lang="ts">
-	import { USeparator } from '#components';
+	import { NuxtImg, USeparator } from '#components';
 	import { ref, computed, onMounted, onUnmounted } from 'vue';
 	import type { Doctor } from '~/mocks/doctors';
 	import personnel from '~/mocks/doctors';
@@ -366,13 +368,6 @@
 		}
 	};
 
-	// Function to handle doctor change from dropdown
-	const handleDoctorChange = () => {
-		isVideoPlaying.value = false;
-		window.scrollTo({ top: 0, behavior: 'smooth' });
-	};
-
-	// Function to play video
 	const playVideo = () => {
 		if (selectedDoctor.value.videoUrl) {
 			isVideoPlaying.value = true;

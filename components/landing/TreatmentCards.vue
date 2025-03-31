@@ -35,7 +35,7 @@
 			>
 				<div class="relative h-[26em] overflow-hidden">
 					<div
-						class="absolute inset-0 z-10 bg-gradient-to-t from-blue-900 via-blue-900/70 to-transparent transition-all duration-500 ease-in-out group-hover:translate-y-40"
+						class="absolute inset-0 z-10 bg-gradient-to-t from-blue-900/80 via-blue-900/70 to-transparent transition-all duration-500 ease-in-out group-hover:translate-y-40"
 					/>
 
 					<NuxtImg
