@@ -261,14 +261,14 @@
 				'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-SVIYB1uGFUUjRvdHB8uDzPDz4Kk3NB.png',
 			videoThumbnail:
 				'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-SVIYB1uGFUUjRvdHB8uDzPDz4Kk3NB.png',
-			videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1',
+			videoUrl: '#',
 			hasVideo: true,
 		},
 		{
 			id: 2,
 			name: 'Noah Birch, MD, PhD',
 			specialty: 'Hematología',
-			image: '/placeholder.svg?height=100&width=100',
+			image: '/logo.png',
 			hasVideo: false,
 			about: [
 				'El Dr. Birch es especialista en Hematología con enfoque en trastornos de la coagulación y enfermedades de la sangre. Completó su doctorado en Biología Molecular antes de su formación médica.',
@@ -299,7 +299,7 @@
 				'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-enKRpZzm3F2q8qB3SGwodRJxKTSDUR.png',
 			videoThumbnail:
 				'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-enKRpZzm3F2q8qB3SGwodRJxKTSDUR.png',
-			videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1',
+			videoUrl: '#',
 			hasVideo: true,
 			about: [
 				'La Dra. Danciu trabaja en la División de Hematología/Oncología de UI Health. Después de recibir su título de medicina en la Universidad Carol Davila en Bucarest, Rumania, completó su residencia en Medicina Interna en el Hospital West Suburban de Oak Park, Illinois, y su beca de Hematología/Oncología en la Universidad de Illinois en Chicago.',
@@ -329,7 +329,7 @@
 			id: 4,
 			name: 'Marwah Farooqui, DO',
 			specialty: 'Oncología',
-			image: '/placeholder.svg?height=100&width=100',
+			image: '/logo.png',
 			hasVideo: false,
 			about: [
 				'La Dra. Farooqui es especialista en Oncología con particular interés en cánceres ginecológicos y de mama. Su enfoque de tratamiento integra terapias tradicionales con atención al bienestar general del paciente.',
@@ -359,7 +359,7 @@
 			id: 5,
 			name: 'Vik Gadi, MD, PhD',
 			specialty: 'Hematología',
-			image: '/placeholder.svg?height=100&width=100',
+			image: '/logo.png',
 			hasVideo: false,
 			about: [
 				'El Dr. Gadi es un hematólogo especializado en trastornos de la médula ósea y trasplantes. Su investigación se centra en mejorar los resultados de los trasplantes de médula ósea y desarrollar nuevas terapias para enfermedades hematológicas malignas.',
@@ -390,7 +390,7 @@
 			id: 6,
 			name: 'Carlos Galvez, MD',
 			specialty: 'Oncología',
-			image: '/placeholder.svg?height=100&width=100',
+			image: '/logo.png',
 			hasVideo: false,
 			about: [
 				'El Dr. Galvez es especialista en Oncología con enfoque en tumores gastrointestinales. Tiene amplia experiencia en el desarrollo de protocolos de tratamiento multidisciplinarios.',

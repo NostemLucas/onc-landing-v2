@@ -32,7 +32,7 @@
 							<!-- Botón con submenú -->
 							<button
 								v-if="item.hasSubmenu"
-								class="flex items-center gap-1 text-sm font-medium transition-colors duration-200 hover:text-blue-600"
+								class="flex items-center gap-1 text-[15px] font-medium transition-colors duration-200 hover:text-blue-600"
 								:class="{ 'text-blue-600': activeSubmenu === index }"
 								@click="toggleSubmenu(index)"
 							>
@@ -346,7 +346,7 @@
 		{
 			label: 'Nuestros Profesionales',
 			hasSubmenu: false,
-			url: '#',
+			url: '/profesionales',
 		},
 		{
 			label: 'Investigación y Educación',
