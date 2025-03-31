@@ -8,9 +8,10 @@ export default defineAppConfig({
 			slots: {
 				base: 'cursor-pointer',
 			},
+
 			variants: {
 				variant: {
-					outline: 'ring-8-',
+					outline: 'ring-4',
 				},
 			},
 		},

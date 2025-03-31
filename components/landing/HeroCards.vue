@@ -14,7 +14,7 @@
 					La recuperación
 					<span class="text-primary-600">empieza aquí</span>
 				</h2>
-				<div class="mb-6 h-1 w-20 rounded-full bg-blue-600" />
+				<div class="mb-6 h-1 w-20 rounded-full bg-primary-700" />
 
 				<p class="mb-2 font-medium text-gray-700">
 					El éxito del tratamiento comienza con un diagnóstico preciso
@@ -26,7 +26,9 @@
 					personalizada para cada paciente
 				</p>
 
-				<div class="mb-6 rounded-lg border-l-4 border-blue-500 bg-blue-50 p-4">
+				<div
+					class="mb-6 rounded-lg border-l-4 border-primary-500 bg-blue-50 p-4"
+				>
 					<p class="mb-2 font-semibold text-gray-800">
 						Entre los mejores expertos en Bolivia.
 					</p>
@@ -36,9 +38,9 @@
 						<!-- 	<span class="font-medium italic">..</span> -->
 						.
 					</p>
-					<a
-						href="#"
-						class="inline-flex items-center font-medium text-blue-600 hover:underline"
+					<NuxtLink
+						to="#"
+						class="inline-flex items-center font-medium text-primary-600 hover:underline"
 					>
 						Informarse sobre las especialidades más destacadas
 						<svg
@@ -55,28 +57,21 @@
 								d="M9 5l7 7-7 7"
 							/>
 						</svg>
-					</a>
+					</NuxtLink>
 				</div>
-
-				<button
-					class="text-primary-600 group flex w-fit items-center rounded-full border-2 px-6 py-3 transition-colors hover:bg-blue-700 hover:text-white"
-				>
-					¿Por qué elegir a Oncoclinic?
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						class="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1"
-						fill="none"
-						viewBox="0 0 24 24"
-						stroke="currentColor"
-					>
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M14 5l7 7m0 0l-7 7m7-7H3"
-						/>
-					</svg>
-				</button>
+				<div>
+					<UButton
+						variant="outline"
+						size="xl"
+						class="rounded-full py-4 px-6 hover:bg-primary-700 ring-2 transition-colors duration-500 hover:text-white group"
+						label="¿Por qué elegir a Oncoclinic?"
+						trailing-icon="i-lucide-arrow-right"
+						:ui="{
+							trailingIcon:
+								'group-hover:translate-x-2 transition-transform duration-500',
+						}"
+					/>
+				</div>
 			</div>
 			<div class="relative overflow-hidden lg:w-2/5">
 				<div
@@ -109,10 +104,10 @@
 					class="mb-4 text-3xl leading-tight font-bold text-gray-900 lg:text-4xl"
 				>
 					Atención médica de
-					<span class="text-blue-600">primera categoría</span>
+					<span class="text-primary-600">primera categoría</span>
 					para pacientes de todo el mundo
 				</h2>
-				<div class="mb-6 h-1 w-20 rounded-full bg-blue-600" />
+				<div class="mb-6 h-1 w-20 rounded-full bg-primary-700" />
 
 				<p class="mb-6 text-gray-700">
 					Hacemos que sea fácil recibir atención médica en Oncoclinic para los
@@ -122,10 +117,10 @@
 
 				<div class="mb-8 grid grid-cols-1 gap-4 md:grid-cols-2">
 					<div class="flex items-start">
-						<div class="mr-3 rounded-full bg-blue-100 p-2">
+						<div class="mr-3 rounded-full bg-primary-100 p-2">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
-								class="h-5 w-5 text-blue-600"
+								class="h-5 w-5 text-primary-600"
 								fill="none"
 								viewBox="0 0 24 24"
 								stroke="currentColor"
@@ -170,26 +165,19 @@
 						</div>
 					</div>
 				</div>
-
-				<button
-					class="group flex w-fit items-center rounded-full bg-blue-600 px-6 py-3 text-white transition-colors hover:bg-blue-700"
-				>
-					Servicios internacionales
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						class="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1"
-						fill="none"
-						viewBox="0 0 24 24"
-						stroke="currentColor"
-					>
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M14 5l7 7m0 0l-7 7m7-7H3"
-						/>
-					</svg>
-				</button>
+				<div>
+					<UButton
+						variant="solid"
+						size="xl"
+						class="rounded-full py-4 px-6 ring-2 transition-colors duration-500 group"
+						label="Servicios a nivel Nacional"
+						trailing-icon="i-lucide-arrow-right"
+						:ui="{
+							trailingIcon:
+								'group-hover:translate-x-2 transition-transform duration-500',
+						}"
+					/>
+				</div>
 			</div>
 		</div>
 	</div>

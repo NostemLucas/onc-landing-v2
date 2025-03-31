@@ -18,21 +18,18 @@
 	@theme static {
 		--font-horsham: 'Horsham', sans-serif;
 		--font-roboto: 'Roboto', sans-serif;
-		--color-primary-50: hsl(
-			210 90% 85%
-		); /* Aumentamos aún más la saturación y luminosidad */
-		--color-primary-100: hsl(210 90% 70%); /* Colores más brillantes */
-		--color-primary-200: hsl(210 85% 60%);
-		--color-primary-300: hsl(210 80% 50%);
-		--color-primary-400: hsl(210 75% 40%);
-		--color-primary-500: hsl(210 70% 30%);
-		--color-primary-600: hsl(210 65% 25%);
-		--color-primary-700: hsl(210 60% 20%);
-		--color-primary-800: hsl(210 55% 15%);
-		--color-primary-900: hsl(210 50% 10%);
-		--color-primary-950: hsl(210 45% 5%);
-		--color-foreground: hsl(0, 0%, 10%); /* Mucho más oscuro para contraste */
-		--color-background: hsl(0, 0%, 98%); /* Fondo más brillante */
+		--color-primary: #36affb;
+		--color-primary-50: #eef9ff;
+		--color-primary-100: #d8f1ff;
+		--color-primary-200: #b9e7ff;
+		--color-primary-300: #89daff;
+		--color-primary-400: #52c4ff;
+		--color-primary-500: #2aa5ff;
+		--color-primary-600: #1287fd;
+		--color-primary-700: #0c6fe9;
+		--color-primary-800: #1159bc;
+		--color-primary-900: #144d94;
+		--color-primary-950: #112f5a;
 	}
 }
 

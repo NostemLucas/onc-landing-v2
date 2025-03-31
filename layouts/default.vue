@@ -1,10 +1,11 @@
 <script setup lang="ts">
 	import HeroClient from '~/components/landing/HeroClient.vue';
+	import NaviagtionBar from '~/components/landing/NaviagtionBar.vue';
 	import HeroFooter from '~/components/landing/HeroFooter.vue';
 </script>
 <template>
 	<div>
-		<HeroClient />
+		<NaviagtionBar />
 		<div>
 			<slot />
 		</div>
