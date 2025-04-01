@@ -5,6 +5,7 @@
 	import HeroCards from '~/components/landing/HeroCards.vue';
 	import HeroCarrousel from '~/components/landing/HeroCarrousel.vue';
 	import TreatmentCards from '~/components/landing/TreatmentCards.vue';
+	import BannerParalax from '~/components/landing/BannerParalax.vue';
 </script>
 
 <template>
@@ -14,6 +15,7 @@
 		<TreatmentCards />
 		<Diagnostico />
 		<HeroCarrousel />
+		<BannerParalax />
 		<HeroAbout />
 	</section>
 </template>
