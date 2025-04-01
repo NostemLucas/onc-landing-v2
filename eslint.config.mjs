@@ -1,12 +1,11 @@
 // @ts-check
-import prettierPlugin from 'eslint-plugin-prettier';
+
 import eslintPluginVue from 'eslint-plugin-vue';
 import withNuxt from './.nuxt/eslint.config.mjs';
 
 export default withNuxt(
 	{
 		plugins: {
-			prettier: prettierPlugin,
 			vue: eslintPluginVue,
 		},
 		rules: {

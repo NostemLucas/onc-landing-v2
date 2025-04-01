@@ -10,15 +10,12 @@
 					<!-- Logo -->
 					<div class="flex-shrink-0">
 						<NuxtLink to="/" class="block">
-							<div class="flex items-center">
-								<NuxtImg
-									src="logo.png"
-									alt="Logo"
-									width="220"
-									height="50"
-									draggable="false"
-								/>
-							</div>
+							<NuxtImg
+								src="logo.png"
+								alt="Logo"
+								width="240"
+								draggable="false"
+							/>
 						</NuxtLink>
 					</div>
 
@@ -28,56 +25,126 @@
 							v-for="(item, index) in navigationItems"
 							:key="index"
 							class="group relative"
-							@mouseenter="item.hasSubmenu ? (hoverIndex = index) : null"
-							@mouseleave="item.hasSubmenu ? (hoverIndex = null) : null"
+							@mouseenter="openMenu(index)"
+							@mouseleave="closeMenuWithDelay(index)"
+							@focusin="openMenu(index)"
+							@focusout="handleFocusOut($event, index)"
 						>
 							<!-- Botón con submenú -->
-							<button
-								v-if="item.hasSubmenu"
-								class="flex items-center gap-1 text-[15px] font-medium transition-colors duration-200 hover:text-blue-600"
-								:class="{ 'text-blue-600': hoverIndex === index }"
+							<UButton
+								variant="link"
+								v-if="item.subItems"
+								class="flex items-center gap-1 font-medium transition-colors duration-200 hover:text-blue-600 text-base text-black tracking-wider"
 							>
 								{{ item.label }}
 								<ChevronDown
-									class="h-4 w-4 transition-transform"
-									:class="{ 'rotate-180': hoverIndex === index }"
+									class="h-4 w-4 transition-transform duration-300"
+									:class="{ 'rotate-180': openMenus[index] }"
 								/>
 								<span
-									class="absolute -bottom-1 left-0 h-0.5 w-0 bg-blue-600 transition-all duration-300 group-hover:w-full"
-									:class="{ 'w-full': hoverIndex === index }"
-								></span>
-							</button>
+									class="absolute -bottom-0 left-0 h-0.5 bg-blue-600 transition-all duration-300"
+									:style="{ width: openMenus[index] ? '100%' : '0%' }"
+								/>
+							</UButton>
 
-							<!-- Enlace sin submenú -->
-							<NuxtLink
-								v-else
+							<!-- Enlace con url -->
+							<UButton
+								v-else-if="item.url"
+								variant="link"
 								:to="item.url || '#'"
-								class="group relative text-sm font-medium transition-colors duration-200 hover:text-blue-600"
+								class="group relative font-medium transition-colors duration-200 hover:text-blue-600 text-base text-black tracking-wide"
 								:class="{ 'text-blue-600': isActiveRoute(item.url) }"
 							>
 								{{ item.label }}
 								<span
-									class="absolute -bottom-1 left-0 h-0.5 w-0 bg-blue-600 transition-all duration-300 group-hover:w-full"
-									:class="{ 'w-full': isActiveRoute(item.url) }"
-								></span>
-							</NuxtLink>
+									class="absolute -bottom-0 left-0 h-0.5 bg-blue-600 transition-all duration-300"
+									:style="{
+										width: isActiveRoute(item.url)
+											? '100%'
+											: openMenus[index]
+												? '100%'
+												: '0%',
+									}"
+								/>
+							</UButton>
 
-							<!-- Submenu -->
+							<!-- Botón con columnas -->
+							<UButton
+								variant="link"
+								v-else-if="item.columns"
+								class="flex items-center gap-1 font-medium transition-colors duration-200 hover:text-blue-600 text-base text-black"
+							>
+								{{ item.label }}
+								<ChevronDown
+									class="h-4 w-4 transition-transform duration-300"
+									:class="{ 'rotate-180': openMenus[index] }"
+								/>
+								<span
+									class="absolute -bottom-0 left-0 h-0.5 bg-blue-600 transition-all duration-300"
+									:style="{ width: openMenus[index] ? '100%' : '0%' }"
+								/>
+							</UButton>
+
+							<!-- Submenu para subItems -->
 							<div
-								v-if="item.hasSubmenu && hoverIndex === index"
-								class="absolute top-full left-0 z-50 mt-2 w-64 rounded-md border border-gray-300 bg-white p-6 shadow-lg"
+								v-if="item.subItems"
+								class="absolute top-full left-0 z-50 mt-2 w-64 rounded-md border border-gray-200 bg-white p-4 shadow-lg transition-all duration-300"
+								:class="{
+									'opacity-100 visible': openMenus[index],
+									'opacity-0 invisible': !openMenus[index],
+								}"
 							>
 								<!-- Flecha del submenu -->
 								<div
-									class="absolute -top-2 left-4 h-4 w-4 rotate-45 border-t border-l border-gray-300 bg-white"
+									class="absolute -top-2 left-4 h-4 w-4 rotate-45 border-t border-l border-gray-200 bg-white"
 								></div>
 
-								<div v-if="item.columns" class="grid grid-cols-2 gap-8">
+								<ul class="space-y-2">
+									<li
+										v-for="(subItem, subIndex) in item.subItems"
+										:key="subIndex"
+									>
+										<NuxtLink
+											:to="subItem.url"
+											class="group relative block py-2 text-sm font-medium text-gray-700 transition-colors duration-200 hover:text-blue-600"
+											:class="{ 'text-blue-600': isActiveRoute(subItem.url) }"
+										>
+											{{ subItem.label }}
+											<span
+												class="absolute -bottom-1 left-0 h-0.5 bg-blue-600 transition-all duration-300"
+												:style="{
+													width: isActiveRoute(subItem.url) ? '100%' : '0%',
+													transitionDelay: subIndex * 50 + 'ms',
+												}"
+												:class="{
+													'group-hover:w-full': !isActiveRoute(subItem.url),
+												}"
+											></span>
+										</NuxtLink>
+									</li>
+								</ul>
+							</div>
+
+							<!-- Submenu para columns -->
+							<div
+								v-if="item.columns"
+								class="absolute top-full left-0 z-50 mt-2 w-[500px] rounded-md border border-gray-200 bg-white p-6 shadow-lg transition-all duration-300"
+								:class="{
+									'opacity-100 visible': openMenus[index],
+									'opacity-0 invisible': !openMenus[index],
+								}"
+							>
+								<!-- Flecha del submenu -->
+								<div
+									class="absolute -top-2 left-4 h-4 w-4 rotate-45 border-t border-l border-gray-200 bg-white"
+								></div>
+
+								<div class="grid grid-cols-2 gap-8">
 									<div
 										v-for="(column, colIndex) in item.columns"
 										:key="colIndex"
 									>
-										<h3 class="mb-3 font-semibold text-gray-800">
+										<h3 class="mb-3 text-sm font-semibold text-gray-800">
 											{{ column.title }}
 										</h3>
 										<ul class="space-y-2">
@@ -87,38 +154,28 @@
 											>
 												<NuxtLink
 													:to="link.url"
-													class="group relative block text-sm transition-colors duration-200 hover:text-blue-600"
+													class="group relative block py-1 text-sm text-gray-700 transition-colors duration-200 hover:text-blue-600"
 													:class="{
 														'text-blue-600': isActiveRoute(link.url),
 													}"
 												>
 													{{ link.label }}
 													<span
-														class="absolute -bottom-1 left-0 h-0.5 w-0 bg-blue-600 transition-all duration-300 group-hover:w-full"
+														class="absolute -bottom-1 left-0 h-0.5 bg-blue-600 transition-all duration-300"
+														:style="{
+															width: isActiveRoute(link.url) ? '100%' : '0%',
+															transitionDelay:
+																(colIndex * 3 + linkIndex) * 30 + 'ms',
+														}"
+														:class="{
+															'group-hover:w-full': !isActiveRoute(link.url),
+														}"
 													></span>
 												</NuxtLink>
 											</li>
 										</ul>
 									</div>
 								</div>
-								<ul v-else class="space-y-2">
-									<li
-										v-for="(subItem, subIndex) in item.subItems"
-										:key="subIndex"
-									>
-										<a
-											:href="subItem.url"
-											class="group relative block text-sm transition-colors duration-200 hover:text-blue-600"
-											:class="{ 'text-blue-600': isActiveRoute(subItem.url) }"
-										>
-											{{ subItem.label }}
-											<span
-												class="absolute -bottom-1 left-0 h-0.5 w-0 bg-blue-600 transition-all duration-300 group-hover:w-full"
-												:class="{ 'w-full': isActiveRoute(subItem.url) }"
-											></span>
-										</a>
-									</li>
-								</ul>
 							</div>
 						</div>
 					</nav>
@@ -158,240 +215,110 @@
 		</header>
 		<div class="h-24" />
 
-		<!-- Backdrop for desktop submenu -->
+		<!-- Mobile Menu -->
 		<div
-			v-if="hoverIndex !== null"
-			class="fixed inset-0 z-40 hidden bg-black/20 lg:block"
-			@click="hoverIndex = null"
-		/>
-
-		<!-- Mobile Menu Drawer -->
-		<Transition name="drawer">
-			<div
-				v-if="isMobileMenuOpen"
-				class="fixed inset-y-0 right-0 z-50 w-full max-w-xs bg-white shadow-xl"
-			>
-				<div
-					class="flex h-24 items-center justify-between border-b border-gray-200 px-6"
-				>
-					<div class="text-lg font-semibold">Menú</div>
-					<button
-						class="flex h-10 w-10 items-center justify-center rounded-full p-0 transition-colors hover:bg-gray-100"
-						@click="isMobileMenuOpen = false"
+			v-if="isMobileMenuOpen"
+			class="fixed inset-0 z-40 bg-white pt-24 lg:hidden"
+		>
+			<div class="container mx-auto px-4 py-6">
+				<nav class="space-y-6">
+					<div
+						v-for="(item, index) in navigationItems"
+						:key="index"
+						class="border-b border-gray-100 pb-4"
 					>
-						<X class="h-5 w-5" />
-						<span class="sr-only">Cerrar menú</span>
-					</button>
-				</div>
-
-				<div class="h-[calc(100vh-6rem)] overflow-y-auto p-6">
-					<nav class="flex flex-col space-y-6">
 						<div
-							v-for="(item, index) in navigationItems"
-							:key="index"
-							class="border-b border-gray-100 pb-4"
+							class="flex items-center justify-between py-2"
+							@click="toggleMobileSection(index)"
 						>
-							<!-- Enlace sin submenú en móvil -->
+							<span class="text-lg font-medium">{{ item.label }}</span>
+							<ChevronDown
+								class="h-5 w-5 transition-transform duration-300"
+								:class="{ 'rotate-180': mobileOpenSections[index] }"
+							/>
+						</div>
+
+						<!-- Submenu para subItems en móvil -->
+						<div
+							v-if="item.subItems && mobileOpenSections[index]"
+							class="mt-2 space-y-2 pl-4"
+						>
 							<NuxtLink
-								v-if="!item.hasSubmenu"
-								:to="item.url || '#'"
-								class="relative block py-2 text-base font-medium transition-colors duration-200 hover:text-blue-600"
-								:class="{ 'text-blue-600': isActiveRoute(item.url) }"
-								@click="isMobileMenuOpen = false"
+								v-for="(subItem, subIndex) in item.subItems"
+								:key="subIndex"
+								:to="subItem.url"
+								class="block py-2 text-gray-600 hover:text-blue-600"
+								:class="{ 'text-blue-600': isActiveRoute(subItem.url) }"
 							>
-								{{ item.label }}
-								<span
-									v-if="isActiveRoute(item.url)"
-									class="absolute top-1/2 -left-3 h-6 w-1 -translate-y-1/2 rounded-r-md bg-blue-600"
-								></span>
+								{{ subItem.label }}
 							</NuxtLink>
+						</div>
 
-							<!-- Botón con submenú en móvil -->
-							<div v-else>
-								<button
-									class="flex w-full items-center justify-between py-2 text-base font-medium transition-colors duration-200 hover:text-blue-600"
-									:class="{ 'text-blue-600': mobileOpenSections[index] }"
-									@click="toggleMobileSection(index)"
-								>
-									{{ item.label }}
-									<ChevronDown
-										class="h-5 w-5 transition-transform"
-										:class="{ 'rotate-180': mobileOpenSections[index] }"
-									/>
-								</button>
-
-								<Transition name="expand">
-									<div
-										v-if="mobileOpenSections[index]"
-										class="mt-2 rounded-lg bg-gray-50 p-4"
+						<!-- Submenu para columns en móvil -->
+						<div
+							v-if="item.columns && mobileOpenSections[index]"
+							class="mt-2 space-y-4 pl-4"
+						>
+							<div
+								v-for="(column, colIndex) in item.columns"
+								:key="colIndex"
+								class="mb-4"
+							>
+								<h3 class="mb-2 font-medium">{{ column.title }}</h3>
+								<div class="space-y-2 pl-2">
+									<NuxtLink
+										v-for="(link, linkIndex) in column.links"
+										:key="linkIndex"
+										:to="link.url"
+										class="block py-1 text-gray-600 hover:text-blue-600"
+										:class="{ 'text-blue-600': isActiveRoute(link.url) }"
 									>
-										<div v-if="item.columns">
-											<div
-												v-for="(column, colIndex) in item.columns"
-												:key="colIndex"
-												class="mb-4"
-											>
-												<h3 class="mb-2 text-sm font-semibold text-gray-500">
-													{{ column.title }}
-												</h3>
-												<ul class="space-y-2">
-													<li
-														v-for="(link, linkIndex) in column.links"
-														:key="linkIndex"
-													>
-														<NuxtLink
-															:to="link.url"
-															class="relative block py-1 text-sm transition-colors duration-200 hover:text-blue-600"
-															:class="{
-																'text-blue-600': isActiveRoute(link.url),
-															}"
-															@click="isMobileMenuOpen = false"
-														>
-															{{ link.label }}
-															<span
-																v-if="isActiveRoute(link.url)"
-																class="absolute top-1/2 -left-2 h-4 w-0.5 -translate-y-1/2 rounded-r-md bg-blue-600"
-															></span>
-														</NuxtLink>
-													</li>
-												</ul>
-											</div>
-										</div>
-										<ul v-else class="space-y-2">
-											<li
-												v-for="(subItem, subIndex) in item.subItems"
-												:key="subIndex"
-											>
-												<a
-													:href="subItem.url"
-													class="relative block py-1 text-sm transition-colors duration-200 hover:text-blue-600"
-													:class="{
-														'text-blue-600': isActiveRoute(subItem.url),
-													}"
-													@click="isMobileMenuOpen = false"
-												>
-													{{ subItem.label }}
-													<span
-														v-if="isActiveRoute(subItem.url)"
-														class="absolute top-1/2 -left-2 h-4 w-0.5 -translate-y-1/2 rounded-r-md bg-blue-600"
-													></span>
-												</a>
-											</li>
-										</ul>
-									</div>
-								</Transition>
+										{{ link.label }}
+									</NuxtLink>
+								</div>
 							</div>
 						</div>
-					</nav>
-
-					<!-- Mobile Action Buttons -->
-					<div class="mt-8 flex flex-col space-y-4">
-						<a
-							href="#"
-							class="relative block py-2 text-base font-medium transition-colors duration-200 hover:text-blue-600"
-						>
-							Solicita una cita
-							<span
-								class="absolute bottom-0 left-0 h-0.5 w-0 bg-blue-600 transition-all duration-300 hover:w-full"
-							></span>
-						</a>
-						<a
-							href="#"
-							class="flex items-center justify-center rounded-full border border-gray-400 px-4 py-3 text-base font-medium transition-all duration-300 hover:border-blue-600 hover:bg-blue-600 hover:text-white"
-						>
-							Iniciar Sesión
-						</a>
 					</div>
+				</nav>
+
+				<!-- Mobile Action Buttons -->
+				<div class="mt-6 flex flex-col space-y-4">
+					<a
+						href="#"
+						class="block w-full rounded-md bg-gray-100 px-4 py-3 text-center font-medium hover:bg-gray-200"
+					>
+						Solicita una cita
+					</a>
+					<a
+						href="#"
+						class="block w-full rounded-md bg-blue-600 px-4 py-3 text-center font-medium text-white hover:bg-blue-700"
+					>
+						Iniciar Sesión
+					</a>
 				</div>
 			</div>
-		</Transition>
-
-		<!-- Backdrop for mobile menu -->
-		<Transition name="fade">
-			<div
-				v-if="isMobileMenuOpen"
-				class="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm lg:hidden"
-				@click="isMobileMenuOpen = false"
-			></div>
-		</Transition>
+		</div>
 	</div>
 </template>
 
 <script setup lang="ts">
-	import { ref, computed, onMounted, onUnmounted, watch } from 'vue';
+	import { ref, watch, onMounted, onUnmounted } from 'vue';
 	import { ChevronDown, Menu, X } from 'lucide-vue-next';
 	import { useRoute } from 'vue-router';
 
-	// Get current route for active link detection
+	import { navigationItems } from '../../mocks/navigation';
 	const route = useRoute();
-
-	// Estado simplificado
 	const isScrolled = ref(false);
 	const isMobileMenuOpen = ref(false);
-	const hoverIndex = ref<number | null>(null);
 	const mobileOpenSections = ref<Record<number, boolean>>({});
+	const openMenus = ref<Record<number, boolean>>({});
+	const menuCloseTimers = ref<Record<number, number>>({});
 
-	// Datos de navegación
-	const navigationItems = [
-		{
-			label: 'Inicio',
-			hasSubmenu: false,
-			url: '/',
-		},
-		{
-			label: 'Nosotros',
-			hasSubmenu: false,
-			url: '/nosotros',
-		},
-		{
-			label: 'Tratamientos',
-			hasSubmenu: false,
-			url: '/tratamientos',
-		},
-		{
-			label: 'Nuestros Profesionales',
-			hasSubmenu: false,
-			url: '/profesionales',
-		},
-		{
-			label: 'Investigación y Educación',
-			hasSubmenu: true,
-			columns: [
-				{
-					title: 'Investigación',
-					links: [
-						{ label: 'Ensayos Clínicos', url: '/investigacion/ensayos' },
-						{ label: 'Publicaciones', url: '/investigacion/publicaciones' },
-						{
-							label: 'Conferencias Médicas',
-							url: '/investigacion/conferencias',
-						},
-					],
-				},
-				{
-					title: 'Recursos Educativos',
-					links: [
-						{ label: 'Guías para Pacientes', url: '/educacion/guias' },
-						{ label: 'Videos Informativos', url: '/educacion/videos' },
-						{ label: 'Charlas y Talleres', url: '/educacion/talleres' },
-					],
-				},
-			],
-		},
-		{
-			label: 'Contacto',
-			hasSubmenu: false,
-			url: '/contactos',
-		},
-	];
-
-	// Función simplificada para verificar si una ruta está activa
 	const isActiveRoute = (url: string): boolean => {
 		if (!url || url === '#') return false;
-		return url === '/' ? route.path === '/' : route.path === url;
+		return url === '/' ? route.path === '/' : route.path.startsWith(url);
 	};
 
-	// Función simplificada para alternar secciones móviles
 	const toggleMobileSection = (index: number): void => {
 		mobileOpenSections.value = {
 			...mobileOpenSections.value,
@@ -399,14 +326,45 @@
 		};
 	};
 
-	// Manejo del scroll para efectos de header
+	const openMenu = (index: number): void => {
+		// Clear any existing close timer for this menu
+		if (menuCloseTimers.value[index]) {
+			clearTimeout(menuCloseTimers.value[index]);
+			delete menuCloseTimers.value[index];
+		}
+		openMenus.value = { ...openMenus.value, [index]: true };
+	};
+
+	const closeMenu = (index: number): void => {
+		openMenus.value = { ...openMenus.value, [index]: false };
+	};
+
+	const closeMenuWithDelay = (index: number): void => {
+		// Set a timer to close the menu after a delay
+		menuCloseTimers.value[index] = window.setTimeout(() => {
+			closeMenu(index);
+		}, 150); // Small delay to allow moving to submenu
+	};
+
+	const handleFocusOut = (event: FocusEvent, index: number): void => {
+		// Check if the new focus target is still within our menu
+		const currentTarget = event.currentTarget as HTMLElement;
+		const relatedTarget = event.relatedTarget as HTMLElement;
+
+		if (!relatedTarget || !currentTarget.contains(relatedTarget)) {
+			closeMenu(index);
+		}
+	};
+
 	const handleScroll = (): void => {
 		isScrolled.value = window.scrollY > 10;
 	};
 
 	// Gestión del overflow del body cuando el menú móvil está abierto
 	watch(isMobileMenuOpen, (newValue) => {
-		document.body.style.overflow = newValue ? 'hidden' : '';
+		if (typeof document !== 'undefined') {
+			document.body.style.overflow = newValue ? 'hidden' : '';
+		}
 	});
 
 	// Configuración de eventos
@@ -417,40 +375,12 @@
 
 	onUnmounted(() => {
 		window.removeEventListener('scroll', handleScroll);
-		document.body.style.overflow = '';
+		if (typeof document !== 'undefined') {
+			document.body.style.overflow = '';
+		}
+		// Clear any pending timers
+		Object.values(menuCloseTimers.value).forEach((timerId) => {
+			clearTimeout(timerId);
+		});
 	});
 </script>
-
-<style scoped>
-	.drawer-enter-active,
-	.drawer-leave-active {
-		transition: transform 0.3s ease-in-out;
-	}
-
-	.drawer-enter-from,
-	.drawer-leave-to {
-		transform: translateX(100%);
-	}
-
-	.expand-enter-active,
-	.expand-leave-active {
-		transition: all 0.3s ease-in-out;
-		overflow: hidden;
-	}
-
-	.expand-enter-from,
-	.expand-leave-to {
-		max-height: 0;
-		opacity: 0;
-	}
-
-	.fade-enter-active,
-	.fade-leave-active {
-		transition: opacity 0.3s ease;
-	}
-
-	.fade-enter-from,
-	.fade-leave-to {
-		opacity: 0;
-	}
-</style>

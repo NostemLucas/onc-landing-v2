@@ -59,11 +59,11 @@
 
 					<!-- Play Video Button con efecto de brillo -->
 					<UButton
-						class="px-8 py-4 text-white text-2xl ring-white rounded-full ring-2 hover:bg-white/10 transition-all duration-300 button-glow"
+						class="px-8 py-4 text-white text-2xl rounded-full hover:bg-white/10 transition-all duration-300 button-glow"
 						@click="openVideoModal"
 						icon="i-lucide-play"
 						label="Ver Presentación"
-						variant="outline"
+						variant="link"
 						size="xl"
 					/>
 				</div>
@@ -346,7 +346,7 @@
 	});
 </script>
 
-<style scoped>
+<style>
 	/* Transiciones básicas */
 	.fade-enter-active,
 	.fade-leave-active {

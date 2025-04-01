@@ -420,37 +420,3 @@
 		document.body.style.overflow = '';
 	});
 </script>
-
-<style scoped>
-	.drawer-enter-active,
-	.drawer-leave-active {
-		transition: transform 0.3s ease-in-out;
-	}
-
-	.drawer-enter-from,
-	.drawer-leave-to {
-		transform: translateX(100%);
-	}
-
-	.expand-enter-active,
-	.expand-leave-active {
-		transition: all 0.3s ease-in-out;
-		overflow: hidden;
-	}
-
-	.expand-enter-from,
-	.expand-leave-to {
-		max-height: 0;
-		opacity: 0;
-	}
-
-	.fade-enter-active,
-	.fade-leave-active {
-		transition: opacity 0.3s ease;
-	}
-
-	.fade-enter-from,
-	.fade-leave-to {
-		opacity: 0;
-	}
-</style>

@@ -18,18 +18,18 @@
 	@theme static {
 		--font-horsham: 'Horsham', sans-serif;
 		--font-roboto: 'Roboto', sans-serif;
-		--color-primary: #36affb;
-		--color-primary-50: #eef9ff;
-		--color-primary-100: #d8f1ff;
-		--color-primary-200: #b9e7ff;
-		--color-primary-300: #89daff;
-		--color-primary-400: #52c4ff;
-		--color-primary-500: #2aa5ff;
-		--color-primary-600: #1287fd;
-		--color-primary-700: #0c6fe9;
-		--color-primary-800: #1159bc;
-		--color-primary-900: #144d94;
-		--color-primary-950: #112f5a;
+		--color-primary: #1159bc;
+		--color-primary-50: #99ccff; /* Un tono más oscuro y saturado */
+		--color-primary-100: #80c2ff; /* Más saturado y menos claro */
+		--color-primary-200: #66b8ff; /* Un poco más profundo */
+		--color-primary-300: #4daeff; /* Más intenso */
+		--color-primary-400: #339cff; /* Más saturado y profundo */
+		--color-primary-500: #144d94; /* El color base original */
+		--color-primary-600: #1287fd; /* Más intenso y oscuro */
+		--color-primary-700: #0c6fe9; /* Oscuro y vibrante */
+		--color-primary-800: #1159bc; /* Más profundo */
+		--color-primary-900: #144d94; /* Muy oscuro */
+		--color-primary-950: #112f5a; /* Más oscuro aún */
 	}
 }
 

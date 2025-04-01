@@ -1,55 +1,52 @@
-export interface NavigationInterface {
+interface Link {
 	label: string;
-	hasSubmenu: boolean;
 	url: string;
-	columns: NavigationHistoryEntryEventMap;
 }
 
-interface NavigationColumn {
+interface Column {
 	title: string;
-	links: [
-		{ label: 'Ensayos Clínicos'; url: '/investigacion/ensayos' },
-		{ label: 'Publicaciones'; url: '/investigacion/publicaciones' },
-		{
-			label: 'Conferencias Médicas';
-			url: '/investigacion/conferencias';
-		},
-	];
+	links: Link[];
 }
-const navigationItems = [
+
+// Aseguramos que solo una de las propiedades (url, subItems, columns) esté presente
+export type NavigationItem = {
+	label: string;
+} & (
+	| { url: string; subItems?: never; columns?: never }
+	| { subItems: Link[]; url?: never; columns?: never }
+	| { columns: Column[]; url?: never; subItems?: never }
+);
+
+export const navigationItems: NavigationItem[] = [
 	{
 		label: 'Inicio',
-		hasSubmenu: false,
 		url: '/',
 	},
 	{
 		label: 'Nosotros',
-		hasSubmenu: false,
 		url: '/nosotros',
 	},
+
 	{
-		label: 'Tratamientos',
-		hasSubmenu: false,
-		url: '/tratamientos',
+		label: 'Investigación',
+		subItems: [
+			{ label: 'Blogs', url: '/investigacion/ensayos' },
+			{ label: 'Publicaciones', url: '/investigacion/publicaciones' },
+		],
 	},
 	{
 		label: 'Nuestros Profesionales',
-		hasSubmenu: false,
 		url: '/profesionales',
 	},
 	{
-		label: 'Investigación y Educación',
-		hasSubmenu: true,
+		label: 'Tratamientos y Diagnosticos',
 		columns: [
 			{
 				title: 'Investigación',
 				links: [
 					{ label: 'Ensayos Clínicos', url: '/investigacion/ensayos' },
 					{ label: 'Publicaciones', url: '/investigacion/publicaciones' },
-					{
-						label: 'Conferencias Médicas',
-						url: '/investigacion/conferencias',
-					},
+					{ label: 'Conferencias Médicas', url: '/investigacion/conferencias' },
 				],
 			},
 			{
@@ -64,7 +61,6 @@ const navigationItems = [
 	},
 	{
 		label: 'Contacto',
-		hasSubmenu: false,
 		url: '/contactos',
 	},
 ];

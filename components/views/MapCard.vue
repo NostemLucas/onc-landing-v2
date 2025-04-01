@@ -165,7 +165,7 @@
 											: 'text-gray-700 hover:bg-gray-100'
 									"
 									@click="setMapType('map')"
-									class="flex items-center px-3 py-2 text-sm font-medium transition-colors"
+									class="flex items-center px-3 py-2 text-sm font-medium transition-colors w-full"
 								>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
@@ -663,6 +663,29 @@
 	// Datos de ubicaciones (usando las coordenadas proporcionadas)
 	const locations = ref<Location[]>([
 		{
+			id: 1,
+			title: 'Oncoclinic Obrajes - Sede Central',
+			address: 'Avenida Costanería entre calles 5 y 6 Nro 71',
+			city: 'La Paz, Bolivia',
+			phone: '+591 2 2222-3333',
+			whatsapp: '59122223333',
+			image: '/locations/sede-obrajes.jpg',
+			coordinates: [-68.11105322436397, -16.52711826894523],
+			buses: ['214', '245', 'TELEFÉRICO NARANJA', 'TELEFÉRICO ROJO'],
+			hours: {
+				weekdays: '08:00 a 18:00',
+				saturday: '08:00 a 12:00',
+				sunday: 'Cerrado',
+			},
+			services: [
+				'Oncología',
+				'Radiología',
+				'Laboratorio',
+				'Farmacia',
+				'Consulta Externa',
+			],
+		},
+		{
 			id: 2,
 			title: 'Oncoclinic Sopocachi',
 			address: 'Av. 6 de Agosto Nº2255',
@@ -686,29 +709,6 @@
 				'Emergencias',
 				'Cirugía',
 				'Hospitalización',
-			],
-		},
-		{
-			id: 1,
-			title: 'Oncoclinic Obrajes - Sede Central',
-			address: 'Avenida Costanería entre calles 5 y 6 Nro 71',
-			city: 'La Paz, Bolivia',
-			phone: '+591 2 2222-3333',
-			whatsapp: '59122223333',
-			image: '/locations/sede-obrajes.jpg',
-			coordinates: [-68.11105322436397, -16.52711826894523],
-			buses: ['214', '245', 'TELEFÉRICO NARANJA', 'TELEFÉRICO ROJO'],
-			hours: {
-				weekdays: '08:00 a 18:00',
-				saturday: '08:00 a 12:00',
-				sunday: 'Cerrado',
-			},
-			services: [
-				'Oncología',
-				'Radiología',
-				'Laboratorio',
-				'Farmacia',
-				'Consulta Externa',
 			],
 		},
 	]);
