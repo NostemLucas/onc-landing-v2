@@ -1,7 +1,5 @@
 <template>
-	<section
-		class="container mx-auto flex max-w-7xl items-center justify-center px-2 py-36 overflow-hidden"
-	>
+	<section class="container mx-auto max-w-7xl px-4 py-12 overflow-hidden">
 		<div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
 			<!-- Image section with improved responsive behavior -->
 			<div

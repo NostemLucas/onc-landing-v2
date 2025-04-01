@@ -190,7 +190,7 @@
 </script>
 
 <template>
-	<div class="mx-auto w-full max-w-7xl px-4 py-8">
+	<div class="container mx-auto max-w-7xl px-4 py-12">
 		<div
 			class="mb-8 flex flex-col items-center justify-between gap-4 sm:flex-row"
 		>
@@ -278,13 +278,13 @@
 
 						<div
 							v-if="person.specialty"
-							class="absolute top-4 right-4 rounded-full bg-white px-3 py-1 text-xs font-medium text-blue-700"
+							class="absolute top-4 right-4 rounded-full bg-white px-3 py-2 text-xs font-semibold text-primary-500"
 						>
 							{{ person.specialty }}
 						</div>
 
 						<div
-							class="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-blue-900 via-blue-800/70 to-transparent p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100 sm:p-6"
+							class="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-primary-900 via-primary-800/70 to-transparent p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100 sm:p-6"
 						>
 							<div class="text-white">
 								<div class="mb-1 text-xs font-medium sm:text-sm">
@@ -296,12 +296,12 @@
 								<p class="mb-3 line-clamp-3 text-xs sm:mb-4 sm:text-sm">
 									{{ person.description }}
 								</p>
-								<button
-									class="rounded-full bg-white px-3 py-1.5 text-xs font-medium text-blue-800 transition-colors hover:bg-blue-50 focus:ring-2 focus:ring-white focus:outline-none sm:px-4 sm:py-2 sm:text-sm"
+								<UButton
+									variant="solid"
 									:aria-label="`Ver más información sobre Dr. ${person.name}`"
-								>
-									Ver más
-								</button>
+									class="bg-white rounded-full px-4 py-2 text-primary-500"
+									label="Ver más"
+								/>
 							</div>
 						</div>
 					</div>

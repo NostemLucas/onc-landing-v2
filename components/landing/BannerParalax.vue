@@ -3,7 +3,7 @@
 </scritp>
 
 <template>
-	<div class="w-screen bg-amber-500 relative h-auto text-white">
+	<div class="w-screen relative h-auto text-white overflow-hidden">
 		<NuxtImg
 			src="/mock/paralax.jpg"
 			draggable="false"

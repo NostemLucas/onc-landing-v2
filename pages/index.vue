@@ -9,7 +9,7 @@
 </script>
 
 <template>
-	<section class="">
+	<section class="overflow-x-hidden">
 		<HeroBanner />
 		<HeroCards />
 		<TreatmentCards />
