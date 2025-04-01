@@ -1,3 +1,4 @@
+loginincia
 <template>
 	<div class="w-full">
 		<!-- Navigation -->
@@ -182,7 +183,7 @@
 
 					<!-- Action Buttons -->
 					<div class="hidden items-center gap-4 lg:flex">
-						<a
+						<NuxtLink
 							href="#"
 							class="group relative text-sm font-medium transition-colors duration-200 hover:text-blue-600"
 						>
@@ -190,13 +191,13 @@
 							<span
 								class="absolute -bottom-1 left-0 h-0.5 w-0 bg-blue-600 transition-all duration-300 group-hover:w-full"
 							></span>
-						</a>
-						<a
-							href="#"
+						</NuxtLink>
+						<NuxtLink
+							href="/login"
 							class="rounded-full border border-gray-400 px-4 py-2 text-sm font-medium transition-all duration-300 hover:border-blue-600 hover:bg-blue-600 hover:text-white"
 						>
 							Iniciar Sesión
-						</a>
+						</NuxtLink>
 					</div>
 
 					<!-- Mobile Menu Button -->

@@ -30,8 +30,8 @@ export const navigationItems: NavigationItem[] = [
 	{
 		label: 'Investigación',
 		subItems: [
-			{ label: 'Blogs', url: '/investigacion/ensayos' },
-			{ label: 'Publicaciones', url: '/investigacion/publicaciones' },
+			{ label: 'Blogs', url: '/' },
+			{ label: 'Publicaciones', url: '/' },
 		],
 	},
 	{
