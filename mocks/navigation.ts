@@ -42,19 +42,19 @@ export const navigationItems: NavigationItem[] = [
 		label: 'Tratamientos y Diagnosticos',
 		columns: [
 			{
-				title: 'Investigación',
+				title: 'Tratamientos',
 				links: [
-					{ label: 'Ensayos Clínicos', url: '/investigacion/ensayos' },
-					{ label: 'Publicaciones', url: '/investigacion/publicaciones' },
-					{ label: 'Conferencias Médicas', url: '/investigacion/conferencias' },
+					{ label: 'Ensayos Clínicos', url: '/' },
+					{ label: 'Publicaciones', url: '/' },
+					{ label: 'Conferencias Médicas', url: '/' },
 				],
 			},
 			{
-				title: 'Recursos Educativos',
+				title: 'Diagnosticos',
 				links: [
-					{ label: 'Guías para Pacientes', url: '/educacion/guias' },
-					{ label: 'Videos Informativos', url: '/educacion/videos' },
-					{ label: 'Charlas y Talleres', url: '/educacion/talleres' },
+					{ label: 'Guías para Pacientes', url: '/' },
+					{ label: 'Videos Informativos', url: '/' },
+					{ label: 'Charlas y Talleres', url: '/' },
 				],
 			},
 		],
