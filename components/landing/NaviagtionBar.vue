@@ -1,4 +1,3 @@
-loginincia
 <template>
 	<div class="w-full">
 		<!-- Navigation -->
@@ -10,7 +9,7 @@ loginincia
 				<div class="flex h-full items-center justify-between">
 					<!-- Logo -->
 					<div class="flex-shrink-0">
-						<NuxtLink to="/" class="block">
+						<NuxtLink to="/" class="block" draggable="false">
 							<NuxtImg
 								src="logo.png"
 								alt="Logo"

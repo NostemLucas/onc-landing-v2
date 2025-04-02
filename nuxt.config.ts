@@ -14,7 +14,6 @@ export default defineNuxtConfig({
 	typescript: {
 		strict: true,
 	},
-
 	modules: [
 		'@nuxt/eslint',
 		'nuxt-lucide-icons',
