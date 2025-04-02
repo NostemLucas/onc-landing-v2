@@ -28,7 +28,7 @@
 						<div class="grid grid-cols-12 gap-4">
 							<template v-for="block in row.blocks" :key="block.id">
 								<!-- Title Block Preview -->
-								<div :class="getWidthClass(block.width)" class="p-2">
+								<div :class="getWidthClass(block.width as any)" class="p-2">
 									<h2
 										v-if="block.type === 'title'"
 										class="font-bold text-2xl md:text-3xl"
@@ -109,14 +109,18 @@
 <script setup lang="ts">
 	import { X } from 'lucide-vue-next';
 	import TemplateHeader from './TemplateHeader.vue';
-	import type { ContentRow, FixedFields } from '@/types/content-builder';
+	import type {
+		ContentRow,
+		FixedFields,
+		ContentBlock,
+	} from '@/types/content-builder';
 
 	defineProps<{
 		showPreview: boolean;
 		selectedTemplate: string | null;
 		fixedFields: FixedFields;
 		rows: ContentRow[];
-		getWidthClass: (width: string) => string;
+		getWidthClass: (width: ContentBlock['width']) => string;
 	}>();
 
 	defineEmits(['close']);

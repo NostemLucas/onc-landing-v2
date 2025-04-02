@@ -15,13 +15,13 @@
 			<div class="relative">
 				<button
 					@click.stop="$emit('toggle-width-menu', block.id)"
-					class="p-1 hover:bg-gray-100 rounded"
+					class="p-1 hover:bg-gray-100 rounded width-menu-button"
 				>
 					<LayoutGrid class="h-4 w-4" />
 				</button>
 				<div
 					v-if="showWidthMenu === block.id"
-					class="absolute right-0 mt-1 w-40 bg-white shadow-lg rounded-md p-1 z-20"
+					class="absolute right-0 mt-1 w-40 bg-white shadow-lg rounded-md p-1 z-20 width-menu"
 					@click.stop
 				>
 					<button
@@ -93,7 +93,8 @@
 			v-if="block.type === 'title'"
 			class="font-bold text-2xl md:text-3xl outline-none w-full min-h-[40px]"
 			contenteditable
-			@blur="updateBlockContent(block.id, $event.target.textContent || '')"
+			@blur="handleContentBlur"
+			ref="contentEditableRef"
 		>
 			{{ block.content || 'Ingrese título aquí' }}
 		</div>
@@ -103,7 +104,8 @@
 			v-else-if="block.type === 'subtitle'"
 			class="font-medium text-xl md:text-2xl outline-none w-full min-h-[36px]"
 			contenteditable
-			@blur="updateBlockContent(block.id, $event.target.textContent || '')"
+			@blur="handleContentBlur"
+			ref="contentEditableRef"
 		>
 			{{ block.content || 'Ingrese subtítulo aquí' }}
 		</div>
@@ -113,7 +115,8 @@
 			v-else-if="block.type === 'text'"
 			class="text-base outline-none w-full min-h-[100px]"
 			contenteditable
-			@blur="updateBlockContent(block.id, $event.target.textContent || '')"
+			@blur="handleContentBlur"
+			ref="contentEditableRef"
 		>
 			{{ block.content || 'Ingrese texto aquí' }}
 		</div>
@@ -150,7 +153,7 @@
 					<input
 						type="text"
 						:value="block.content || ''"
-						@input="updateBlockContent(block.id, $event.target.value)"
+						@input="handleInputChange"
 						placeholder="Ingrese URL de la imagen"
 						class="w-full p-2 border rounded-md focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
 					/>
@@ -165,7 +168,7 @@
 						:value="block.imageProps?.alt || ''"
 						@input="
 							updateImageProps(block.id, {
-								alt: $event.target.value,
+								alt: ($event.target as HTMLInputElement)?.value || '',
 							})
 						"
 						placeholder="Descripción de la imagen"
@@ -181,7 +184,11 @@
 						:value="block.imageProps?.objectFit || 'cover'"
 						@change="
 							updateImageProps(block.id, {
-								objectFit: $event.target.value,
+								objectFit: ($event.target as HTMLSelectElement)?.value as
+									| 'cover'
+									| 'contain'
+									| 'fill'
+									| 'none',
 							})
 						"
 						class="w-full p-2 border rounded-md focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
@@ -202,7 +209,9 @@
 						:value="block.imageProps?.height || 100"
 						@input="
 							updateImageProps(block.id, {
-								height: parseInt($event.target.value),
+								height: parseInt(
+									($event.target as HTMLInputElement)?.value || '100'
+								),
 							})
 						"
 						min="20"
@@ -233,13 +242,7 @@
 					<div
 						contenteditable
 						class="outline-none h-full"
-						@blur="
-							updateColumnContent(
-								block.id,
-								colIndex,
-								$event.target.textContent || ''
-							)
-						"
+						@blur="handleColumnBlur($event, colIndex)"
 					>
 						{{
 							block.columnContent && block.columnContent[colIndex]
@@ -259,7 +262,12 @@
 				</label>
 				<select
 					:value="block.columns || 2"
-					@change="updateColumnsCount(block.id, parseInt($event.target.value))"
+					@change="
+						updateColumnsCount(
+							block.id,
+							parseInt(($event.target as HTMLSelectElement)?.value || '2')
+						)
+					"
 					class="w-full p-2 border rounded-md focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
 				>
 					<option value="2">2 columnas</option>
@@ -273,6 +281,7 @@
 </template>
 
 <script setup lang="ts">
+	import { ref } from 'vue';
 	import {
 		ChevronUp,
 		ChevronDown,
@@ -282,7 +291,7 @@
 	} from 'lucide-vue-next';
 	import type { ContentBlock, ImageProperties } from '@/types/content-builder';
 
-	defineProps<{
+	const props = defineProps<{
 		block: ContentBlock;
 		selectedBlockId: string | null;
 		showWidthMenu: string | null;
@@ -307,4 +316,32 @@
 	}>();
 
 	const emit = defineEmits(['toggle-width-menu']);
+
+	const contentEditableRef = ref<HTMLElement | null>(null);
+
+	// Manejadores de eventos seguros
+	const handleContentBlur = (event: FocusEvent) => {
+		const target = event.target as HTMLElement;
+		if (target && target.textContent !== null) {
+			props.updateBlockContent(props.block.id, target.textContent);
+		}
+	};
+
+	const handleInputChange = (event: Event) => {
+		const target = event.target as HTMLInputElement;
+		if (target) {
+			props.updateBlockContent(props.block.id, target.value);
+		}
+	};
+
+	const handleColumnBlur = (event: FocusEvent, columnIndex: number) => {
+		const target = event.target as HTMLElement;
+		if (target && target.textContent !== null) {
+			props.updateColumnContent(
+				props.block.id,
+				columnIndex,
+				target.textContent
+			);
+		}
+	};
 </script>

@@ -34,7 +34,12 @@
 						</label>
 						<select
 							:value="selectedBlock.width"
-							@change="changeBlockWidth(selectedBlock.id, $event.target.value)"
+							@change="
+								changeBlockWidth(
+									selectedBlock.id,
+									$event.target.value as ContentBlock['width']
+								)
+							"
 							class="w-full p-2 border rounded-md focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
 						>
 							<option value="full">Ancho completo</option>
@@ -56,7 +61,10 @@
 								type="text"
 								:value="selectedBlock.content || ''"
 								@input="
-									updateBlockContent(selectedBlock.id, $event.target.value)
+									updateBlockContent(
+										selectedBlock.id,
+										($event.target as HTMLInputElement).value
+									)
 								"
 								placeholder="Ingrese URL de la imagen"
 								class="w-full p-2 border rounded-md focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
@@ -72,7 +80,7 @@
 								:value="selectedBlock.imageProps?.alt || ''"
 								@input="
 									updateImageProps(selectedBlock.id, {
-										alt: $event.target.value,
+										alt: ($event.target as HTMLInputElement).value,
 									})
 								"
 								placeholder="Descripción de la imagen"
@@ -88,7 +96,11 @@
 								:value="selectedBlock.imageProps?.objectFit || 'cover'"
 								@change="
 									updateImageProps(selectedBlock.id, {
-										objectFit: $event.target.value,
+										objectFit: ($event.target as HTMLSelectElement).value as
+											| 'cover'
+											| 'contain'
+											| 'fill'
+											| 'none',
 									})
 								"
 								class="w-full p-2 border rounded-md focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
@@ -109,7 +121,9 @@
 								:value="selectedBlock.imageProps?.height || 100"
 								@input="
 									updateImageProps(selectedBlock.id, {
-										height: parseInt($event.target.value),
+										height: parseInt(
+											($event.target as HTMLInputElement).value || '100'
+										),
 									})
 								"
 								min="20"
@@ -130,7 +144,7 @@
 								@change="
 									updateColumnsCount(
 										selectedBlock.id,
-										parseInt($event.target.value)
+										parseInt(($event.target as HTMLSelectElement).value || '2')
 									)
 								"
 								class="w-full p-2 border rounded-md focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
@@ -152,7 +166,10 @@
 							type="text"
 							:value="selectedBlock.customClasses || ''"
 							@input="
-								updateCustomClasses(selectedBlock.id, $event.target.value)
+								updateCustomClasses(
+									selectedBlock.id,
+									($event.target as HTMLInputElement).value
+								)
 							"
 							placeholder="p-4 bg-gray-100 rounded-lg"
 							class="w-full p-2 border rounded-md focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"

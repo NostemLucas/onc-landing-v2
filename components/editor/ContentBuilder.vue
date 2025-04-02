@@ -14,10 +14,23 @@
 			<!-- Área principal de contenido -->
 			<div class="flex-1 flex flex-col h-full overflow-hidden">
 				<!-- Barra superior -->
-				<div class="bg-white border-b border-gray-200 p-4">
+				<div
+					class="bg-white border-b border-gray-200 p-4 flex justify-between items-center"
+				>
 					<h1 class="text-xl font-bold text-gray-800">
 						Constructor de Contenido Avanzado
 					</h1>
+					<button
+						@click="showPropertiesPanel = !showPropertiesPanel"
+						class="px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-md text-sm flex items-center gap-1"
+					>
+						<Settings class="h-4 w-4" />
+						{{
+							showPropertiesPanel
+								? 'Ocultar propiedades'
+								: 'Mostrar propiedades'
+						}}
+					</button>
 				</div>
 
 				<!-- Área de trabajo con scroll -->
@@ -71,9 +84,10 @@
 				</div>
 			</div>
 
-			<!-- Panel de propiedades -->
+			<!-- Panel de propiedades (ahora con condicional para mostrarlo/ocultarlo) -->
 			<PropertiesPanel
-				:selected-block="selectedBlockId ? getSelectedBlock() : null"
+				v-if="showPropertiesPanel"
+				:selected-block="getSelectedBlock()"
 				:change-block-width="changeBlockWidth"
 				:update-block-content="updateBlockContent"
 				:update-image-props="updateImageProps"
@@ -115,10 +129,14 @@
 	import ContentGrid from './ContentGrid.vue';
 	import PreviewModal from './PreviewModal.vue';
 	import ExportModal from './ExportModal.vue';
+	import PropertiesPanel from './PropertiesPanel.vue';
 	import { useTemplates } from '@/composables/useTemplates';
 	import { useContentBuilder } from '@/composables/useContentBuilder';
 	import { useExport } from '@/composables/useExport';
-	import PropertiesPanel from './PropertiesPanel.vue';
+	import { Settings } from 'lucide-vue-next';
+
+	// Añadir estado para controlar la visibilidad del panel de propiedades
+	const showPropertiesPanel = ref(true);
 
 	// Componentes disponibles
 	const availableComponents = [
