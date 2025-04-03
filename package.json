@@ -47,7 +47,7 @@
 		"@tiptap/vue-3": "^2.11.6",
 		"@vee-validate/nuxt": "^4.15.0",
 		"clsx": "^2.1.1",
-		"nuxt": "^3.16.0",
+		"nuxt": "^3.16.2",
 		"nuxt-lucide-icons": "^1.0.5",
 		"ol": "^10.4.0",
 		"pinia": "^3.0.1",
